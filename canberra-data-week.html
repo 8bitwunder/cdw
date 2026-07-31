@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en-AU" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Canberra Data Week is a citywide festival bringing together public sector, industry, academia and community to explore how data can improve decisions, services and lives.">
+<title>Canberra Data Week</title>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+/* ── Design tokens ────────────────────────────────────────────── */
+:root {
+  --navy:      #002060;
+  --blue:      #0078D4;
+  --blue-mid:  #005A9E;
+  --gold:      #E8A020;
+  --gold-lt:   #FFF3D4;
+  --teal:      #008272;
+  --purple:    #5C2D91;
+  --green:     #107C10;
+  --white:     #FFFFFF;
+  --off-white: #F5F6FA;
+  --grey-100:  #EFF0F4;
+  --grey-200:  #D1D5DB;
+  --grey-400:  #9CA3AF;
+  --grey-600:  #4B5563;
+  --grey-800:  #1F2937;
+  --text:      #111827;
+  --surface:   #FFFFFF;
+  --font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --radius:    10px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+  --max-w:     1160px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --white:     #1A1F2B;
+    --off-white: #111827;
+    --grey-100:  #1F2937;
+    --grey-200:  #374151;
+    --grey-400:  #6B7280;
+    --grey-600:  #9CA3AF;
+    --grey-800:  #D1D5DB;
+    --text:      #F9FAFB;
+    --surface:   #1A1F2B;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,.3);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+    --gold-lt:   #2A1F00;
+  }
+}
+
+/* ── Utilities ────────────────────────────────────────────────── */
+body { font-family: var(--font); color: var(--text); background: var(--off-white); line-height: 1.6; }
+.container { max-inline-size: var(--max-w); margin-inline: auto; padding-inline: 24px; }
+.section { padding-block: 80px; }
+.section--alt { background: var(--off-white); }
+.section--white { background: var(--white); }
+.section--navy { background: var(--navy); color: var(--white); }
+h1,h2,h3,h4 { line-height: 1.2; font-weight: 700; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-block-end: 12px; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+p { color: var(--grey-600); }
+.section--navy p { color: rgba(255,255,255,.78); }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-block; padding: 13px 28px; border-radius: 6px;
+  font-size: .95rem; font-weight: 600; cursor: pointer;
+  transition: opacity .15s, transform .1s; border: none; line-height: 1;
+}
+.btn:hover { opacity: .88; transform: translateY(-1px); text-decoration: none; }
+.btn--primary   { background: var(--gold); color: var(--navy); }
+.btn--secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.6); }
+.btn--secondary:hover { background: rgba(255,255,255,.12); }
+.btn--navy      { background: var(--navy); color: var(--white); }
+.btn--outline   { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+.btn--outline:hover { background: var(--blue); color: var(--white); }
+
+/* ── Navigation ──────────────────────────────────────────────── */
+.nav {
+  position: sticky; inset-block-start: 0; z-index: 100;
+  background: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.nav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  min-block-size: 64px; gap: 24px;
+}
+.nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav__dots  { display: flex; align-items: center; gap: 5px; }
+.nav__dot   { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--gold); }
+.nav__wordmark { font-size: 1rem; font-weight: 700; color: var(--white); letter-spacing: -.01em; }
+.nav__wordmark strong { color: var(--gold); }
+.nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
+.nav__links a {
+  color: rgba(255,255,255,.82); font-size: .875rem; font-weight: 500;
+  padding: 8px 12px; border-radius: 4px; transition: background .15s, color .15s;
+}
+.nav__links a:hover { background: rgba(255,255,255,.1); color: var(--white); text-decoration: none; }
+.nav__cta { margin-inline-start: 8px; }
+
+/* ── Hero ────────────────────────────────────────────────────── */
+.hero { background: var(--navy); position: relative; overflow: hidden; padding-block: 100px 80px; }
+.hero__bg { position: absolute; inset: 0; pointer-events: none; opacity: .18; }
+.hero__inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero__badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,160,32,.18); border: 1px solid rgba(232,160,32,.4);
+  color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-block-end: 20px;
+}
+.hero__eyebrow { font-size: .82rem; color: rgba(255,255,255,.55); letter-spacing: .08em; text-transform: uppercase; margin-block-end: 8px; }
+.hero__title { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); line-height: 1.08; margin-block-end: 20px; }
+.hero__title em { color: var(--gold); font-style: normal; }
+.hero__tagline { font-size: 1.1rem; color: rgba(255,255,255,.78); margin-block-end: 36px; max-inline-size: 480px; line-height: 1.65; }
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.stat-card {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  border-radius: var(--radius); padding: 22px;
+}
+.stat-card__num   { font-size: 2.2rem; font-weight: 800; color: var(--gold); line-height: 1; }
+.stat-card__label { font-size: .78rem; color: rgba(255,255,255,.6); margin-block-start: 4px; }
+
+/* ── Section headers ─────────────────────────────────────────── */
+.section-header { text-align: center; margin-block-end: 48px; }
+.section-header__eyebrow {
+  font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); margin-block-end: 10px;
+}
+.section--navy .section-header__eyebrow { color: var(--gold); }
+.section-header p { font-size: 1.02rem; max-inline-size: 640px; margin-inline: auto; margin-block-start: 12px; }
+
+/* ── Mission cards ────────────────────────────────────────────── */
+.mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mission-card {
+  background: var(--surface); border-radius: var(--radius); padding: 28px;
+  box-shadow: var(--shadow-sm); border-block-start: 4px solid var(--blue);
+}
+.mission-card:nth-child(2) { border-block-start-color: var(--gold); }
+.mission-card:nth-child(3) { border-block-start-color: var(--teal); }
+.mission-card__icon { font-size: 1.8rem; margin-block-end: 12px; line-height: 1; }
+.mission-card h3 { font-size: 1rem; color: var(--text); margin-block-end: 8px; }
+.mission-card p  { font-size: .88rem; }
+
+/* ── Pillar ──────────────────────────────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.pillar-item {
+  text-align: center; padding: 28px 18px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
+}
+.pillar-item__icon { font-size: 2rem; margin-block-end: 12px; }
+.pillar-item h3 { font-size: .93rem; color: var(--white); margin-block-end: 6px; }
+.pillar-item p  { font-size: .82rem; color: rgba(255,255,255,.65); }
+
+/* ── Events ──────────────────────────────────────────────────── */
+.event-filters {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-block-end: 32px; justify-content: center;
+}
+/* Visually-hidden radio inputs drive the filter (pure CSS, no JS) */
+.filter-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.filter-chip {
+  display: inline-block;
+  padding: 7px 16px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+  border: 1.5px solid var(--grey-200); background: var(--surface); color: var(--grey-600);
+  cursor: pointer; font-family: inherit; transition: background .15s, color .15s, border-color .15s;
+}
+.filter-chip:hover { border-color: var(--blue); color: var(--blue); }
+/* Active chip: highlight the label whose radio is checked */
+#f-all:checked      ~ .event-filters label[for="f-all"],
+#f-panel:checked    ~ .event-filters label[for="f-panel"],
+#f-workshop:checked ~ .event-filters label[for="f-workshop"],
+#f-walk:checked     ~ .event-filters label[for="f-walk"],
+#f-talk:checked     ~ .event-filters label[for="f-talk"],
+#f-showcase:checked ~ .event-filters label[for="f-showcase"],
+#f-careers:checked  ~ .event-filters label[for="f-careers"],
+#f-lunch:checked    ~ .event-filters label[for="f-lunch"],
+#f-hackathon:checked ~ .event-filters label[for="f-hackathon"],
+#f-community:checked ~ .event-filters label[for="f-community"],
+#f-demo:checked     ~ .event-filters label[for="f-demo"] {
+  background: var(--navy); color: var(--white); border-color: var(--navy);
+}
+.filter-input:focus-visible ~ .event-filters label[for="f-all"] { outline: 2px solid var(--blue); outline-offset: 2px; }
+/* Show only cards matching the checked filter */
+#f-panel:checked    ~ .events-grid .event-card:not([data-type~="panel"]),
+#f-workshop:checked ~ .events-grid .event-card:not([data-type~="workshop"]),
+#f-walk:checked     ~ .events-grid .event-card:not([data-type~="walk"]),
+#f-talk:checked     ~ .events-grid .event-card:not([data-type~="talk"]),
+#f-showcase:checked ~ .events-grid .event-card:not([data-type~="showcase"]),
+#f-careers:checked  ~ .events-grid .event-card:not([data-type~="careers"]),
+#f-lunch:checked    ~ .events-grid .event-card:not([data-type~="lunch"]),
+#f-hackathon:checked ~ .events-grid .event-card:not([data-type~="hackathon"]),
+#f-community:checked ~ .events-grid .event-card:not([data-type~="community"]),
+#f-demo:checked     ~ .events-grid .event-card:not([data-type~="demo"]) {
+  display: none;
+}
+.events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.event-card {
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  padding: 22px; display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--grey-100); transition: box-shadow .2s, transform .15s;
+}
+.event-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.event-card__meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+}
+.tag--panel     { background: #EEF2FF; color: #3730A3; }
+.tag--workshop  { background: #F0FDF4; color: #166534; }
+.tag--walk      { background: #FEF3C7; color: #92400E; }
+.tag--talk      { background: #EFF6FF; color: #1E40AF; }
+.tag--hackathon { background: #FDF4FF; color: #6B21A8; }
+.tag--lunch     { background: #FFF1F2; color: #9F1239; }
+.tag--showcase  { background: #F0FDFA; color: #115E59; }
+.tag--careers   { background: #FEF9C3; color: #713F12; }
+.tag--community { background: #F0F9FF; color: #075985; }
+.tag--demo      { background: #F3F4F6; color: #374151; }
+.tag--venue     { background: transparent; color: var(--grey-400); font-size: .72rem; font-weight: 400; }
+.event-card h3  { font-size: .97rem; color: var(--text); line-height: 1.3; }
+.event-card p   { font-size: .82rem; }
+.event-card__status {
+  margin-block-start: auto; font-size: .75rem; font-weight: 600; color: var(--teal);
+  display: flex; align-items: center; gap: 5px;
+}
+.event-card__status--open { color: var(--gold); }
+.event-card__status::before { content: '●'; font-size: .55rem; }
+.events-cta   { text-align: center; margin-block-start: 36px; }
+.events-note  { text-align: center; margin-block-start: 14px; font-size: .82rem; color: var(--grey-400); font-style: italic; }
+
+/* ── Partner Opportunities ───────────────────────────────────── */
+.opps-intro { max-inline-size: 700px; margin-inline: auto; text-align: center; margin-block-end: 40px; }
+.opps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.opp-card {
+  background: var(--surface); border-radius: var(--radius); padding: 26px;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--grey-100);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.opp-card__icon {
+  inline-size: 44px; block-size: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+}
+.opp-card h3  { font-size: .98rem; color: var(--text); }
+.opp-card p   { font-size: .85rem; flex-grow: 1; }
+.opp-badge {
+  align-self: flex-start; margin-block-start: 4px; font-size: .72rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 12px; background: var(--gold-lt); color: #92400E;
+}
+
+/* ── Pathway ─────────────────────────────────────────────────── */
+.pathway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step { display: flex; gap: 20px; position: relative; }
+.step + .step::before {
+  content: ''; position: absolute; inset-inline-start: 19px; inset-block-start: 0;
+  inline-size: 2px; block-size: 40px; background: var(--grey-200); transform: translateY(-40px);
+}
+.step__num {
+  inline-size: 40px; block-size: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--navy); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .88rem; font-weight: 700; margin-block-start: 2px;
+}
+.step__body { padding-block-end: 32px; }
+.step__body h3 { font-size: 1rem; color: var(--text); margin-block-end: 4px; }
+.step__body p  { font-size: .88rem; }
+.pathway-aside {
+  background: var(--navy); color: var(--white); border-radius: var(--radius); padding: 32px;
+}
+.pathway-aside h3 { color: var(--gold); font-size: 1.05rem; margin-block-end: 16px; }
+.pathway-aside ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.pathway-aside li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: .88rem; color: rgba(255,255,255,.82);
+}
+.pathway-aside li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+.webinar-box {
+  margin-block-start: 24px; background: rgba(232,160,32,.12);
+  border: 1px solid rgba(232,160,32,.3); border-radius: var(--radius); padding: 20px;
+}
+.webinar-box h4 { color: var(--gold); font-size: .9rem; margin-block-end: 10px; }
+.webinar-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.webinar-box li { font-size: .82rem; color: rgba(255,255,255,.75); padding-inline-start: 14px; position: relative; }
+.webinar-box li::before { content: '›'; position: absolute; inset-inline-start: 0; color: var(--gold); }
+
+/* ── Venues ──────────────────────────────────────────────────── */
+.venues-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; }
+.venue-card { background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--grey-100); }
+.venue-card__hd {
+  padding: 20px; background: var(--navy); color: var(--white);
+  min-block-size: 100px; display: flex; flex-direction: column; justify-content: flex-end; position: relative;
+}
+.venue-card--featured .venue-card__hd { min-block-size: 140px; background: linear-gradient(135deg, #002060 0%, #0078D4 100%); }
+.venue-card__tag {
+  position: absolute; inset-block-start: 14px; inset-inline-start: 14px;
+  background: var(--gold); color: var(--navy); font-size: .68rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: .05em;
+}
+.venue-card__hd h3 { font-size: .95rem; color: var(--white); }
+.venue-card__bd { padding: 16px; }
+.venue-card__bd p { font-size: .82rem; }
+.venue-cap { font-size: .75rem; color: var(--grey-400); margin-block-start: 6px; }
+
+/* ── CTA band ────────────────────────────────────────────────── */
+.cta-band {
+  background: linear-gradient(135deg, var(--navy) 0%, #003087 60%, #0078D4 100%);
+  padding-block: 80px; text-align: center; position: relative; overflow: hidden;
+}
+.cta-band::before {
+  content: ''; position: absolute; inset-inline-end: -80px; inset-block-start: -80px;
+  inline-size: 400px; block-size: 400px; border-radius: 50%; background: rgba(232,160,32,.08);
+}
+.cta-band h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-block-end: 16px; }
+.cta-band p  { color: rgba(255,255,255,.78); font-size: 1.05rem; max-inline-size: 540px; margin-inline: auto; margin-block-end: 36px; }
+.cta-band__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Supporters ──────────────────────────────────────────────── */
+.supporters { padding-block: 48px; background: var(--surface); text-align: center; }
+.supporters__label { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-400); margin-block-end: 24px; }
+.supporters__logos { display: flex; flex-wrap: wrap; gap: 14px 36px; justify-content: center; align-items: center; }
+.supporter-chip {
+  padding: 8px 20px; background: var(--grey-100); border-radius: 6px;
+  font-size: .82rem; font-weight: 600; color: var(--grey-600);
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.footer { background: #0D1117; padding-block: 48px 28px; }
+.footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-block-end: 40px; }
+.footer__brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-block-start: 10px; max-inline-size: 240px; }
+.footer__col h4 { font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-block-end: 14px; }
+.footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer__col li a { color: rgba(255,255,255,.62); font-size: .85rem; }
+.footer__col li a:hover { color: var(--white); }
+.footer__bottom {
+  border-block-start: 1px solid rgba(255,255,255,.1); padding-block-start: 24px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer__bottom p   { font-size: .78rem; color: rgba(255,255,255,.38); }
+.footer__location   { font-size: .78rem; color: rgba(255,255,255,.38); }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .hero__inner    { grid-template-columns: 1fr; }
+  .hero__visual   { display: none; }
+  .mission-grid   { grid-template-columns: 1fr 1fr; }
+  .pillar-grid    { grid-template-columns: 1fr 1fr; }
+  .events-grid    { grid-template-columns: 1fr 1fr; }
+  .opps-grid      { grid-template-columns: 1fr 1fr; }
+  .pathway-grid   { grid-template-columns: 1fr; }
+  .venues-grid    { grid-template-columns: 1fr 1fr; }
+  .footer__grid   { grid-template-columns: 1fr 1fr; }
+  .nav__links     { display: none; }
+}
+@media (max-width: 600px) {
+  .section        { padding-block: 56px; }
+  .mission-grid   { grid-template-columns: 1fr; }
+  .pillar-grid    { grid-template-columns: 1fr 1fr; }
+  .events-grid    { grid-template-columns: 1fr; }
+  .opps-grid      { grid-template-columns: 1fr; }
+  .venues-grid    { grid-template-columns: 1fr; }
+  .footer__grid   { grid-template-columns: 1fr; }
+  .hero           { padding-block: 64px 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Canberra Data Week home">
+        <span class="nav__dots" aria-hidden="true">
+          <span class="nav__dot"></span>
+          <span class="nav__dot" style="opacity:.6"></span>
+          <span class="nav__dot" style="opacity:.35"></span>
+        </span>
+        <span class="nav__wordmark">Canberra <strong>Data Week</strong></span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#partners">Partner</a></li>
+        <li><a href="#host">Host an Event</a></li>
+        <li><a href="#venues">Venues</a></li>
+      </ul>
+      <a class="btn btn--primary nav__cta" href="#apply">Apply to Host</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top" aria-label="Hero">
+  <svg class="hero__bg" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="rg1" cx="70%" cy="40%" r="55%">
+        <stop offset="0%" stop-color="#0078D4" stop-opacity=".6"/>
+        <stop offset="100%" stop-color="#0078D4" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1200" height="600" fill="url(#rg1)"/>
+    <g stroke="#E8A020" stroke-width="1" fill="none">
+      <circle cx="800" cy="120" r="6" fill="#E8A020"/>
+      <circle cx="980" cy="200" r="4" fill="#0078D4"/>
+      <circle cx="1050" cy="320" r="5" fill="#E8A020"/>
+      <circle cx="900" cy="400" r="3" fill="#0078D4"/>
+      <circle cx="1100" cy="440" r="6" fill="#E8A020"/>
+      <circle cx="750" cy="350" r="4" fill="#0078D4"/>
+      <circle cx="860" cy="260" r="3" fill="#E8A020"/>
+      <circle cx="1000" cy="110" r="4" fill="#0078D4"/>
+      <line x1="800" y1="120" x2="980" y2="200"/>
+      <line x1="980" y1="200" x2="1050" y2="320"/>
+      <line x1="1050" y1="320" x2="900" y2="400"/>
+      <line x1="900" y1="400" x2="1100" y2="440"/>
+      <line x1="980" y1="200" x2="860" y2="260"/>
+      <line x1="860" y1="260" x2="750" y2="350"/>
+      <line x1="800" y1="120" x2="1000" y2="110"/>
+      <line x1="1000" y1="110" x2="980" y2="200"/>
+      <line x1="750" y1="350" x2="900" y2="400"/>
+    </g>
+    <g stroke="rgba(255,255,255,.04)" stroke-width="1">
+      <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+      <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+      <line x1="0" y1="500" x2="1200" y2="500"/><line x1="200" y1="0" x2="200" y2="600"/>
+      <line x1="400" y1="0" x2="400" y2="600"/><line x1="600" y1="0" x2="600" y2="600"/>
+      <line x1="800" y1="0" x2="800" y2="600"/><line x1="1000" y1="0" x2="1000" y2="600"/>
+    </g>
+  </svg>
+  <div class="container">
+    <div class="hero__inner">
+      <div>
+        <div class="hero__badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#E8A020" stroke-width="1.5" fill="none"/><circle cx="5" cy="5" r="2" fill="#E8A020"/></svg>
+          Canberra, ACT &middot; 2026
+        </div>
+        <p class="hero__eyebrow">A citywide data festival</p>
+        <h1 class="hero__title">Data in the<br><em>public good.</em></h1>
+        <p class="hero__tagline">Canberra Data Week brings together public sector, industry, academia and community to explore how data can improve decisions, services and lives.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#apply">Apply to Host an Event</a>
+          <a class="btn btn--secondary" href="#events">Explore Events</a>
+        </div>
+      </div>
+      <div class="hero__visual stat-cards" aria-hidden="true">
+        <div class="stat-card"><div class="stat-card__num">1</div><div class="stat-card__label">Week-long festival</div></div>
+        <div class="stat-card"><div class="stat-card__num">10+</div><div class="stat-card__label">Event formats</div></div>
+        <div class="stat-card"><div class="stat-card__num">4</div><div class="stat-card__label">Sectors united</div></div>
+        <div class="stat-card"><div class="stat-card__num">Free</div><div class="stat-card__label">Open to all</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section section--white" id="about" aria-label="About">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">About the Festival</p>
+      <h2>Why Canberra Data Week?</h2>
+      <p>Canberra is Australia's data capital, home to the ABS, federal policy institutions and world-class research universities. Data Week is a free, open, citywide festival that puts that expertise to work for the whole community.</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="mission-card__icon" aria-hidden="true">🏙️</div>
+        <h3>Distributed &amp; Citywide</h3>
+        <p>A central anchor at Microsoft's Canberra office, plus satellite events hosted by partner organisations across offices, museums, galleries, lakeside and online.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-card__icon" aria-hidden="true">🤝</div>
+        <h3>Open to Everyone</h3>
+        <p>All events are free to attend. Whether you're a data scientist, a public servant, a student or just curious, there is a Canberra Data Week event for you.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-card__icon" aria-hidden="true">💡</div>
+        <h3>Community-Driven</h3>
+        <p>Any organisation can apply to host an event. We invite teams and individuals to design and run their own session as an official part of the week's program.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR -->
+<section class="section section--navy" id="pillar" aria-label="Our pillar">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">Our Pillar</p>
+      <h2>Data for Public Good</h2>
+      <p>Everything at Canberra Data Week connects back to one goal: using data to deliver better outcomes for people.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar-item">
+        <div class="pillar-item__icon" aria-hidden="true">🏥</div>
+        <h3>Better Services</h3>
+        <p>Improving how government and community services reach the people who need them most.</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-item__icon" aria-hidden="true">📊</div>
+        <h3>Evidence-Led Policy</h3>
+        <p>Supporting responsive, effective policy through rigorous and timely data.</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-item__icon" aria-hidden="true">🔍</div>
+        <h3>Transparency</h3>
+        <p>Open data, open government and accountability to the communities data affects.</p>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-item__icon" aria-hidden="true">🌏</div>
+        <h3>Citizen Outcomes</h3>
+        <p>Putting data in the service of real people, and giving communities a voice in how it is used.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="section section--alt" id="events" aria-label="Events program">
+  <div class="container">
+    <input type="radio" name="event-filter" id="f-all" class="filter-input" checked>
+    <input type="radio" name="event-filter" id="f-panel" class="filter-input">
+    <input type="radio" name="event-filter" id="f-workshop" class="filter-input">
+    <input type="radio" name="event-filter" id="f-walk" class="filter-input">
+    <input type="radio" name="event-filter" id="f-talk" class="filter-input">
+    <input type="radio" name="event-filter" id="f-showcase" class="filter-input">
+    <input type="radio" name="event-filter" id="f-careers" class="filter-input">
+    <input type="radio" name="event-filter" id="f-lunch" class="filter-input">
+    <input type="radio" name="event-filter" id="f-hackathon" class="filter-input">
+    <input type="radio" name="event-filter" id="f-community" class="filter-input">
+    <input type="radio" name="event-filter" id="f-demo" class="filter-input">
+
+    <div class="section-header">
+      <p class="section-header__eyebrow">The Program</p>
+      <h2>Events at Canberra Data Week</h2>
+      <p>A diverse program of free events across a full week. Browse the types of events you can attend, or apply to run your own as a partner host.</p>
+    </div>
+
+    <div class="event-filters" role="group" aria-label="Filter events by type">
+      <label class="filter-chip" for="f-all">All Events</label>
+      <label class="filter-chip" for="f-panel">Panel</label>
+      <label class="filter-chip" for="f-workshop">Workshop</label>
+      <label class="filter-chip" for="f-walk">Walk</label>
+      <label class="filter-chip" for="f-talk">Talk</label>
+      <label class="filter-chip" for="f-showcase">Showcase</label>
+      <label class="filter-chip" for="f-careers">Careers</label>
+      <label class="filter-chip" for="f-lunch">Lunch</label>
+      <label class="filter-chip" for="f-hackathon">Hackathon</label>
+      <label class="filter-chip" for="f-community">Community</label>
+      <label class="filter-chip" for="f-demo">Demonstration</label>
+    </div>
+
+    <div class="events-grid">
+      <article class="event-card" data-type="panel">
+        <div class="event-card__meta">
+          <span class="tag tag--panel">Panel</span>
+          <span class="tag tag--venue">Microsoft Canberra &middot; Anchor Event</span>
+        </div>
+        <h3>Opening Event: Data and the Future of Public Services</h3>
+        <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
+        <p class="event-card__status">Confirmed</p>
+      </article>
+
+      <article class="event-card" data-type="walk">
+        <div class="event-card__meta">
+          <span class="tag tag--walk">Walk</span>
+          <span class="tag tag--venue">Lake Burley Griffin Foreshore</span>
+        </div>
+        <h3>Data Chat Walk: Lake Burley Griffin</h3>
+        <p>Swap the boardroom for the lakeside and explore big data ideas on the move, in the Sita Sergeant tradition of walking and talking. Lace up and join the conversation.</p>
+        <p class="event-card__status">Open to Partner Hosts</p>
+      </article>
+
+      <article class="event-card" data-type="panel">
+        <div class="event-card__meta">
+          <span class="tag tag--panel">Panel</span>
+          <span class="tag tag--venue">TBC</span>
+        </div>
+        <h3>Women in Data: Celebrating and Connecting</h3>
+        <p>Connect with the women shaping Canberra's data profession through networking, peer stories and a forward-looking panel. Claim your place at the table.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="showcase">
+        <div class="event-card__meta">
+          <span class="tag tag--showcase">Showcase</span>
+          <span class="tag tag--venue">Microsoft Canberra / TBC</span>
+        </div>
+        <h3>Public Sector Data Showcase</h3>
+        <p>See how government agencies are using data to improve policy, services and outcomes for Australians. Come along for the insights, or step up to showcase your own work.</p>
+        <p class="event-card__status">Open to Partner Hosts</p>
+      </article>
+
+      <article class="event-card" data-type="workshop">
+        <div class="event-card__meta">
+          <span class="tag tag--workshop">Workshop</span>
+          <span class="tag tag--venue">TBC</span>
+        </div>
+        <h3>Hands-On Data Skills Workshop</h3>
+        <p>Build practical, job-ready skills in data tools, visualisation and analysis, whatever your starting level. Roll up your sleeves and dive in.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="talk">
+        <div class="event-card__meta">
+          <span class="tag tag--talk">Talk</span>
+          <span class="tag tag--venue">Canberra CBD</span>
+        </div>
+        <h3>Canberra Tourism: How Data Shapes Our City's Story</h3>
+        <p>Discover how visitor insights and destination data are shaping the future of tourism and place-making in the ACT. Get the inside view, or host the session yourself.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="careers">
+        <div class="event-card__meta">
+          <span class="tag tag--careers">Careers</span>
+          <span class="tag tag--venue">University / CBD</span>
+        </div>
+        <h3>Student Data Careers Session</h3>
+        <p>Meet employers, map out your career pathway and hear real stories from Canberra's data community. Kick-start your data career here.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="lunch">
+        <div class="event-card__meta">
+          <span class="tag tag--lunch">Lunch Event</span>
+          <span class="tag tag--venue">TBC</span>
+        </div>
+        <h3>Data Storytelling Lunch</h3>
+        <p>Grab lunch and soak up short, punchy talks on data stories that changed a decision, shifted a policy or touched real lives. Pull up a chair.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="hackathon">
+        <div class="event-card__meta">
+          <span class="tag tag--hackathon">Hackathon</span>
+          <span class="tag tag--venue">Microsoft Canberra</span>
+        </div>
+        <h3>Open Data Hackathon &amp; Ideation Day</h3>
+        <p>Team up for a full day of building real solutions to public-sector challenges using open government and community datasets. Bring your ideas and start hacking.</p>
+        <p class="event-card__status">Open to Partner Hosts</p>
+      </article>
+
+      <article class="event-card" data-type="community">
+        <div class="event-card__meta">
+          <span class="tag tag--community">Community Forum</span>
+          <span class="tag tag--venue">National Museum / Arts Venues</span>
+        </div>
+        <h3>Community Data Discussion</h3>
+        <p>Join an open forum on data ethics, privacy and community impact at Canberra's cultural institutions. Every voice counts, so come and have your say.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="workshop">
+        <div class="event-card__meta">
+          <span class="tag tag--workshop">Workshop</span>
+          <span class="tag tag--venue">Online / Hybrid</span>
+        </div>
+        <h3>Data Literacy for Everyone</h3>
+        <p>Learn to understand, question and use data in your everyday life and work, with no experience needed. Start your data journey today.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+
+      <article class="event-card" data-type="demo">
+        <div class="event-card__meta">
+          <span class="tag tag--demo">Demonstration</span>
+          <span class="tag tag--venue">TBC</span>
+        </div>
+        <h3>AI &amp; Data Tools in Government</h3>
+        <p>See AI-powered data tools in action across government, research and industry, with time to ask questions and explore hands-on. Come and see what's possible.</p>
+        <p class="event-card__status event-card__status--open">Apply to Host</p>
+      </article>
+    </div>
+
+    <div class="events-cta">
+      <a class="btn btn--navy" href="#apply">Apply to Run an Event</a>
+    </div>
+    <p class="events-note">Program is indicative. Final schedule is published following the partner application round.</p>
+  </div>
+</section>
+
+<!-- PARTNER OPPORTUNITIES -->
+<section class="section section--white" id="partners" aria-label="Partner opportunities">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">Get Involved</p>
+      <h2>Partner Contribution Opportunities</h2>
+      <p>There are many ways to contribute to Canberra Data Week, from hosting a full event to sharing data, expertise, space or your audience. Find the role that fits your organisation.</p>
+    </div>
+    <div class="opps-grid">
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#EEF2FF;" aria-hidden="true">🎤</div>
+        <h3>Event Host</h3>
+        <p>Put your organisation centre stage. Design and run your own public event, from a panel to a hackathon, as an official Canberra Data Week partner. Apply to host today.</p>
+        <span class="opp-badge">Primary Opportunity</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#F0FDF4;" aria-hidden="true">🏢</div>
+        <h3>Venue Partner</h3>
+        <p>Open your doors and host the festival. Offer your auditorium, boardroom, gallery or outdoor space for a CDW event and put your venue on the map. Register your space now.</p>
+        <span class="opp-badge">High Impact</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#FEF3C7;" aria-hidden="true">🎯</div>
+        <h3>Anchor Sponsor</h3>
+        <p>Power the whole week and lead the conversation. Back the central program with financial or in-kind support and help community events happen. Become a sponsor.</p>
+        <span class="opp-badge">Strategic Partner</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#F0FDFA;" aria-hidden="true">📂</div>
+        <h3>Data Provider</h3>
+        <p>Put your data to work for the public good. Share open or anonymised datasets for our hackathons, workshops and storytelling sessions. Contribute a dataset.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#FDF4FF;" aria-hidden="true">🧑‍🏫</div>
+        <h3>Speaker or Panellist</h3>
+        <p>Share what you know with Canberra's data community. Take the mic as a speaker, panellist or facilitator at an event you don't have to organise. Put your name forward.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#EFF6FF;" aria-hidden="true">📣</div>
+        <h3>Media &amp; Comms Partner</h3>
+        <p>Help us reach every corner of Canberra. Amplify the festival through your newsletter, social channels, podcast or publication. Partner with us on comms.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#FFF1F2;" aria-hidden="true">🎓</div>
+        <h3>Academic Partner</h3>
+        <p>Bring research and students into the spotlight. Share insights, host a session on campus or co-design the hackathon and storytelling program. Get your institution involved.</p>
+        <span class="opp-badge">Universities &amp; Research</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#F0F9FF;" aria-hidden="true">🤲</div>
+        <h3>Community Partner</h3>
+        <p>Make sure no one is left out of the data conversation. Help us reach residents, multicultural communities and not-for-profits. Bring your community to the table.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#FEF9C3;" aria-hidden="true">🧑‍💼</div>
+        <h3>Careers Mentor</h3>
+        <p>Shape the next generation of data talent. Join the student careers session as a mentor, employer panellist or hiring speaker. Sign up to mentor.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#ECFDF5;" aria-hidden="true">🏆</div>
+        <h3>Hackathon Challenge Setter</h3>
+        <p>Set the challenge that teams will race to solve. Propose a real-world problem for the open data hackathon and watch Canberra's brightest tackle it. Submit a challenge.</p>
+        <span class="opp-badge">Government &amp; Industry</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#F3F4F6;" aria-hidden="true">🌐</div>
+        <h3>Online Event Host</h3>
+        <p>Take the festival national. Run a webinar, virtual workshop or hybrid panel and reach participants across Australia and beyond. Host an online event.</p>
+        <span class="opp-badge">Open to All</span>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-card__icon" style="background:#FEF3C7;" aria-hidden="true">🍽️</div>
+        <h3>Catering &amp; Hospitality Partner</h3>
+        <p>Get your brand in front of the festival crowd. Cater the Data Storytelling Lunch, networking sessions or other events as an in-kind or sponsored partner. Get in touch to cater.</p>
+        <span class="opp-badge">In-Kind Opportunity</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOST PATHWAY -->
+<section class="section section--alt" id="host" aria-label="Host an event">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">Host an Event</p>
+      <h2>How to Get Involved</h2>
+      <p>Hosting a Canberra Data Week event is open to any organisation, team or individual with something valuable to share. Here is the pathway from idea to event.</p>
+    </div>
+    <div class="pathway-grid">
+      <div class="steps" role="list">
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 1">1</div>
+          <div class="step__body">
+            <h3>Explore the Event Guide</h3>
+            <p>Review the event types, format options, audience guidance and the Data for Public Good pillar to see where your idea fits in the program.</p>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 2">2</div>
+          <div class="step__body">
+            <h3>Register Your Interest</h3>
+            <p>Submit a brief expression of interest online, covering who you are, your event concept and your preferred format and venue type.</p>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 3">3</div>
+          <div class="step__body">
+            <h3>Attend an Information Webinar</h3>
+            <p>Join one of our free online briefings to learn more about hosting, ask questions and refine your event concept before applying.</p>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 4">4</div>
+          <div class="step__body">
+            <h3>Submit Your Application</h3>
+            <p>Complete the formal application with your event concept, target audience, format, accessibility plan and preferred venue, whether Microsoft Canberra, the National Museum, a cultural arts venue or a public outdoor space.</p>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 5">5</div>
+          <div class="step__body">
+            <h3>Receive Confirmation &amp; Onboarding</h3>
+            <p>Approved events are listed on the public program. You receive branding assets, planning support and promotion through Canberra Data Week channels.</p>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-label="Step 6">6</div>
+          <div class="step__body">
+            <h3>Host Your Event</h3>
+            <p>Deliver your event during Canberra Data Week. You own the content and experience; we provide the platform, promotion and coordination.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pathway-aside">
+        <h3>What We Look For</h3>
+        <ul>
+          <li>Relevance to data, evidence, analytics or data literacy</li>
+          <li>Alignment with the Data for Public Good pillar</li>
+          <li>Free and open attendance for all participants</li>
+          <li>A clear audience and achievable event format</li>
+          <li>Inclusion and accessibility considered in the design</li>
+          <li>A nominated lead contact from your organisation</li>
+          <li>A confirmed or proposed venue for in-person events</li>
+        </ul>
+        <div class="webinar-box">
+          <h4>Information Webinars in 2026</h4>
+          <ul>
+            <li>Webinar 1: Date TBC (register to be notified)</li>
+            <li>Webinar 2: Date TBC (register to be notified)</li>
+            <li>Webinar 3: Date TBC (register to be notified)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUES -->
+<section class="section section--white" id="venues" aria-label="Venues">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">Venues</p>
+      <h2>Where Events Can Happen</h2>
+      <p>Canberra Data Week events take place across the city, from our anchor hub at Microsoft to iconic cultural institutions, public spaces and beyond.</p>
+    </div>
+    <div class="venues-grid">
+      <div class="venue-card venue-card--featured">
+        <div class="venue-card__hd">
+          <span class="venue-card__tag">Anchor Hub</span>
+          <h3>Microsoft Canberra</h3>
+        </div>
+        <div class="venue-card__bd">
+          <p>The central hub of Canberra Data Week. Home to the opening event, flagship panels, the Public Sector Showcase and the hackathon. Also available for approved partner-hosted events.</p>
+          <p class="venue-cap">Contact us to enquire about availability</p>
+        </div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-card__hd">
+          <h3>National Museum of Australia</h3>
+        </div>
+        <div class="venue-card__bd">
+          <p>A landmark venue on the shores of Lake Burley Griffin, ideal for community forums, evening talks and public events with a national character.</p>
+          <p class="venue-cap">Subject to availability</p>
+        </div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-card__hd">
+          <h3>Cultural &amp; Arts Venues</h3>
+        </div>
+        <div class="venue-card__bd">
+          <p>Canberra's galleries, theatres and cultural institutions offer unique settings for data storytelling, community discussion and creative data events.</p>
+          <p class="venue-cap">Partner directly or apply via CDW</p>
+        </div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-card__hd">
+          <h3>Lake Burley Griffin &amp; Public Spaces</h3>
+        </div>
+        <div class="venue-card__bd">
+          <p>Outdoor events including the Data Chat Walk along the lake foreshore: open, accessible and rooted in Canberra's natural identity.</p>
+          <p class="venue-cap">Permits may be required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORTERS -->
+<div class="supporters">
+  <div class="container">
+    <p class="supporters__label">Supported by</p>
+    <div class="supporters__logos">
+      <span class="supporter-chip">Microsoft</span>
+      <span class="supporter-chip">ACT Government</span>
+      <span class="supporter-chip">National Museum of Australia</span>
+      <span class="supporter-chip">University of Canberra</span>
+      <span class="supporter-chip">ANU</span>
+      <span class="supporter-chip">Your Organisation</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-band" id="apply" aria-label="Call to action">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>Ready to host an event?</h2>
+    <p>Applications are open. Join a growing community of Canberra organisations using data to make a difference, and put your expertise on the public stage.</p>
+    <div class="cta-band__actions">
+      <a class="btn btn--primary" href="#host">Apply to Host an Event</a>
+      <a class="btn btn--secondary" href="#host">Join the Mailing List</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="nav__wordmark" style="font-size:1.05rem;">Canberra <strong>Data Week</strong></span>
+        <p>A free, citywide festival celebrating data for public good. Open to all, hosted across Canberra.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Festival</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#pillar">Our Pillar</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#venues">Venues</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="#host">Host an Event</a></li>
+          <li><a href="#partners">Partner Opportunities</a></li>
+          <li><a href="#apply">Apply Now</a></li>
+          <li><a href="#host">Info Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#apply">Mailing List</a></li>
+          <li><a href="#apply">For Organisations</a></li>
+          <li><a href="#apply">Media Enquiries</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&#169; 2026 Canberra Data Week. All events are free and open to the public.</p>
+      <span class="footer__location">&#128205; Canberra, ACT, Australia</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
