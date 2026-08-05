@@ -1,0 +1,26 @@
+<svg width="400" height="460" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+  <title>CDW Crest 3 - Data Node Shield</title>
+  <defs>
+    <linearGradient id="crest3-fill" x1="0" y1="0" x2="400" y2="460" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E94261"/>
+      <stop offset="0.28" stop-color="#F26146"/>
+      <stop offset="0.74" stop-color="#FA9020"/>
+      <stop offset="1" stop-color="#FEB016"/>
+    </linearGradient>
+  </defs>
+  <path d="M200 15 C270 45 340 60 340 60 L340 230 C340 340 280 410 200 445 C120 410 60 340 60 230 L60 60 C60 60 130 45 200 15 Z"
+        fill="url(#crest3-fill)" stroke="#1C1C1C" stroke-width="6"/>
+  <g stroke="#FFFFFF" stroke-width="3" opacity="0.85" fill="#FFFFFF">
+    <circle cx="140" cy="150" r="8"/>
+    <circle cx="260" cy="150" r="8"/>
+    <circle cx="200" cy="220" r="8"/>
+    <circle cx="140" cy="290" r="8"/>
+    <circle cx="260" cy="290" r="8"/>
+    <line x1="140" y1="150" x2="200" y2="220"/>
+    <line x1="260" y1="150" x2="200" y2="220"/>
+    <line x1="200" y1="220" x2="140" y2="290"/>
+    <line x1="200" y1="220" x2="260" y2="290"/>
+  </g>
+  <text x="200" y="390" font-family="Arial, sans-serif" font-size="52" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle">CDW</text>
+</svg>

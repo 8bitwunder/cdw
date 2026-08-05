@@ -1,0 +1,26 @@
+<svg width="400" height="460" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+  <title>CDW Crest 5 - Laurel Emblem</title>
+  <defs>
+    <linearGradient id="crest5-fill" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3E309A"/>
+      <stop offset="0.4" stop-color="#B83A9D"/>
+      <stop offset="0.74" stop-color="#F26146"/>
+      <stop offset="1" stop-color="#FEB016"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="150" fill="url(#crest5-fill)" stroke="#1C1C1C" stroke-width="6"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.85">
+    <path d="M60 220 C50 280 70 340 110 380"/>
+    <path d="M75 200 C70 250 90 300 125 335"/>
+    <path d="M90 175 C90 220 105 260 135 290"/>
+    <path d="M340 220 C350 280 330 340 290 380"/>
+    <path d="M325 200 C330 250 310 300 275 335"/>
+    <path d="M310 175 C310 220 295 260 265 290"/>
+  </g>
+  <text x="200" y="185" font-family="Arial, sans-serif" font-size="60" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle">CDW</text>
+  <text x="200" y="225" font-family="Arial, sans-serif" font-size="20" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle" letter-spacing="3">EST. CANBERRA</text>
+  <text x="200" y="440" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#1C1C1C" text-anchor="middle" letter-spacing="2">DATA WEEK</text>
+</svg>

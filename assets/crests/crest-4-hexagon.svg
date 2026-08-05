@@ -1,0 +1,19 @@
+<svg width="400" height="440" viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg">
+  <title>CDW Crest 4 - Hexagon Tech Crest</title>
+  <defs>
+    <linearGradient id="crest4-fill" x1="0" y1="0" x2="400" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01C5C1"/>
+      <stop offset="0.52" stop-color="#0198C5"/>
+      <stop offset="0.83" stop-color="#097DC6"/>
+      <stop offset="1" stop-color="#1C60C1"/>
+    </linearGradient>
+  </defs>
+  <polygon points="200,20 350,110 350,290 200,380 50,290 50,110"
+           fill="url(#crest4-fill)" stroke="#1C1C1C" stroke-width="6"/>
+  <polygon points="200,60 315,125 315,275 200,340 85,275 85,125"
+           fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.5"/>
+  <text x="200" y="215" font-family="Arial, sans-serif" font-size="70" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle">CDW</text>
+  <text x="200" y="410" font-family="Arial, sans-serif" font-size="20" font-weight="bold"
+        fill="#1C1C1C" text-anchor="middle" letter-spacing="2">CANBERRA DATA WEEK</text>
+</svg>

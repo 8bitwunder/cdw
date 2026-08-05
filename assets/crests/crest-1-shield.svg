@@ -1,0 +1,17 @@
+<svg width="400" height="480" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+  <title>CDW Crest 1 - Classic Shield</title>
+  <defs>
+    <linearGradient id="crest1-fill" x1="0" y1="0" x2="400" y2="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01C5C1"/>
+      <stop offset="0.35" stop-color="#0198C5"/>
+      <stop offset="0.65" stop-color="#7343B3"/>
+      <stop offset="1" stop-color="#E83C6E"/>
+    </linearGradient>
+  </defs>
+  <path d="M200 20 L360 80 L360 220 C360 340 290 420 200 460 C110 420 40 340 40 220 L40 80 Z"
+        fill="url(#crest1-fill)" stroke="#1C1C1C" stroke-width="6"/>
+  <path d="M200 60 L320 108 L320 220 C320 318 265 384 200 416 C135 384 80 318 80 220 L80 108 Z"
+        fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.6"/>
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="88" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle">CDW</text>
+</svg>

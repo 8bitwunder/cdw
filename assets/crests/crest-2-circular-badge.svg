@@ -1,0 +1,19 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <title>CDW Crest 2 - Circular Badge</title>
+  <defs>
+    <linearGradient id="crest2-fill" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3E309A"/>
+      <stop offset="0.28" stop-color="#7343B3"/>
+      <stop offset="0.74" stop-color="#B83A9D"/>
+      <stop offset="1" stop-color="#E83C6E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="180" fill="url(#crest2-fill)" stroke="#1C1C1C" stroke-width="6"/>
+  <circle cx="200" cy="200" r="150" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="34" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle" letter-spacing="4">CANBERRA</text>
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="60" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle">CDW</text>
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+        fill="#FFFFFF" text-anchor="middle" letter-spacing="3">DATA WEEK</text>
+</svg>
