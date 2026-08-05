@@ -13,41 +13,23 @@ html { scroll-behavior: smooth; font-size: 16px; }
 
 /* ── Design tokens ────────────────────────────────────────────── */
 :root {
-  /* CDW brand palette */
-  --cdw-teal:      #00B4D8;   /* left of "C"     */
-  --cdw-turquoise: #00C8D6;   /* underline start */
-  --cdw-purple:    #9B48E4;   /* mid "D"         */
-  --cdw-magenta:   #FF006E;   /* end "D"         */
-  --cdw-orange:    #FF6B00;   /* left "W"        */
-  --cdw-yellow:    #FFBA08;   /* right "W"       */
-  --cdw-navy:      #001B3C;   /* primary text    */
-  --cdw-white:     #FFFFFF;
-
-  /* gradients (reuse everywhere) */
-  --grad-cd:   linear-gradient(90deg, var(--cdw-teal) 0%, var(--cdw-purple) 50%, var(--cdw-magenta) 100%);
-  --grad-w:    linear-gradient(90deg, var(--cdw-orange) 0%, var(--cdw-yellow) 100%);
-  --grad-full: linear-gradient(90deg, var(--cdw-teal) 0%, var(--cdw-purple) 38%, var(--cdw-magenta) 60%, var(--cdw-orange) 82%, var(--cdw-yellow) 100%);
-
-  /* aliases keep existing rules on the new palette */
-  --navy:      var(--cdw-navy);
-  --blue:      var(--cdw-teal);
-  --blue-mid:  var(--cdw-purple);
-  --gold:      var(--cdw-yellow);
+  --navy:      #002060;
+  --blue:      #0078D4;
+  --blue-mid:  #005A9E;
+  --gold:      #E8A020;
   --gold-lt:   #FFF3D4;
-  --teal:      var(--cdw-turquoise);
-  --purple:    var(--cdw-purple);
+  --teal:      #008272;
+  --purple:    #5C2D91;
   --green:     #107C10;
-  --white:     var(--cdw-white);
-
-  /* neutrals & layout */
+  --white:     #FFFFFF;
   --off-white: #F5F6FA;
   --grey-100:  #EFF0F4;
   --grey-200:  #D1D5DB;
   --grey-400:  #9CA3AF;
   --grey-600:  #4B5563;
   --grey-800:  #1F2937;
-  --text:      var(--cdw-navy);
-  --surface:   var(--cdw-white);
+  --text:      #111827;
+  --surface:   #FFFFFF;
   --font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --radius:    10px;
   --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
@@ -57,18 +39,19 @@ html { scroll-behavior: smooth; font-size: 16px; }
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --off-white: #0F172A;
-    --surface:   #0F172A;
-    --grey-100:  #1E293B;
-    --grey-200:  #334155;
-    --grey-400:  #64748B;
-    --grey-600:  #CBD5E1;
-    --grey-800:  #F1F5F9;
-    --text:      var(--cdw-white);
-    --gold-lt:   #2A1F00;
+    --white:     #1A1F2B;
+    --off-white: #111827;
+    --grey-100:  #1F2937;
+    --grey-200:  #374151;
+    --grey-400:  #6B7280;
+    --grey-600:  #9CA3AF;
+    --grey-800:  #D1D5DB;
+    --text:      #F9FAFB;
+    --surface:   #1A1F2B;
     --shadow-sm: 0 1px 4px rgba(0,0,0,.3);
     --shadow-md: 0 4px 16px rgba(0,0,0,.4);
     --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+    --gold-lt:   #2A1F00;
   }
 }
 
@@ -77,17 +60,15 @@ body { font-family: var(--font); color: var(--text); background: var(--off-white
 .container { max-inline-size: var(--max-w); margin-inline: auto; padding-inline: 24px; }
 .section { padding-block: 80px; }
 .section--alt { background: var(--off-white); }
-.section--white { background: var(--surface); }
+.section--white { background: var(--white); }
 .section--navy { background: var(--navy); color: var(--white); }
 h1,h2,h3,h4 { line-height: 1.2; font-weight: 700; }
 h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-block-end: 12px; }
 h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 p { color: var(--grey-600); }
 .section--navy p { color: rgba(255,255,255,.78); }
-a { color: var(--cdw-purple); text-decoration: none; }
+a { color: var(--blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
-/* gradient text utility */
-.grad-text { background: var(--grad-full); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 /* ── Buttons ─────────────────────────────────────────────────── */
 .btn {
@@ -96,7 +77,7 @@ a:hover { text-decoration: underline; }
   transition: opacity .15s, transform .1s; border: none; line-height: 1;
 }
 .btn:hover { opacity: .88; transform: translateY(-1px); text-decoration: none; }
-.btn--primary   { background: var(--cdw-magenta); color: #FFFFFF; }
+.btn--primary   { background: var(--gold); color: var(--navy); }
 .btn--secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.6); }
 .btn--secondary:hover { background: rgba(255,255,255,.12); }
 .btn--navy      { background: var(--navy); color: var(--white); }
@@ -116,8 +97,7 @@ a:hover { text-decoration: underline; }
 .nav__dots  { display: flex; align-items: center; gap: 5px; }
 .nav__dot   { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--gold); }
 .nav__wordmark { font-size: 1rem; font-weight: 700; color: var(--white); letter-spacing: -.01em; }
-.nav__wordmark strong { background: var(--grad-cd); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nav__logo { block-size: 30px; inline-size: auto; display: block; }
+.nav__wordmark strong { color: var(--gold); }
 .nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
 .nav__links a {
   color: rgba(255,255,255,.82); font-size: .875rem; font-weight: 500;
@@ -135,13 +115,13 @@ a:hover { text-decoration: underline; }
 }
 .hero__badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(0,200,214,.16); border: 1px solid rgba(0,200,214,.45);
-  color: var(--cdw-turquoise); font-size: .78rem; font-weight: 700; letter-spacing: .06em;
+  background: rgba(232,160,32,.18); border: 1px solid rgba(232,160,32,.4);
+  color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .06em;
   text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-block-end: 20px;
 }
 .hero__eyebrow { font-size: .82rem; color: rgba(255,255,255,.55); letter-spacing: .08em; text-transform: uppercase; margin-block-end: 8px; }
 .hero__title { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); line-height: 1.08; margin-block-end: 20px; }
-.hero__title em { background: var(--grad-w); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+.hero__title em { color: var(--gold); font-style: normal; }
 .hero__tagline { font-size: 1.1rem; color: rgba(255,255,255,.78); margin-block-end: 36px; max-inline-size: 480px; line-height: 1.65; }
 .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -154,22 +134,21 @@ a:hover { text-decoration: underline; }
 
 /* ── Section headers ─────────────────────────────────────────── */
 .section-header { text-align: center; margin-block-end: 48px; }
-.section-header::after { content: ''; display: block; inline-size: 60px; block-size: 4px; margin: 16px auto 0; border-radius: 2px; background: var(--grad-full); }
 .section-header__eyebrow {
   font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--cdw-magenta); margin-block-end: 10px;
+  color: var(--blue); margin-block-end: 10px;
 }
-.section--navy .section-header__eyebrow { color: var(--cdw-yellow); }
+.section--navy .section-header__eyebrow { color: var(--gold); }
 .section-header p { font-size: 1.02rem; max-inline-size: 640px; margin-inline: auto; margin-block-start: 12px; }
 
 /* ── Mission cards ────────────────────────────────────────────── */
 .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .mission-card {
   background: var(--surface); border-radius: var(--radius); padding: 28px;
-  box-shadow: var(--shadow-sm); border-block-start: 4px solid var(--cdw-teal);
+  box-shadow: var(--shadow-sm); border-block-start: 4px solid var(--blue);
 }
-.mission-card:nth-child(2) { border-block-start-color: var(--cdw-magenta); }
-.mission-card:nth-child(3) { border-block-start-color: var(--cdw-orange); }
+.mission-card:nth-child(2) { border-block-start-color: var(--gold); }
+.mission-card:nth-child(3) { border-block-start-color: var(--teal); }
 .mission-card__icon { font-size: 1.8rem; margin-block-end: 12px; line-height: 1; }
 .mission-card h3 { font-size: 1rem; color: var(--text); margin-block-end: 8px; }
 .mission-card p  { font-size: .88rem; }
@@ -252,11 +231,11 @@ a:hover { text-decoration: underline; }
 .event-card h3  { font-size: .97rem; color: var(--text); line-height: 1.3; }
 .event-card p   { font-size: .82rem; }
 .event-card__status {
-  margin-block-start: auto; font-size: .75rem; font-weight: 600; color: var(--grey-600);
+  margin-block-start: auto; font-size: .75rem; font-weight: 600; color: var(--teal);
   display: flex; align-items: center; gap: 5px;
 }
-.event-card__status::before { content: '●'; font-size: .55rem; color: var(--cdw-turquoise); }
-.event-card__status--open::before { color: var(--cdw-orange); }
+.event-card__status--open { color: var(--gold); }
+.event-card__status::before { content: '●'; font-size: .55rem; }
 .events-cta   { text-align: center; margin-block-start: 36px; }
 .events-note  { text-align: center; margin-block-start: 14px; font-size: .82rem; color: var(--grey-400); font-style: italic; }
 
@@ -307,8 +286,8 @@ a:hover { text-decoration: underline; }
 }
 .pathway-aside li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
 .webinar-box {
-  margin-block-start: 24px; background: rgba(0,200,214,.12);
-  border: 1px solid rgba(0,200,214,.3); border-radius: var(--radius); padding: 20px;
+  margin-block-start: 24px; background: rgba(232,160,32,.12);
+  border: 1px solid rgba(232,160,32,.3); border-radius: var(--radius); padding: 20px;
 }
 .webinar-box h4 { color: var(--gold); font-size: .9rem; margin-block-end: 10px; }
 .webinar-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
@@ -322,7 +301,7 @@ a:hover { text-decoration: underline; }
   padding: 20px; background: var(--navy); color: var(--white);
   min-block-size: 100px; display: flex; flex-direction: column; justify-content: flex-end; position: relative;
 }
-.venue-card--featured .venue-card__hd { min-block-size: 140px; background: linear-gradient(135deg, var(--cdw-navy) 0%, var(--cdw-purple) 60%, var(--cdw-magenta) 100%); }
+.venue-card--featured .venue-card__hd { min-block-size: 140px; background: linear-gradient(135deg, #002060 0%, #0078D4 100%); }
 .venue-card__tag {
   position: absolute; inset-block-start: 14px; inset-inline-start: 14px;
   background: var(--gold); color: var(--navy); font-size: .68rem; font-weight: 700;
@@ -335,53 +314,16 @@ a:hover { text-decoration: underline; }
 
 /* ── CTA band ────────────────────────────────────────────────── */
 .cta-band {
-  background: linear-gradient(120deg, var(--cdw-navy) 0%, var(--cdw-purple) 55%, var(--cdw-magenta) 100%);
+  background: linear-gradient(135deg, var(--navy) 0%, #003087 60%, #0078D4 100%);
   padding-block: 80px; text-align: center; position: relative; overflow: hidden;
 }
 .cta-band::before {
   content: ''; position: absolute; inset-inline-end: -80px; inset-block-start: -80px;
-  inline-size: 400px; block-size: 400px; border-radius: 50%; background: rgba(255,255,255,.10);
+  inline-size: 400px; block-size: 400px; border-radius: 50%; background: rgba(232,160,32,.08);
 }
 .cta-band h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-block-end: 16px; }
 .cta-band p  { color: rgba(255,255,255,.78); font-size: 1.05rem; max-inline-size: 540px; margin-inline: auto; margin-block-end: 36px; }
 .cta-band__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-/* ── Anchor Event ────────────────────────────────────────────── */
-.anchor { background: var(--cdw-navy); color: var(--white); position: relative; overflow: hidden; }
-.anchor .section-header p { color: rgba(255,255,255,.78); }
-.anchor-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 44px; align-items: start; margin-block-end: 48px; }
-.anchor-quote {
-  position: relative; padding-inline-start: 22px; margin-block-end: 20px;
-  font-size: 1.32rem; line-height: 1.5; color: var(--white); font-weight: 500;
-}
-.anchor-quote::before { content: ''; position: absolute; inset-inline-start: 0; inset-block: 2px; inline-size: 4px; border-radius: 2px; background: var(--grad-cd); }
-.anchor-quote strong { color: var(--cdw-yellow); }
-.anchor-narrative p { color: rgba(255,255,255,.8); font-size: 1rem; line-height: 1.6; }
-.tech-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-block-start: 22px; }
-.tech-chip {
-  border: 1px solid rgba(255,255,255,.28); border-radius: 20px; padding: 7px 15px;
-  font-size: .8rem; font-weight: 600; color: var(--white);
-}
-.anchor-panel {
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
-  border-radius: 14px; padding: 28px 26px; position: relative; overflow: hidden;
-}
-.anchor-panel::before { content: ''; position: absolute; inset-block-start: 0; inset-inline: 0; block-size: 4px; background: var(--grad-full); }
-.anchor-panel__label { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cdw-turquoise); margin-block-end: 12px; }
-.anchor-panel__body { font-size: 1.05rem; line-height: 1.55; color: var(--white); font-style: italic; }
-.anchor-panel__body strong { color: var(--cdw-yellow); font-style: normal; }
-.anchor-panel__note { font-size: .74rem; color: rgba(255,255,255,.5); margin-block-start: 16px; font-style: italic; }
-.anchor-sub { text-align: center; color: var(--white); font-size: 1.15rem; margin-block: 8px 26px; }
-.decisions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.decision {
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-  border-radius: 12px; padding: 22px 20px;
-}
-.decision__ic { font-size: 1.8rem; line-height: 1; display: block; margin-block-end: 12px; }
-.decision h4 { color: var(--white); font-size: .95rem; margin-block-end: 6px; }
-.decision p { color: rgba(255,255,255,.68); font-size: .82rem; line-height: 1.45; }
-.anchor-tagline { text-align: center; margin-block-start: 40px; font-size: 1.15rem; color: rgba(255,255,255,.85); }
-.anchor-tagline strong { color: var(--white); }
 
 /* ── Supporters ──────────────────────────────────────────────── */
 .supporters { padding-block: 48px; background: var(--surface); text-align: center; }
@@ -418,8 +360,6 @@ a:hover { text-decoration: underline; }
   .pathway-grid   { grid-template-columns: 1fr; }
   .venues-grid    { grid-template-columns: 1fr 1fr; }
   .footer__grid   { grid-template-columns: 1fr 1fr; }
-  .anchor-grid    { grid-template-columns: 1fr; gap: 32px; }
-  .decisions-grid { grid-template-columns: 1fr 1fr; }
   .nav__links     { display: none; }
 }
 @media (max-width: 600px) {
@@ -430,7 +370,6 @@ a:hover { text-decoration: underline; }
   .opps-grid      { grid-template-columns: 1fr; }
   .venues-grid    { grid-template-columns: 1fr; }
   .footer__grid   { grid-template-columns: 1fr; }
-  .decisions-grid { grid-template-columns: 1fr; }
   .hero           { padding-block: 64px 48px; }
 }
 </style>
@@ -442,24 +381,15 @@ a:hover { text-decoration: underline; }
   <div class="container">
     <div class="nav__inner">
       <a class="nav__brand" href="#top" aria-label="Canberra Data Week home">
-        <svg class="nav__logo" viewBox="0 0 1860 1086" role="img" aria-label="CDW" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <clipPath id="cdwClipR"><rect x="375" y="700" width="1860" height="1086"/></clipPath>
-            <linearGradient x1="375" y1="1159" x2="889" y2="1159" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="cdwFill1R"><stop offset="0" stop-color="#01C5C1"/><stop offset="0.52" stop-color="#0198C5"/><stop offset="0.83" stop-color="#097DC6"/><stop offset="1" stop-color="#1C60C1"/></linearGradient>
-            <linearGradient x1="996" y1="1159" x2="1512" y2="1159" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="cdwFill2R"><stop offset="0" stop-color="#3E309A"/><stop offset="0.28" stop-color="#7343B3"/><stop offset="0.74" stop-color="#B83A9D"/><stop offset="1" stop-color="#E83C6E"/></linearGradient>
-            <linearGradient x1="1456" y1="1375.5" x2="2235" y2="1375.5" gradientUnits="userSpaceOnUse" spreadMethod="reflect" id="cdwFill3R"><stop offset="0" stop-color="#E94261"/><stop offset="0.28" stop-color="#F26146"/><stop offset="0.74" stop-color="#FA9020"/><stop offset="1" stop-color="#FEB016"/></linearGradient>
-          </defs>
-          <g clip-path="url(#cdwClipR)" transform="translate(-375 -700)">
-            <path d="M375 1189.87 503.682 1189.87 503.829 1192.78C520.766 1359.41 661.611 1489.43 832.853 1489.43 844.27 1489.43 855.551 1488.86 866.669 1487.73L889 1484.32 889 1614.23 879.826 1615.63C864.382 1617.2 848.711 1618 832.853 1618 594.984 1618 399.338 1437.38 375.812 1205.93ZM832.854 700C848.712 700 864.382 700.803 879.826 702.37L889 703.768 889 833.677 866.669 830.272C855.551 829.144 844.27 828.566 832.854 828.566 661.612 828.566 520.766 958.592 503.829 1125.22L503.682 1128.13 375 1128.13 375.812 1112.07C399.338 880.616 594.985 700 832.854 700Z" fill="url(#cdwFill1R)" fill-rule="evenodd"/>
-            <path d="M1262.32 1412.48 1315.07 1535.36 1309.39 1539.61C1236.05 1589.1 1147.63 1618 1052.45 1618 1036.59 1618 1020.92 1617.2 1005.47 1615.63L996.291 1614.23 996.291 1484.32 1018.63 1487.73C1029.75 1488.86 1041.03 1489.43 1052.45 1489.43 1120.97 1489.43 1184.62 1468.63 1237.42 1433ZM1048.59 700C1063.44 700 1078.12 700.717 1092.59 702.116L1119.71 706.06 1121.83 706.06 1121.83 706.367 1135.31 708.327 1135.39 708.351 1145.07 709.325C1354.48 752.125 1512 937.188 1512 1159 1512 1285.75 1460.56 1400.5 1377.4 1483.56L1364.95 1494.86 1309.21 1365.02 1326.78 1343.75C1362.45 1291.01 1383.28 1227.43 1383.28 1159 1383.28 1022.13 1299.97 904.695 1181.23 854.533L1121.83 836.116 1121.83 1413.29 996.291 1413.29 996.291 819.329 996 819.372 996 703.365 1004.59 702.116C1019.06 700.717 1033.74 700 1048.59 700Z" fill="url(#cdwFill2R)" fill-rule="evenodd"/>
-            <path d="M1895.27 1433.81 1963.77 1619.65 1910.18 1751.7 1896.01 1786 1881.04 1786 1819.14 1618.08 1819.95 1616.12 1819.95 1616.12ZM1786.49 1138.74 1790.15 1148.66 1790.15 1148.66 1786.49 1138.74ZM1702.15 987.136 1730.61 987.136 1730.61 987.136 1786.5 1138.73 1790.16 1148.66 1895.27 1433.81 1819.95 1616.12 1818.61 1612.5 1817.27 1613 1711 1324.73 1641.64 1136.57 1641.64 1136.57 1711 1324.73 1533.93 1761.01 1517.71 1761.01 1456 1593.62 1637.75 1145.82 1637.87 1145.87 1637.87 1145.87 1637.75 1145.82 1641.58 1136.39 1641.58 1136.39ZM2088.95 965 2233.88 965 2235 965.461 1964.8 1619.49 1964.23 1620.88 1910.18 1751.7 1963.77 1619.65 1963.77 1619.65 1895.27 1433.81Z" fill="url(#cdwFill3R)" fill-rule="evenodd"/>
-          </g>
-        </svg>
+        <span class="nav__dots" aria-hidden="true">
+          <span class="nav__dot"></span>
+          <span class="nav__dot" style="opacity:.6"></span>
+          <span class="nav__dot" style="opacity:.35"></span>
+        </span>
         <span class="nav__wordmark">Canberra <strong>Data Week</strong></span>
       </a>
       <ul class="nav__links" role="list">
         <li><a href="#about">About</a></li>
-        <li><a href="#anchor">Anchor Event</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#partners">Partner</a></li>
         <li><a href="#host">Host an Event</a></li>
@@ -475,20 +405,20 @@ a:hover { text-decoration: underline; }
   <svg class="hero__bg" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
     <defs>
       <radialGradient id="rg1" cx="70%" cy="40%" r="55%">
-        <stop offset="0%" stop-color="#9B48E4" stop-opacity=".55"/>
-        <stop offset="100%" stop-color="#9B48E4" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#0078D4" stop-opacity=".6"/>
+        <stop offset="100%" stop-color="#0078D4" stop-opacity="0"/>
       </radialGradient>
     </defs>
     <rect width="1200" height="600" fill="url(#rg1)"/>
-    <g stroke="#00C8D6" stroke-width="1" fill="none">
-      <circle cx="800" cy="120" r="6" fill="#FF006E"/>
-      <circle cx="980" cy="200" r="4" fill="#00B4D8"/>
-      <circle cx="1050" cy="320" r="5" fill="#FFBA08"/>
-      <circle cx="900" cy="400" r="3" fill="#00B4D8"/>
-      <circle cx="1100" cy="440" r="6" fill="#FF006E"/>
-      <circle cx="750" cy="350" r="4" fill="#FF6B00"/>
-      <circle cx="860" cy="260" r="3" fill="#FFBA08"/>
-      <circle cx="1000" cy="110" r="4" fill="#00B4D8"/>
+    <g stroke="#E8A020" stroke-width="1" fill="none">
+      <circle cx="800" cy="120" r="6" fill="#E8A020"/>
+      <circle cx="980" cy="200" r="4" fill="#0078D4"/>
+      <circle cx="1050" cy="320" r="5" fill="#E8A020"/>
+      <circle cx="900" cy="400" r="3" fill="#0078D4"/>
+      <circle cx="1100" cy="440" r="6" fill="#E8A020"/>
+      <circle cx="750" cy="350" r="4" fill="#0078D4"/>
+      <circle cx="860" cy="260" r="3" fill="#E8A020"/>
+      <circle cx="1000" cy="110" r="4" fill="#0078D4"/>
       <line x1="800" y1="120" x2="980" y2="200"/>
       <line x1="980" y1="200" x2="1050" y2="320"/>
       <line x1="1050" y1="320" x2="900" y2="400"/>
@@ -511,7 +441,7 @@ a:hover { text-decoration: underline; }
     <div class="hero__inner">
       <div>
         <div class="hero__badge">
-          <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#00C8D6" stroke-width="1.5" fill="none"/><circle cx="5" cy="5" r="2" fill="#00C8D6"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#E8A020" stroke-width="1.5" fill="none"/><circle cx="5" cy="5" r="2" fill="#E8A020"/></svg>
           Canberra, ACT &middot; 2026
         </div>
         <p class="hero__eyebrow">A citywide data festival</p>
@@ -590,57 +520,6 @@ a:hover { text-decoration: underline; }
         <p>Putting data in the service of real people, and giving communities a voice in how it is used.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ANCHOR EVENT -->
-<section class="section anchor" id="anchor" aria-label="The anchor event">
-  <div class="container">
-    <div class="section-header">
-      <p class="section-header__eyebrow">The Headline Act &middot; Hosted by Microsoft</p>
-      <h2>The Anchor Event &mdash; <span class="grad-text">Chief Minister for a Day</span></h2>
-      <p>SimCity meets real policy. Step into the ACT Chief Minister's seat and make real decisions in an AI simulation powered by real public data.</p>
-    </div>
-    <div class="anchor-grid">
-      <div class="anchor-narrative">
-        <blockquote class="anchor-quote">You walk up to a booth. You sit down. For the next few minutes, <strong>you're the Chief Minister of the ACT.</strong> An AI simulation powered by real public data lets you make infrastructure decisions &mdash; and shows you what happens next.</blockquote>
-        <p>Using Azure AI Foundry, Microsoft Fabric and open government data, participants make real policy decisions. The AI then simulates the potential social, economic, environmental and health impacts of those choices in real time.</p>
-        <div class="tech-chips">
-          <span class="tech-chip">Azure AI Foundry</span>
-          <span class="tech-chip">Microsoft Fabric</span>
-          <span class="tech-chip">Open Government Data</span>
-        </div>
-      </div>
-      <div class="anchor-panel">
-        <div class="anchor-panel__label">AI predictive response</div>
-        <p class="anchor-panel__body">"Your Nature-Based Activity policy is projected to <strong>reduce cardiovascular disease risk by up to 50%.</strong> The model also predicts a significant increase in active-transport usage, which may cause demand for cycling infrastructure and supporting services to exceed existing capacity. The risk ratio suggests implementation would significantly benefit the Canberra community."</p>
-        <p class="anchor-panel__note">Illustrative example of a data &amp; AI prediction.</p>
-      </div>
-    </div>
-    <h3 class="anchor-sub">The decisions you make</h3>
-    <div class="decisions-grid">
-      <div class="decision">
-        <span class="decision__ic" aria-hidden="true">🚲</span>
-        <h4>Cycling super-highway</h4>
-        <p>Build active-transport routes as part of a Nature-Based Activity policy.</p>
-      </div>
-      <div class="decision">
-        <span class="decision__ic" aria-hidden="true">🚈</span>
-        <h4>Expand light rail</h4>
-        <p>Extend the network and reshape how the city moves.</p>
-      </div>
-      <div class="decision">
-        <span class="decision__ic" aria-hidden="true">🏘️</span>
-        <h4>Increase housing density</h4>
-        <p>Rethink where and how Canberrans live.</p>
-      </div>
-      <div class="decision">
-        <span class="decision__ic" aria-hidden="true">🌳</span>
-        <h4>Invest in urban forests</h4>
-        <p>Green the city and cool the suburbs.</p>
-      </div>
-    </div>
-    <p class="anchor-tagline"><strong>It's SimCity meets real policy</strong> &mdash; interactive, engaging, and it gets people talking about what data can do for public good.</p>
   </div>
 </section>
 
