@@ -26,7 +26,7 @@ Before every send, edit the regions marked `EDIT` or `OPTIONAL` in `generic-comm
 6. Footer reason-for-contact statement.
 7. Matching content in `generic-communication.txt`.
 
-The header uses `assets/cdw-email-header.png`, hosted at `https://canberradataweek.com/email-templates/zoho/assets/cdw-email-header.png`. Keep this public URL stable after the template is in use. The PNG is intentional: it is more consistently supported by Outlook and other email clients than SVG.
+The header uses the root-level `cdw-email-header.png`, hosted at `https://canberradataweek.com/cdw-email-header.png`. Keep this public URL stable after the template is in use. The PNG is intentional: it is more consistently supported by Outlook and other email clients than SVG.
 
 ## Create a template in Zoho CRM
 
