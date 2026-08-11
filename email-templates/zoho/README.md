@@ -8,8 +8,25 @@ This folder is the working source for Canberra Data Week transactional email tem
 | --- | --- | --- | --- | --- |
 | Mailing-list submission | Contacts | `CDW - Mailing List - Submission Acknowledgement` | `You're on the Canberra Data Week mailing list` | `mailing-list-acknowledgement.html` |
 | Host application | Leads | `CDW - Host Application - Submission Acknowledgement` | `We've received your Canberra Data Week host application` | `host-application-acknowledgement.html` |
+| General communication base | Choose for each use | `CDW - Generic Communication - Base` | `An update from Canberra Data Week` | `generic-communication.html` |
 
 Matching `.txt` files provide plain-text copy for review or for Zoho's plain-text mode.
+
+## Use the generic communication base
+
+Zoho templates are module-specific. Create the generic base in the module you use most often, then clone it into another module when needed. Update module-specific merge fields after cloning.
+
+Before every send, edit the regions marked `EDIT` or `OPTIONAL` in `generic-communication.html`:
+
+1. Subject and hidden preheader.
+2. Category label and headline.
+3. Greeting and message body.
+4. Callout text, or remove the callout table.
+5. CTA label and absolute URL, or remove the CTA table.
+6. Footer reason-for-contact statement.
+7. Matching content in `generic-communication.txt`.
+
+The header uses `assets/cdw-email-header.png`, hosted at `https://canberradataweek.com/email-templates/zoho/assets/cdw-email-header.png`. Keep this public URL stable after the template is in use. The PNG is intentional: it is more consistently supported by Outlook and other email clients than SVG.
 
 ## Create a template in Zoho CRM
 
@@ -69,6 +86,7 @@ For future personalization:
 - Keep the mobile media query at the start of the fragment. Zoho supplies the outer HTML document and viewport meta tag.
 - Use absolute `https://` links, never relative links.
 - Use hosted, publicly accessible HTTPS URLs for any future images. Do not embed local file paths.
+- Add meaningful `alt` text and explicit dimensions to images. Keep text content understandable when images are blocked.
 - Include useful preheader text in the hidden first `<div>`.
 - Keep acknowledgments factual. Receipt of a host submission must not imply approval.
 - Avoid promised response times unless an operational service level has been agreed.
