@@ -26,7 +26,7 @@ Before every send, edit the regions marked `EDIT` or `OPTIONAL` in `generic-comm
 6. Footer reason-for-contact statement.
 7. Matching content in `generic-communication.txt`.
 
-The header uses the root-level `cdw-email-header.png`, hosted at `https://canberradataweek.com/cdw-email-header.png`. Keep this public URL stable after the template is in use. The PNG is intentional: it is more consistently supported by Outlook and other email clients than SVG.
+The header uses the root-level `cdw-email-header.png`, published by the site's Cloudflare integration at `https://canberradataweek.com/cdw-email-header.png`. Keep this public URL stable after the template is in use. The PNG is intentional: it is more consistently supported by Outlook and other email clients than SVG.
 
 ## Create a template in Zoho CRM
 
@@ -68,15 +68,17 @@ Use criteria that uniquely identify these web forms if other integrations also c
 
 ## Merge fields
 
-The current acknowledgments deliberately avoid merge fields, so they can be pasted without unresolved tokens and the mailing-list template does not need to address someone by last name.
+The current acknowledgments deliberately avoid merge fields because the mailing-list form collects only an email address. Its required Last Name value is synthetic and must not be used in a greeting.
+
+The generic Contacts template uses the verified Zoho token `${Contacts.First Name}`. Use plain `Hello,` instead when sending to an audience whose First Name may be blank; otherwise the rendered greeting may contain an awkward space. Do not substitute `${Contacts.Contact Name}` for mailing-list Contacts because it can resolve to `Mailing List Subscriber`.
 
 For future personalization:
 
 1. Place the cursor in Zoho's visual editor where the value should appear.
 2. Type `#` and select a field from Zoho's merge-field list.
-3. Use only fields available on the template's module.
+3. Use only fields available on the template's module. A Contacts token will not work in a Leads template.
 4. Provide wording that still reads naturally when optional data is blank.
-5. Never type or guess Zoho merge-tag syntax directly in these source files. Insert it through Zoho and record the verified tag here afterward if the source is brought back into the repository.
+5. Do not guess merge-tag syntax. Insert the field through Zoho, then record the resulting verified token in these source files.
 
 ## Authoring rules for future templates
 

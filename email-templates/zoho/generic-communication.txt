@@ -4,7 +4,7 @@ CANBERRA DATA WEEK UPDATE
 
 An update from Canberra Data Week
 
-Hello,
+Hello ${Contacts.First Name},
 
 We are getting in touch with the latest news from Canberra Data Week, the citywide festival bringing public sector, industry, academia and community together around data for public good.
 
@@ -19,4 +19,4 @@ Canberra, ACT, Australia
 
 You received this email because you have engaged with Canberra Data Week.
 
-Before sending: update the subject, preheader, category, headline, body, callout, CTA and reason-for-contact statement. Remove any optional section that is not needed.
+Before sending: update the subject, preheader, category, headline, body, callout, CTA and reason-for-contact statement. Use plain "Hello," if First Name may be blank. Remove any optional section that is not needed.
