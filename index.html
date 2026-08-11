@@ -347,6 +347,48 @@ a:hover { text-decoration: underline; }
 .cta-band p  { color: rgba(255,255,255,.78); font-size: 1.05rem; max-inline-size: 540px; margin-inline: auto; margin-block-end: 36px; }
 .cta-band__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+/* ── Form dialogs ───────────────────────────────────────────── */
+.mailing-dialog {
+  inline-size: min(520px, calc(100% - 32px)); max-inline-size: none; max-block-size: calc(100dvh - 32px);
+  margin: auto; padding: 0; border: 0; border-radius: 8px; overflow: auto;
+  background: var(--surface); color: var(--text); box-shadow: var(--shadow-lg);
+}
+.mailing-dialog::backdrop { background: rgba(0,27,60,.78); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.mailing-dialog__header { position: relative; padding: 30px 64px 18px 30px; border-block-start: 5px solid var(--cdw-magenta); }
+.mailing-dialog__eyebrow {
+  color: var(--cdw-magenta); font-size: .74rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; margin-block-end: 6px;
+}
+.mailing-dialog__header h2 { font-size: 1.75rem; margin: 0; }
+.mailing-dialog__intro { margin-block-start: 8px; font-size: .92rem; }
+.mailing-dialog__close {
+  position: absolute; inset-block-start: 22px; inset-inline-end: 22px;
+  inline-size: 36px; block-size: 36px; border: 1px solid var(--grey-200); border-radius: 50%;
+  background: transparent; color: var(--text); font: 400 1.5rem/1 var(--font); cursor: pointer;
+}
+.mailing-dialog__close:hover { border-color: var(--cdw-magenta); color: var(--cdw-magenta); }
+body:has(.mailing-dialog[open]) { overflow: hidden; }
+.host-dialog { inline-size: min(560px, calc(100% - 32px)); }
+.crm-form { inline-size: 100%; padding: 0 30px 30px; }
+.crm-form * { box-sizing: border-box; }
+.crm-form .zcwf_hidden { display: none; }
+.crm-form .zcwf_required { color: #D6004F; }
+.crm-form .zcwf_row { margin-block-start: 18px; }
+.crm-form .zcwf_col_lab { margin-block-end: 7px; }
+.crm-form label { display: block; color: var(--text); font-size: .86rem; font-weight: 650; }
+.crm-form input[type="text"] {
+  inline-size: 100%; min-block-size: 46px; padding: 10px 12px;
+  border: 1px solid var(--grey-200); border-radius: 5px;
+  background: var(--surface); color: var(--text); font: inherit;
+}
+.crm-form input[type="text"]:focus { outline: 3px solid rgba(0,180,216,.22); border-color: var(--cdw-teal); }
+.crm-form .zcwf_actions { display: flex; gap: 10px; margin-block-start: 24px; }
+.crm-form .zcwf_button { min-block-size: 44px; padding: 10px 20px; border-radius: 5px; font: 650 .9rem/1 var(--font); cursor: pointer; }
+.crm-form .formsubmit { border: 0; background: var(--cdw-magenta); color: #fff; }
+.crm-form .formsubmit:hover { opacity: .88; }
+.crm-form .formsubmit:disabled { cursor: wait; opacity: .6; }
+.crm-form input[type="reset"] { border: 1px solid var(--grey-200); background: transparent; color: var(--text); }
+
 /* ── Anchor Event ────────────────────────────────────────────── */
 .anchor { background: var(--cdw-navy); color: var(--white); position: relative; overflow: hidden; }
 .anchor .section-header p { color: rgba(255,255,255,.78); }
@@ -383,15 +425,6 @@ a:hover { text-decoration: underline; }
 .decision p { color: rgba(255,255,255,.68); font-size: .82rem; line-height: 1.45; }
 .anchor-tagline { text-align: center; margin-block-start: 40px; font-size: 1.15rem; color: rgba(255,255,255,.85); }
 .anchor-tagline strong { color: var(--white); }
-
-/* ── Supporters ──────────────────────────────────────────────── */
-.supporters { padding-block: 48px; background: var(--surface); text-align: center; }
-.supporters__label { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-400); margin-block-end: 24px; }
-.supporters__logos { display: flex; flex-wrap: wrap; gap: 14px 36px; justify-content: center; align-items: center; }
-.supporter-chip {
-  padding: 8px 20px; background: var(--grey-100); border-radius: 6px;
-  font-size: .82rem; font-weight: 600; color: var(--grey-600);
-}
 
 /* ── Footer ──────────────────────────────────────────────────── */
 .footer { background: #0D1117; padding-block: 48px 28px; }
@@ -433,6 +466,8 @@ a:hover { text-decoration: underline; }
   .footer__grid   { grid-template-columns: 1fr; }
   .decisions-grid { grid-template-columns: 1fr; }
   .hero           { padding-block: 64px 48px; }
+  .mailing-dialog__header { padding: 24px 60px 14px 22px; }
+  .crm-form { padding: 0 22px 24px; }
 }
 </style>
 </head>
@@ -466,7 +501,7 @@ a:hover { text-decoration: underline; }
         <li><a href="#host">Host an Event</a></li>
         <li><a href="#venues">Venues</a></li>
       </ul>
-      <a class="btn btn--primary nav__cta" href="#apply">Apply to Host</a>
+      <button class="btn btn--primary nav__cta" type="button" data-open-host-form>Apply to Host</button>
     </div>
   </div>
 </nav>
@@ -519,7 +554,7 @@ a:hover { text-decoration: underline; }
         <h1 class="hero__title">Data in the<br><em>public good.</em></h1>
         <p class="hero__tagline">Canberra Data Week brings together public sector, industry, academia and community to explore how data can improve decisions, services and lives.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="#apply">Apply to Host an Event</a>
+          <button class="btn btn--primary" type="button" data-open-host-form>Apply to Host an Event</button>
           <a class="btn btn--secondary" href="#events">Explore Events</a>
         </div>
       </div>
@@ -1035,32 +1070,99 @@ a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- SUPPORTERS -->
-<div class="supporters">
-  <div class="container">
-    <p class="supporters__label">Supported by</p>
-    <div class="supporters__logos">
-      <span class="supporter-chip">Microsoft</span>
-      <span class="supporter-chip">ACT Government</span>
-      <span class="supporter-chip">National Museum of Australia</span>
-      <span class="supporter-chip">University of Canberra</span>
-      <span class="supporter-chip">ANU</span>
-      <span class="supporter-chip">Your Organisation</span>
-    </div>
-  </div>
-</div>
-
 <!-- CTA -->
 <section class="cta-band" id="apply" aria-label="Call to action">
   <div class="container" style="position:relative;z-index:1;">
     <h2>Ready to host an event?</h2>
     <p>Applications are open. Join a growing community of Canberra organisations using data to make a difference, and put your expertise on the public stage.</p>
     <div class="cta-band__actions">
-      <a class="btn btn--primary" href="#host">Apply to Host an Event</a>
-      <a class="btn btn--secondary" href="#host">Join the Mailing List</a>
+      <button class="btn btn--primary" type="button" data-open-host-form>Apply to Host an Event</button>
+      <button class="btn btn--secondary" type="button" data-open-mailing-list>Join the Mailing List</button>
     </div>
   </div>
 </section>
+
+<!-- MAILING LIST -->
+<dialog class="mailing-dialog" id="mailing-list-dialog" aria-labelledby="mailing-list-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Stay in the loop</p>
+    <h2 id="mailing-list-title">Join the mailing list</h2>
+    <p class="mailing-dialog__intro">Get Canberra Data Week announcements, event updates and opportunities in your inbox.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close mailing list form" data-close-mailing-list>&times;</button>
+  </div>
+  <div id="mailing-crm-form" class="zcwf_lblLeft crmWebToEntityForm crm-form">
+    <form id="webform105101000000481021" action="https://crm.zoho.com.au/crm/WebToContactForm" name="WebToContacts105101000000481021" method="POST" onsubmit='document.charset="UTF-8"; return checkMandatory105101000000481021()' accept-charset="UTF-8">
+      <input type="text" class="zcwf_hidden" name="xnQsjsdp" value="d7f5f20e34511e263f62c592c8efe621d0ec6ade66a59ae35576f6d7c8bb458d">
+      <input type="hidden" name="zc_gad" id="mailing_zc_gad" value="">
+      <input type="text" class="zcwf_hidden" name="xmIwtLD" value="c9f562a4fe036a0e06ae5061cd19720b18fda58e0f1e2bd8f72daf27fdf26c7794ceb622be13a8d8a3f965b0dd29d627">
+      <input type="text" class="zcwf_hidden" name="actionType" value="Q29udGFjdHM=">
+      <input type="text" class="zcwf_hidden" name="returnURL" value="https://canberradataweek.com/submitted">
+      <!-- Do not remove this code. -->
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab">
+          <label for="mailing_Last_Name">Last name <span class="zcwf_required">*</span></label>
+        </div>
+        <div class="zcwf_col_fld">
+          <input type="text" id="mailing_Last_Name" aria-required="true" aria-label="Last name" name="Last Name" maxlength="80" autocomplete="family-name" required autofocus>
+        </div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab">
+          <label for="mailing_Email">Email</label>
+        </div>
+        <div class="zcwf_col_fld">
+          <input type="text" ftype="email" id="mailing_Email" aria-required="false" aria-label="Email" name="Email" maxlength="100" autocomplete="email" inputmode="email">
+        </div>
+      </div>
+      <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
+      <div class="zcwf_actions">
+        <input type="submit" id="formsubmit_mailing" class="formsubmit zcwf_button" value="Join the mailing list" aria-label="Join the mailing list" title="Join the mailing list">
+        <input type="reset" class="zcwf_button" name="reset" value="Reset" aria-label="Reset form" title="Reset form">
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- APPLY TO HOST -->
+<dialog class="mailing-dialog host-dialog" id="host-form-dialog" aria-labelledby="host-form-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Be part of the program</p>
+    <h2 id="host-form-title">Apply to host</h2>
+    <p class="mailing-dialog__intro">Tell us who you are and we will follow up about hosting an official Canberra Data Week event.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close host application form" data-close-host-form>&times;</button>
+  </div>
+  <div id="host-crm-form" class="zcwf_lblLeft crmWebToEntityForm crm-form">
+    <form id="webform105101000000481025" action="https://crm.zoho.com.au/crm/WebToLeadForm" name="WebToLeads105101000000481025" method="POST" onsubmit='document.charset="UTF-8"; return checkMandatory105101000000481025()' accept-charset="UTF-8">
+      <input type="text" class="zcwf_hidden" name="xnQsjsdp" value="0598e199176754cb9694d33197ff5b1a4d72654dff47f273c4570673564d41d3">
+      <input type="hidden" name="zc_gad" id="host_zc_gad" value="">
+      <input type="text" class="zcwf_hidden" name="xmIwtLD" value="b37c8b86bfc3199102c3de5213ed6d06d65ddddadb5b03611fd69a942201facfeee5aba78d9049266b213605bbf8b392">
+      <input type="text" class="zcwf_hidden" name="actionType" value="TGVhZHM=">
+      <input type="text" class="zcwf_hidden" name="returnURL" value="https://canberradataweek.com/host_apply_complete">
+      <!-- Do not remove this code. -->
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_First_Name">First name <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><input type="text" id="host_First_Name" aria-required="true" aria-label="First name" name="First Name" maxlength="40" autocomplete="given-name" required autofocus></div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Last_Name">Last name <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><input type="text" id="host_Last_Name" aria-required="true" aria-label="Last name" name="Last Name" maxlength="80" autocomplete="family-name" required></div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Company">Company <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><input type="text" id="host_Company" aria-required="true" aria-label="Company" name="Company" maxlength="200" autocomplete="organization" required></div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Email">Email <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><input type="text" ftype="email" id="host_Email" aria-required="true" aria-label="Email" name="Email" maxlength="100" autocomplete="email" inputmode="email" required></div>
+      </div>
+      <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
+      <div class="zcwf_actions">
+        <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit application" aria-label="Submit host application" title="Submit host application">
+        <input type="reset" class="zcwf_button" name="reset" value="Reset" aria-label="Reset host application" title="Reset host application">
+      </div>
+    </form>
+  </div>
+</dialog>
 
 <!-- FOOTER -->
 <footer class="footer" aria-label="Site footer">
@@ -1084,14 +1186,14 @@ a:hover { text-decoration: underline; }
         <ul>
           <li><a href="#host">Host an Event</a></li>
           <li><a href="#partners">Partner Opportunities</a></li>
-          <li><a href="#apply">Apply Now</a></li>
+          <li><a href="#host-form-dialog" data-open-host-form>Apply Now</a></li>
           <li><a href="#host">Info Webinars</a></li>
         </ul>
       </div>
       <div class="footer__col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="#apply">Mailing List</a></li>
+          <li><a href="#mailing-list-dialog" data-open-mailing-list>Mailing List</a></li>
           <li><a href="#apply">For Organisations</a></li>
           <li><a href="#apply">Media Enquiries</a></li>
         </ul>
@@ -1103,6 +1205,129 @@ a:hover { text-decoration: underline; }
     </div>
   </div>
 </footer>
+
+<script>
+function validateEmail105101000000481021() {
+  var form = document.forms['WebToContacts105101000000481021'];
+  var emailFields = form.querySelectorAll('[ftype=email]');
+  for (var i = 0; i < emailFields.length; i++) {
+    var emailValue = emailFields[i].value.trim();
+    if (emailValue.length !== 0) {
+      var atPosition = emailValue.indexOf('@');
+      var dotPosition = emailValue.lastIndexOf('.');
+      if (atPosition < 1 || dotPosition < atPosition + 2 || dotPosition + 2 >= emailValue.length) {
+        alert('Please enter a valid email address.');
+        emailFields[i].focus();
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function checkMandatory105101000000481021() {
+  var mandatoryFields = ['Last Name'];
+  var fieldLabels = ['Last name'];
+  for (var i = 0; i < mandatoryFields.length; i++) {
+    var field = document.forms['WebToContacts105101000000481021'][mandatoryFields[i]];
+    if (field && field.value.trim().length === 0) {
+      alert(fieldLabels[i] + ' cannot be empty.');
+      field.focus();
+      return false;
+    }
+  }
+  if (!validateEmail105101000000481021()) return false;
+
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('service') === 'smarturl') {
+    var webform = document.getElementById('webform105101000000481021');
+    var smartUrlField = document.createElement('input');
+    smartUrlField.type = 'hidden';
+    smartUrlField.value = 'smarturl';
+    smartUrlField.name = 'service';
+    webform.appendChild(smartUrlField);
+  }
+  document.querySelector('#webform105101000000481021 .formsubmit').disabled = true;
+  return true;
+}
+
+function validateEmail105101000000481025() {
+  var form = document.forms['WebToLeads105101000000481025'];
+  var emailFields = form.querySelectorAll('[ftype=email]');
+  for (var i = 0; i < emailFields.length; i++) {
+    var emailValue = emailFields[i].value.trim();
+    if (emailValue.length !== 0) {
+      var atPosition = emailValue.indexOf('@');
+      var dotPosition = emailValue.lastIndexOf('.');
+      if (atPosition < 1 || dotPosition < atPosition + 2 || dotPosition + 2 >= emailValue.length) {
+        alert('Please enter a valid email address.');
+        emailFields[i].focus();
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function checkMandatory105101000000481025() {
+  var mandatoryFields = ['Company', 'First Name', 'Last Name', 'Email'];
+  var form = document.forms['WebToLeads105101000000481025'];
+  for (var i = 0; i < mandatoryFields.length; i++) {
+    var field = form[mandatoryFields[i]];
+    if (field && field.value.trim().length === 0) {
+      alert(mandatoryFields[i] + ' cannot be empty.');
+      field.focus();
+      return false;
+    }
+  }
+  if (!validateEmail105101000000481025()) return false;
+
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('service') === 'smarturl') {
+    var smartUrlField = document.createElement('input');
+    smartUrlField.type = 'hidden';
+    smartUrlField.value = 'smarturl';
+    smartUrlField.name = 'service';
+    form.appendChild(smartUrlField);
+  }
+  document.querySelector('#webform105101000000481025 .formsubmit').disabled = true;
+  return true;
+}
+
+var mailingListDialog = document.getElementById('mailing-list-dialog');
+document.querySelectorAll('[data-open-mailing-list]').forEach(function (trigger) {
+  trigger.addEventListener('click', function (event) {
+    event.preventDefault();
+    mailingListDialog.showModal();
+  });
+});
+document.querySelector('[data-close-mailing-list]').addEventListener('click', function () {
+  mailingListDialog.close();
+});
+mailingListDialog.addEventListener('click', function (event) {
+  if (event.target === mailingListDialog) mailingListDialog.close();
+});
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && mailingListDialog.open) mailingListDialog.close();
+});
+
+var hostFormDialog = document.getElementById('host-form-dialog');
+document.querySelectorAll('[data-open-host-form]').forEach(function (trigger) {
+  trigger.addEventListener('click', function (event) {
+    event.preventDefault();
+    hostFormDialog.showModal();
+  });
+});
+document.querySelector('[data-close-host-form]').addEventListener('click', function () {
+  hostFormDialog.close();
+});
+hostFormDialog.addEventListener('click', function (event) {
+  if (event.target === hostFormDialog) hostFormDialog.close();
+});
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && hostFormDialog.open) hostFormDialog.close();
+});
+</script>
 
 </body>
 </html>
