@@ -376,12 +376,17 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .crm-form .zcwf_row { margin-block-start: 18px; }
 .crm-form .zcwf_col_lab { margin-block-end: 7px; }
 .crm-form label { display: block; color: var(--text); font-size: .86rem; font-weight: 650; }
-.crm-form input[type="text"] {
+.crm-form input[type="text"],
+.crm-form select,
+.crm-form textarea {
   inline-size: 100%; min-block-size: 46px; padding: 10px 12px;
   border: 1px solid var(--grey-200); border-radius: 5px;
   background: var(--surface); color: var(--text); font: inherit;
 }
-.crm-form input[type="text"]:focus { outline: 3px solid rgba(0,180,216,.22); border-color: var(--cdw-teal); }
+.crm-form textarea { min-block-size: 96px; resize: vertical; }
+.crm-form input[type="text"]:focus,
+.crm-form select:focus,
+.crm-form textarea:focus { outline: 3px solid rgba(0,180,216,.22); border-color: var(--cdw-teal); }
 .crm-form .zcwf_actions { display: flex; gap: 10px; margin-block-start: 24px; }
 .crm-form .zcwf_button { min-block-size: 44px; padding: 10px 20px; border-radius: 5px; font: 650 .9rem/1 var(--font); cursor: pointer; }
 .crm-form .formsubmit { border: 0; background: var(--cdw-magenta); color: #fff; }
@@ -1148,6 +1153,32 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="zcwf_col_lab"><label for="host_Email">Email <span class="zcwf_required">*</span></label></div>
         <div class="zcwf_col_fld"><input type="text" ftype="email" id="host_Email" aria-required="true" aria-label="Email" name="Email" maxlength="100" autocomplete="email" inputmode="email" required></div>
       </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Contribution_Type">How would you like to contribute? <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld">
+          <select id="host_Contribution_Type" aria-required="true" aria-label="How would you like to contribute?" required>
+            <option value="">Select an option</option>
+            <option value="Event Host">Event Host</option>
+            <option value="Venue Partner">Venue Partner</option>
+            <option value="Sponsor">Sponsor</option>
+            <option value="Data Provider">Data Provider</option>
+            <option value="Speaker or Panellist">Speaker or Panellist</option>
+            <option value="Media and Comms Partner">Media and Comms Partner</option>
+            <option value="Academic Partner">Academic Partner</option>
+            <option value="Community Partner">Community Partner</option>
+            <option value="Careers Mentor">Careers Mentor</option>
+            <option value="Hackathon Challenge Setter">Hackathon Challenge Setter</option>
+            <option value="Online Event Host">Online Event Host</option>
+            <option value="Catering and Hospitality Partner">Catering and Hospitality Partner</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
+        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
+      </div>
+      <textarea class="zcwf_hidden" id="host_Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
       <div class="zcwf_actions">
         <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit application" aria-label="Submit host application" title="Submit host application">
@@ -1274,6 +1305,25 @@ function checkMandatory105101000000481025() {
     }
   }
   if (!validateEmail105101000000481025()) return false;
+
+  var contributionType = document.getElementById('host_Contribution_Type');
+  var idea = document.getElementById('host_Idea');
+  var description = document.getElementById('host_Description');
+  if (!contributionType || contributionType.value.trim().length === 0) {
+    alert('Please select how you would like to contribute.');
+    if (contributionType) contributionType.focus();
+    return false;
+  }
+  if (contributionType.value === 'Other' && idea && idea.value.trim().length === 0) {
+    alert('Please tell us briefly what you have in mind.');
+    idea.focus();
+    return false;
+  }
+  var descriptionLines = ['CDW Contribution Type: ' + contributionType.value];
+  if (idea && idea.value.trim().length > 0) {
+    descriptionLines.push('CDW Idea: ' + idea.value.trim());
+  }
+  description.value = descriptionLines.join('\n');
 
   var urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('service') === 'smarturl') {
