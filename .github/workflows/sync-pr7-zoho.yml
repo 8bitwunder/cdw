@@ -1,0 +1,52 @@
+name: Sync PR 7 Zoho form
+
+on:
+  push:
+    branches:
+      - feature/host-form-contribution
+    paths:
+      - .github/workflows/sync-pr7-zoho.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/host-form-contribution
+
+      - name: Sync Zoho tokens and final Get Involved copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          replacements = [
+            ('name="xnQsjsdp" value="0598e199176754cb9694d33197ff5b1a4d72654dff47f273c4570673564d41d3"',
+             'name="xnQsjsdp" value="d0cd93759843be90d03c2965838d80ae91747f32bea65892853a62e009da7b08"'),
+            ('name="xmIwtLD" value="b37c8b86bfc3199102c3de5213ed6d06d65ddddadb5b03611fd69a942201facfeee5aba78d9049266b213605bbf8b392"',
+             'name="xmIwtLD" value="13ee5a86092d490f95c8c0471f36b94f105120933ac530d3b8b8a3ee645991560ceeab4bdfa4057ad1b616c85285b3d4"'),
+            ('<button class="btn btn--primary" type="button" data-open-host-form>Apply to Host an Event</button>',
+             '<button class="btn btn--primary" type="button" data-open-host-form>Get Involved</button>')
+          ]
+
+          for old, new in replacements:
+            if old not in s:
+              raise SystemExit('Target not found: ' + old[:80])
+            s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Sync Zoho form tokens and Get Involved CTA"
+          git push origin HEAD:feature/host-form-contribution
