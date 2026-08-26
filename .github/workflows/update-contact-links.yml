@@ -1,0 +1,53 @@
+name: Update contact links
+
+on:
+  push:
+    branches:
+      - fix/contact-links
+    paths:
+      - .github/workflows/update-contact-links.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/contact-links
+
+      - name: Update footer contact links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_volunteer = '<li><a href="#apply">For Organisations</a></li>'
+          new_volunteer = '<li><a href="mailto:hello@canberradataweek.com?subject=Volunteer%20at%20Canberra%20Data%20Week&amp;body=Hi%20CDW%20team%2C%0A%0AI%27d%20love%20to%20volunteer%20at%20Canberra%20Data%20Week.%20A%20little%20about%20me%20and%20how%20I%27d%20like%20to%20help%20is%3A%0A%0A">Want to volunteer at CDW?</a></li>'
+
+          old_media = '<li><a href="#apply">Media Enquiries</a></li>'
+          new_media = '<li><a href="mailto:hello@canberradataweek.com?subject=Media%20enquiry%20-%20Canberra%20Data%20Week">Media Enquiries</a></li>'
+
+          if old_volunteer not in text:
+              raise SystemExit('Volunteer placeholder link not found')
+          if old_media not in text:
+              raise SystemExit('Media enquiries placeholder link not found')
+
+          text = text.replace(old_volunteer, new_volunteer, 1)
+          text = text.replace(old_media, new_media, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit contact link changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Update volunteer and media contact links"
+          git push origin HEAD:fix/contact-links
