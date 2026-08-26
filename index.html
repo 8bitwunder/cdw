@@ -1180,7 +1180,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
         <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
       </div>
-      <textarea class="zcwf_hidden" id="host_Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
+      <textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
       <div class="zcwf_actions">
         <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit interest" aria-label="Submit interest" title="Submit interest">
@@ -1310,7 +1310,7 @@ function checkMandatory105101000000481025() {
 
   var contributionType = document.getElementById('host_Contribution_Type');
   var idea = document.getElementById('host_Idea');
-  var description = document.getElementById('host_Description');
+  var description = document.getElementById('Description');
   if (!contributionType || contributionType.value.trim().length === 0) {
     alert('Please select how you would like to contribute.');
     if (contributionType) contributionType.focus();
@@ -1323,7 +1323,7 @@ function checkMandatory105101000000481025() {
   }
   var descriptionLines = ['CDW Contribution Type: ' + contributionType.value];
   if (idea && idea.value.trim().length > 0) {
-    descriptionLines.push('CDW Idea: ' + idea.value.trim());
+    descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());
   }
   description.value = descriptionLines.join('\n');
 
