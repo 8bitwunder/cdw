@@ -1,0 +1,52 @@
+name: Fix PR 7 Description mapping
+
+on:
+  push:
+    branches:
+      - feature/host-form-contribution
+    paths:
+      - .github/workflows/fix-pr7-description.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-description:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/host-form-contribution
+
+      - name: Match Zoho Description field exactly
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          replacements = [
+            ('<textarea class="zcwf_hidden" id="host_Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>',
+             '<textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>'),
+            ("var description = document.getElementById('host_Description');",
+             "var description = document.getElementById('Description');"),
+            ("descriptionLines.push('CDW Idea: ' + idea.value.trim());",
+             "descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());")
+          ]
+
+          for old, new in replacements:
+            if old not in s:
+              raise SystemExit('Target not found: ' + old)
+            s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Match Zoho Description field exactly"
+          git push origin HEAD:feature/host-form-contribution
