@@ -376,12 +376,17 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .crm-form .zcwf_row { margin-block-start: 18px; }
 .crm-form .zcwf_col_lab { margin-block-end: 7px; }
 .crm-form label { display: block; color: var(--text); font-size: .86rem; font-weight: 650; }
-.crm-form input[type="text"] {
+.crm-form input[type="text"],
+.crm-form select,
+.crm-form textarea {
   inline-size: 100%; min-block-size: 46px; padding: 10px 12px;
   border: 1px solid var(--grey-200); border-radius: 5px;
   background: var(--surface); color: var(--text); font: inherit;
 }
-.crm-form input[type="text"]:focus { outline: 3px solid rgba(0,180,216,.22); border-color: var(--cdw-teal); }
+.crm-form textarea { min-block-size: 96px; resize: vertical; }
+.crm-form input[type="text"]:focus,
+.crm-form select:focus,
+.crm-form textarea:focus { outline: 3px solid rgba(0,180,216,.22); border-color: var(--cdw-teal); }
 .crm-form .zcwf_actions { display: flex; gap: 10px; margin-block-start: 24px; }
 .crm-form .zcwf_button { min-block-size: 44px; padding: 10px 20px; border-radius: 5px; font: 650 .9rem/1 var(--font); cursor: pointer; }
 .crm-form .formsubmit { border: 0; background: var(--cdw-magenta); color: #fff; }
@@ -554,7 +559,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <h1 class="hero__title">Data in the<br><em>public good.</em></h1>
         <p class="hero__tagline">Canberra Data Week brings together public sector, industry, academia and community to explore how data can improve decisions, services and lives.</p>
         <div class="hero__actions">
-          <button class="btn btn--primary" type="button" data-open-host-form>Apply to Host an Event</button>
+          <button class="btn btn--primary" type="button" data-open-host-form>Get Involved</button>
           <a class="btn btn--secondary" href="#events">Explore Events</a>
         </div>
       </div>
@@ -969,8 +974,8 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="step" role="listitem">
           <div class="step__num" aria-label="Step 3">3</div>
           <div class="step__body">
-            <h3>Attend an Information Webinar</h3>
-            <p>Join one of our free online briefings to learn more about hosting, ask questions and refine your event concept before applying.</p>
+            <h3>Join an Information Webinar</h3>
+            <p>Join one of three Tuesday online sessions at 5 pm to learn how Canberra Data Week works, explore ways to contribute, ask questions and shape your idea.</p>
           </div>
         </div>
         <div class="step" role="listitem">
@@ -1008,12 +1013,14 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
           <li>A confirmed or proposed venue for in-person events</li>
         </ul>
         <div class="webinar-box">
-          <h4>Information Webinars in 2026</h4>
+          <h4>Information Webinars, September 2026</h4>
+          <p>Join us online at 5 pm on any of the following Tuesdays.</p>
           <ul>
-            <li>Webinar 1: Date TBC (register to be notified)</li>
-            <li>Webinar 2: Date TBC (register to be notified)</li>
-            <li>Webinar 3: Date TBC (register to be notified)</li>
+            <li>Tuesday 1 September, 5 pm, Online</li>
+            <li>Tuesday 8 September, 5 pm, Online</li>
+            <li>Tuesday 15 September, 5 pm, Online</li>
           </ul>
+          <a class="btn btn--navy" href="https://www.trybooking.com/DPICX" target="_blank" rel="noopener noreferrer">Register for an Information Webinar</a>
         </div>
       </div>
     </div>
@@ -1073,10 +1080,10 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 <!-- CTA -->
 <section class="cta-band" id="apply" aria-label="Call to action">
   <div class="container" style="position:relative;z-index:1;">
-    <h2>Ready to host an event?</h2>
-    <p>Applications are open. Join a growing community of Canberra organisations using data to make a difference, and put your expertise on the public stage.</p>
+    <h2>Ready to get involved?</h2>
+    <p>Canberra Data Week is built by the community. Tell us how you would like to contribute, from hosting an event or speaking to sharing data, offering a venue or supporting the week.</p>
     <div class="cta-band__actions">
-      <button class="btn btn--primary" type="button" data-open-host-form>Apply to Host an Event</button>
+      <button class="btn btn--primary" type="button" data-open-host-form>Get Involved</button>
       <button class="btn btn--secondary" type="button" data-open-mailing-list>Join the Mailing List</button>
     </div>
   </div>
@@ -1119,16 +1126,16 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 <!-- APPLY TO HOST -->
 <dialog class="mailing-dialog host-dialog" id="host-form-dialog" aria-labelledby="host-form-title">
   <div class="mailing-dialog__header">
-    <p class="mailing-dialog__eyebrow">Be part of the program</p>
-    <h2 id="host-form-title">Apply to host</h2>
-    <p class="mailing-dialog__intro">Tell us who you are and we will follow up about hosting an official Canberra Data Week event.</p>
+    <p class="mailing-dialog__eyebrow">Be part of Canberra Data Week</p>
+    <h2 id="host-form-title">Get involved</h2>
+    <p class="mailing-dialog__intro">Tell us how you would like to contribute and a little about what you have in mind. We will follow up with the right next step.</p>
     <button class="mailing-dialog__close" type="button" aria-label="Close host application form" data-close-host-form>&times;</button>
   </div>
   <div id="host-crm-form" class="zcwf_lblLeft crmWebToEntityForm crm-form">
     <form id="webform105101000000481025" action="https://crm.zoho.com.au/crm/WebToLeadForm" name="WebToLeads105101000000481025" method="POST" onsubmit='document.charset="UTF-8"; return checkMandatory105101000000481025()' accept-charset="UTF-8">
-      <input type="text" class="zcwf_hidden" name="xnQsjsdp" value="0598e199176754cb9694d33197ff5b1a4d72654dff47f273c4570673564d41d3">
+      <input type="text" class="zcwf_hidden" name="xnQsjsdp" value="1db847b866f5c90ba73300be6a6351123c3de97d986c414bcc2e4895e32e9a0b">
       <input type="hidden" name="zc_gad" id="host_zc_gad" value="">
-      <input type="text" class="zcwf_hidden" name="xmIwtLD" value="b37c8b86bfc3199102c3de5213ed6d06d65ddddadb5b03611fd69a942201facfeee5aba78d9049266b213605bbf8b392">
+      <input type="text" class="zcwf_hidden" name="xmIwtLD" value="3e26db49e3e41cbd2f6f900f0bf6bad5193ac3d23588773e6400d7e81b934b7ce173a413be5a0036d3dd854c894445c1">
       <input type="text" class="zcwf_hidden" name="actionType" value="TGVhZHM=">
       <input type="text" class="zcwf_hidden" name="returnURL" value="https://canberradataweek.com/host_apply_complete">
       <!-- Do not remove this code. -->
@@ -1148,9 +1155,35 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="zcwf_col_lab"><label for="host_Email">Email <span class="zcwf_required">*</span></label></div>
         <div class="zcwf_col_fld"><input type="text" ftype="email" id="host_Email" aria-required="true" aria-label="Email" name="Email" maxlength="100" autocomplete="email" inputmode="email" required></div>
       </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Contribution_Type">How would you like to contribute? <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld">
+          <select id="host_Contribution_Type" aria-required="true" aria-label="How would you like to contribute?" required>
+            <option value="">Select an option</option>
+            <option value="Event Host">Event Host</option>
+            <option value="Venue Partner">Venue Partner</option>
+            <option value="Sponsor">Sponsor</option>
+            <option value="Data Provider">Data Provider</option>
+            <option value="Speaker or Panellist">Speaker or Panellist</option>
+            <option value="Media and Comms Partner">Media and Comms Partner</option>
+            <option value="Academic Partner">Academic Partner</option>
+            <option value="Community Partner">Community Partner</option>
+            <option value="Careers Mentor">Careers Mentor</option>
+            <option value="Hackathon Challenge Setter">Hackathon Challenge Setter</option>
+            <option value="Online Event Host">Online Event Host</option>
+            <option value="Catering and Hospitality Partner">Catering and Hospitality Partner</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="zcwf_row">
+        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
+        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
+      </div>
+      <textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
       <div class="zcwf_actions">
-        <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit application" aria-label="Submit host application" title="Submit host application">
+        <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit interest" aria-label="Submit interest" title="Submit interest">
         <input type="reset" class="zcwf_button" name="reset" value="Reset" aria-label="Reset host application" title="Reset host application">
       </div>
     </form>
@@ -1179,7 +1212,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <ul>
           <li><a href="#host">Host an Event</a></li>
           <li><a href="#partners">Partner Opportunities</a></li>
-          <li><a href="#host-form-dialog" data-open-host-form>Apply Now</a></li>
+          <li><a href="#host-form-dialog" data-open-host-form>Get Involved</a></li>
           <li><a href="#host">Info Webinars</a></li>
         </ul>
       </div>
@@ -1274,6 +1307,25 @@ function checkMandatory105101000000481025() {
     }
   }
   if (!validateEmail105101000000481025()) return false;
+
+  var contributionType = document.getElementById('host_Contribution_Type');
+  var idea = document.getElementById('host_Idea');
+  var description = document.getElementById('Description');
+  if (!contributionType || contributionType.value.trim().length === 0) {
+    alert('Please select how you would like to contribute.');
+    if (contributionType) contributionType.focus();
+    return false;
+  }
+  if (contributionType.value === 'Other' && idea && idea.value.trim().length === 0) {
+    alert('Please tell us briefly what you have in mind.');
+    idea.focus();
+    return false;
+  }
+  var descriptionLines = ['CDW Contribution Type: ' + contributionType.value];
+  if (idea && idea.value.trim().length > 0) {
+    descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());
+  }
+  description.value = descriptionLines.join('\n');
 
   var urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('service') === 'smarturl') {
