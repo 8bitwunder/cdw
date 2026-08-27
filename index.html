@@ -369,6 +369,20 @@ a:hover { text-decoration: underline; }
 .mailing-dialog__close:hover { border-color: var(--cdw-magenta); color: var(--cdw-magenta); }
 body:has(.mailing-dialog[open]) { overflow: hidden; }
 .host-dialog { inline-size: min(560px, calc(100% - 32px)); }
+.event-dialog { inline-size: min(760px, calc(100% - 32px)); }
+.event-dialog__body { padding: 0 30px 30px; }
+.event-dialog__details { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-block: 4px 22px; color: var(--grey-600); font-size: .88rem; }
+.event-dialog__agenda { display: grid; gap: 0; margin-block: 8px 26px; border-block-start: 1px solid var(--grey-200); }
+.event-dialog__agenda-row { display: grid; grid-template-columns: 132px 1fr; gap: 18px; padding-block: 13px; border-block-end: 1px solid var(--grey-200); }
+.event-dialog__time { color: var(--cdw-magenta); font-size: .82rem; font-weight: 700; }
+.event-dialog__session { color: var(--text); font-size: .9rem; line-height: 1.45; }
+.event-dialog__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.event-card--interactive { cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.event-card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.event-card--interactive:focus-visible { outline: 3px solid rgba(0,180,216,.35); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .event-dialog__agenda-row { grid-template-columns: 1fr; gap: 4px; }
+}
 .crm-form { inline-size: 100%; padding: 0 30px 30px; }
 .crm-form * { box-sizing: border-box; }
 .crm-form .zcwf_hidden { display: none; }
@@ -721,14 +735,14 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     </div>
 
     <div class="events-grid">
-      <article class="event-card" data-type="panel">
+      <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="microsoft-event-dialog" data-open-microsoft-event>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
           <span class="tag tag--venue">Microsoft Canberra &middot; Anchor Event</span>
         </div>
         <h3>Opening Event: Data and the Future of Public Services</h3>
         <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
-        <p class="event-card__status">Confirmed</p>
+        <p class="event-card__status">Confirmed &middot; View agenda</p>
       </article>
 
       <article class="event-card" data-type="walk">
@@ -1190,6 +1204,38 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   </div>
 </dialog>
 
+<!-- MICROSOFT EVENT DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="microsoft-event-dialog" aria-labelledby="microsoft-event-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Microsoft Canberra &middot; Canberra Data Week Anchor Event</p>
+    <h2 id="microsoft-event-title">Opening Event: Data and the Future of Public Services</h2>
+    <p class="mailing-dialog__intro">A day of demonstrations, discussion and practical sessions exploring how data and AI can create better public outcomes.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Microsoft event details" data-close-microsoft-event>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Tuesday 29 September 2026</strong></span>
+      <span>10:00 AM - 2:40 PM</span>
+      <span>Microsoft Canberra</span>
+    </div>
+    <h3>Agenda</h3>
+    <div class="event-dialog__agenda">
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">10:00 AM - 10:15 AM</div><div class="event-dialog__session">Arrival and Networking</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">10:15 AM - 10:35 AM</div><div class="event-dialog__session">Welcome: Why Data and AI Matter for Public Good</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">10:35 AM - 11:15 AM</div><div class="event-dialog__session">Demo: Turning Public Data Into Insights, Impact and Outcomes (William Gledhill/Matthias Wong)</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">11:15 AM - 11:50 AM</div><div class="event-dialog__session">Discussion: Governance, Privacy and Guardrails for Trusted Innovation</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">11:50 AM - 12:30 PM</div><div class="event-dialog__session">Lunch</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">12:30 PM - 01:10 PM</div><div class="event-dialog__session">Chief Minister of the Day Demo</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">01:10 PM - 01:40 PM</div><div class="event-dialog__session">Public Sector Showcase</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">01:40 PM - 02:20 PM</div><div class="event-dialog__session">Microsoft Data Champs - Prep Your Data for &amp; with AI Workshop</div></div>
+      <div class="event-dialog__agenda-row"><div class="event-dialog__time">02:20 PM - 02:40 PM</div><div class="event-dialog__session">Wrap up and Networking</div></div>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://www.trybooking.com/DPJCB" target="_blank" rel="noopener noreferrer">Register for this event</a>
+    </div>
+  </div>
+</dialog>
+
 <!-- FOOTER -->
 <footer class="footer" aria-label="Site footer">
   <div class="container">
@@ -1371,6 +1417,29 @@ hostFormDialog.addEventListener('click', function (event) {
 });
 document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' && hostFormDialog.open) hostFormDialog.close();
+});
+
+var microsoftEventDialog = document.getElementById('microsoft-event-dialog');
+document.querySelectorAll('[data-open-microsoft-event]').forEach(function (trigger) {
+  trigger.addEventListener('click', function (event) {
+    event.preventDefault();
+    microsoftEventDialog.showModal();
+  });
+  trigger.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      microsoftEventDialog.showModal();
+    }
+  });
+});
+document.querySelector('[data-close-microsoft-event]').addEventListener('click', function () {
+  microsoftEventDialog.close();
+});
+microsoftEventDialog.addEventListener('click', function (event) {
+  if (event.target === microsoftEventDialog) microsoftEventDialog.close();
+});
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && microsoftEventDialog.open) microsoftEventDialog.close();
 });
 </script>
 
