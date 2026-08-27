@@ -377,9 +377,13 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .event-dialog__time { color: var(--cdw-magenta); font-size: .82rem; font-weight: 700; }
 .event-dialog__session { color: var(--text); font-size: .9rem; line-height: 1.45; }
 .event-dialog__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.event-card--interactive { cursor: pointer; transition: transform .15s, box-shadow .15s; }
-.event-card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.event-card--interactive:focus-visible { outline: 3px solid rgba(0,180,216,.35); outline-offset: 3px; }
+.event-card--interactive { cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
+.event-card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--cdw-teal); }
+.event-card--interactive:focus-visible { outline: 3px solid rgba(0,180,216,.35); outline-offset: 3px; border-color: var(--cdw-teal); }
+.event-card__action { display: inline-flex; align-items: center; gap: 8px; margin-block-start: 8px; color: var(--cdw-purple); font-size: .88rem; font-weight: 700; }
+.event-card__action-arrow { display: inline-block; transition: transform .15s; }
+.event-card--interactive:hover .event-card__action-arrow,
+.event-card--interactive:focus-visible .event-card__action-arrow { transform: translateX(4px); }
 @media (max-width: 600px) {
   .event-dialog__agenda-row { grid-template-columns: 1fr; gap: 4px; }
 }
@@ -742,7 +746,8 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
         <h3>Opening Event: Data and the Future of Public Services</h3>
         <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
-        <p class="event-card__status">Confirmed &middot; View agenda</p>
+        <p class="event-card__status">Confirmed</p>
+        <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
       </article>
 
       <article class="event-card" data-type="walk">
