@@ -1,0 +1,25 @@
+name: Patch Apply to Run Event CTA
+
+on:
+  push:
+    branches:
+      - fix/apply-run-event-modal
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire CTA to Get Involved modal
+        run: python -c "from pathlib import Path; p=Path('index.html'); s=p.read_text(); old='<a class=\"btn btn--navy\" href=\"#apply\">Apply to Run an Event</a>'; new='<button class=\"btn btn--navy\" type=\"button\" data-open-host-form>Apply to Run an Event</button>'; assert s.count(old)==1, f'expected one match, got {s.count(old)}'; p.write_text(s.replace(old,new,1))"
+      - name: Commit change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Open Get Involved form from event CTA"
+          git push
