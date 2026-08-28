@@ -1199,6 +1199,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
         <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
       </div>
+      <input type="hidden" id="cdw_form_token" name="cdw_form_token" value="cdw-host-form-v1">
       <textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
       <div class="zcwf_actions">
@@ -1372,7 +1373,11 @@ function checkMandatory105101000000481025() {
     idea.focus();
     return false;
   }
-  var descriptionLines = ['CDW Contribution Type: ' + contributionType.value];
+  var formToken = document.getElementById('cdw_form_token');
+  var descriptionLines = [
+    'CDW Form Token: ' + (formToken ? formToken.value : ''),
+    'CDW Contribution Type: ' + contributionType.value
+  ];
   if (idea && idea.value.trim().length > 0) {
     descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());
   }
