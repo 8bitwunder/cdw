@@ -7,3 +7,5 @@ new = ".event-dialog{inline-size:min(760px,calc(100% - 32px));overflow:hidden;di
 if old not in text:
     raise SystemExit('Target event dialog CSS not found')
 path.write_text(text.replace(old, new, 1))
+
+# Triggered as a one-shot patch for PR 12.
