@@ -1,0 +1,27 @@
+name: Update event card status UX
+
+on:
+  push:
+    branches:
+      - feature/event-card-status-ux
+    paths:
+      - .github/scripts/update-event-card-status-ux.py
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply patch
+        run: python .github/scripts/update-event-card-status-ux.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Refine event card status and date UX" || exit 0
+          git push
