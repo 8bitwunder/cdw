@@ -231,7 +231,8 @@ a:hover { text-decoration: underline; }
 .event-card {
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm);
   padding: 22px; display: flex; flex-direction: column; gap: 10px;
-  border: 1px solid var(--grey-100); transition: box-shadow .2s, transform .15s;
+  border: 1px solid var(--grey-100); color: inherit; text-decoration: none;
+  transition: box-shadow .2s, transform .15s;
 }
 .event-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .event-card__meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
@@ -750,15 +751,16 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
       </article>
 
-      <article class="event-card" data-type="walk">
+      <a class="event-card event-card--interactive" data-type="walk" href="https://www.trybooking.com/DPTBD" target="_blank" rel="noopener noreferrer" aria-label="Register for Data Chat Walk: Lake Burley Griffin (opens in a new tab)">
         <div class="event-card__meta">
           <span class="tag tag--walk">Walk</span>
-          <span class="tag tag--venue">Lake Burley Griffin Foreshore</span>
+          <span class="tag tag--venue">Wednesday, 30 September &middot; Lake Burley Griffin Foreshore</span>
         </div>
         <h3>Data Chat Walk: Lake Burley Griffin</h3>
-        <p>Swap the boardroom for the lakeside and explore big data ideas on the move, inspired by the 'She Shapes History' style of walking and talking. Lace up and join the conversation.</p>
-        <p class="event-card__status">Open to Partner Hosts</p>
-      </article>
+        <p>Join a volunteer-led walk around the lake, pausing every 15 minutes to discover a data story. Learn, share and connect through side-by-side conversations in the fresh air.</p>
+        <p class="event-card__status">Registrations open</p>
+        <span class="event-card__action" aria-hidden="true">Register for this walk <span class="event-card__action-arrow">&rarr;</span></span>
+      </a>
 
       <article class="event-card" data-type="panel">
         <div class="event-card__meta">
