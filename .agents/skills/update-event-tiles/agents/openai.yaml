@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Event Tiles"
+  short_description: "Keep CDW event tiles and dialogs consistent"
+  default_prompt: "Update a Canberra Data Week event tile and its details dialog using the established accessible interaction pattern."
