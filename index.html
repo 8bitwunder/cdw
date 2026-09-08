@@ -372,6 +372,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .event-dialog { inline-size: min(760px, calc(100% - 32px)); }
 .event-dialog__body { padding: 0 30px 30px; }
 .event-dialog__details { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-block: 4px 22px; color: var(--grey-600); font-size: .88rem; }
+.event-dialog__description { display: grid; gap: 12px; margin-block: 8px 26px; }
 .event-dialog__agenda { display: grid; gap: 0; margin-block: 8px 26px; border-block-start: 1px solid var(--grey-200); }
 .event-dialog__agenda-row { display: grid; grid-template-columns: 132px 1fr; gap: 18px; padding-block: 13px; border-block-end: 1px solid var(--grey-200); }
 .event-dialog__time { color: var(--cdw-magenta); font-size: .82rem; font-weight: 700; }
@@ -750,14 +751,15 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
       </article>
 
-      <article class="event-card" data-type="walk">
+      <article class="event-card event-card--interactive" data-type="walk" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-walk-dialog" data-open-data-walk>
         <div class="event-card__meta">
           <span class="tag tag--walk">Walk</span>
-          <span class="tag tag--venue">Lake Burley Griffin Foreshore</span>
+          <span class="tag tag--venue">30 Sept &middot; Lake Burley Griffin</span>
         </div>
         <h3>Data Chat Walk: Lake Burley Griffin</h3>
-        <p>Swap the boardroom for the lakeside and explore big data ideas on the move, inspired by the 'She Shapes History' style of walking and talking. Lace up and join the conversation.</p>
-        <p class="event-card__status">Open to Partner Hosts</p>
+        <p>Walk, talk and connect around the lake with a volunteer guide, pausing every 15 minutes to explore a new data story.</p>
+        <p class="event-card__status">Registrations open</p>
+        <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
       </article>
 
       <article class="event-card" data-type="panel">
@@ -1210,6 +1212,31 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   </div>
 </dialog>
 
+<!-- DATA WALK EVENT DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="data-walk-dialog" aria-labelledby="data-walk-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Lake Burley Griffin &middot; Data Chat Walk</p>
+    <h2 id="data-walk-title">Data Chat Walk: Lake Burley Griffin</h2>
+    <p class="mailing-dialog__intro">Swap the boardroom for the lakeside and take the conversation outside.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Data Chat Walk details" data-close-data-walk>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Wednesday 30 September 2026</strong></span>
+      <span>Lake Burley Griffin</span>
+    </div>
+    <h3>About the walk</h3>
+    <div class="event-dialog__description">
+      <p>A volunteer guide will lead a relaxed walk around the lake, stopping every 15 minutes to share a new story about data, AI and how they can be used for good.</p>
+      <p>Inspired by the She Shapes History style of walking and talking, the walk is designed to help people learn and connect through side-by-side conversation.</p>
+      <p>No slides. No meeting rooms. Just fresh air, good company and conversations worth having. Lace up, come curious and join the conversation.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://www.trybooking.com/DPTBD" target="_blank" rel="noopener noreferrer">Register for this walk</a>
+    </div>
+  </div>
+</dialog>
+
 <!-- MICROSOFT EVENT DETAILS -->
 <dialog class="mailing-dialog event-dialog" id="microsoft-event-dialog" aria-labelledby="microsoft-event-title">
   <div class="mailing-dialog__header">
@@ -1427,6 +1454,29 @@ hostFormDialog.addEventListener('click', function (event) {
 });
 document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' && hostFormDialog.open) hostFormDialog.close();
+});
+
+var dataWalkDialog = document.getElementById('data-walk-dialog');
+document.querySelectorAll('[data-open-data-walk]').forEach(function (trigger) {
+  trigger.addEventListener('click', function (event) {
+    event.preventDefault();
+    dataWalkDialog.showModal();
+  });
+  trigger.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      dataWalkDialog.showModal();
+    }
+  });
+});
+document.querySelector('[data-close-data-walk]').addEventListener('click', function () {
+  dataWalkDialog.close();
+});
+dataWalkDialog.addEventListener('click', function (event) {
+  if (event.target === dataWalkDialog) dataWalkDialog.close();
+});
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && dataWalkDialog.open) dataWalkDialog.close();
 });
 
 var microsoftEventDialog = document.getElementById('microsoft-event-dialog');
