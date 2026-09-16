@@ -1198,12 +1198,13 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </div>
       <div class="zcwf_row">
-        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
-        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
+        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-required="true" aria-label="Tell us briefly what you have in mind" minlength="20" maxlength="3000" placeholder="A few sentences is plenty." required></textarea></div>
       </div>
       <input type="hidden" id="cdw_form_token" name="cdw_form_token" value="cdw-host-form-v1">
       <textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
+      <input type="text" class="zcwf_hidden" id="host_website" name="cdw_website" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="zcwf_actions">
         <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit interest" aria-label="Submit interest" title="Submit interest">
         <input type="reset" class="zcwf_button" name="reset" value="Reset" aria-label="Reset host application" title="Reset host application">
@@ -1377,6 +1378,10 @@ function validateEmail105101000000481025() {
 function checkMandatory105101000000481025() {
   var mandatoryFields = ['Company', 'First Name', 'Last Name', 'Email'];
   var form = document.forms['WebToLeads105101000000481025'];
+  var honeypot = document.getElementById('host_website');
+  if ((honeypot && honeypot.value.trim().length > 0) || Date.now() - hostFormLoadedAt < 4000) {
+    return false;
+  }
   for (var i = 0; i < mandatoryFields.length; i++) {
     var field = form[mandatoryFields[i]];
     if (field && field.value.trim().length === 0) {
@@ -1395,19 +1400,21 @@ function checkMandatory105101000000481025() {
     if (contributionType) contributionType.focus();
     return false;
   }
-  if (contributionType.value === 'Other' && idea && idea.value.trim().length === 0) {
-    alert('Please tell us briefly what you have in mind.');
-    idea.focus();
+  var ideaValue = idea ? idea.value.trim() : '';
+  if (ideaValue.length < 20) {
+    alert('Please tell us what you have in mind using at least 20 characters.');
+    if (idea) idea.focus();
     return false;
   }
+  var spamPatterns = /\[url=|\[link=|telegram|bitcoin|crypto|casino|viagra/i;
+  if (spamPatterns.test(ideaValue)) return false;
+
   var formToken = document.getElementById('cdw_form_token');
   var descriptionLines = [
     'CDW Form Token: ' + (formToken ? formToken.value : ''),
     'CDW Contribution Type: ' + contributionType.value
   ];
-  if (idea && idea.value.trim().length > 0) {
-    descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());
-  }
+  descriptionLines.push('CDW Contribution Details: ' + ideaValue);
   description.value = descriptionLines.join('\n');
 
   var urlParams = new URLSearchParams(window.location.search);
@@ -1422,6 +1429,7 @@ function checkMandatory105101000000481025() {
   return true;
 }
 
+var hostFormLoadedAt = Date.now();
 var mailingListDialog = document.getElementById('mailing-list-dialog');
 document.querySelectorAll('[data-open-mailing-list]').forEach(function (trigger) {
   trigger.addEventListener('click', function (event) {
