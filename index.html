@@ -1153,7 +1153,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     <button class="mailing-dialog__close" type="button" aria-label="Close host application form" data-close-host-form>&times;</button>
   </div>
   <div id="host-crm-form" class="zcwf_lblLeft crmWebToEntityForm crm-form">
-    <form id="webform105101000000481025" action="https://crm.zoho.com.au/crm/WebToLeadForm" name="WebToLeads105101000000481025" method="POST" onsubmit='document.charset="UTF-8"; return checkMandatory105101000000481025()' accept-charset="UTF-8">
+    <form id="webform105101000000481025" action="/api/host-application" name="WebToLeads105101000000481025" method="POST" onsubmit='document.charset="UTF-8"; return checkMandatory105101000000481025()' accept-charset="UTF-8">
       <input type="text" class="zcwf_hidden" name="xnQsjsdp" value="1db847b866f5c90ba73300be6a6351123c3de97d986c414bcc2e4895e32e9a0b">
       <input type="hidden" name="zc_gad" id="host_zc_gad" value="">
       <input type="text" class="zcwf_hidden" name="xmIwtLD" value="3e26db49e3e41cbd2f6f900f0bf6bad5193ac3d23588773e6400d7e81b934b7ce173a413be5a0036d3dd854c894445c1">
@@ -1198,12 +1198,14 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </div>
       <div class="zcwf_row">
-        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind</label></div>
-        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-label="Tell us briefly what you have in mind" maxlength="3000" placeholder="A few sentences is plenty."></textarea></div>
+        <div class="zcwf_col_lab"><label for="host_Idea">Tell us briefly what you have in mind <span class="zcwf_required">*</span></label></div>
+        <div class="zcwf_col_fld"><textarea id="host_Idea" aria-required="true" aria-label="Tell us briefly what you have in mind" minlength="20" maxlength="3000" placeholder="A few sentences is plenty." required></textarea></div>
       </div>
       <input type="hidden" id="cdw_form_token" name="cdw_form_token" value="cdw-host-form-v1">
+      <input type="hidden" id="cdw_form_loaded_at" name="cdw_form_loaded_at" value="">
       <textarea class="zcwf_hidden" id="Description" name="Description" aria-hidden="true" tabindex="-1"></textarea>
       <input type="text" class="zcwf_hidden" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
+      <input type="text" class="zcwf_hidden" id="host_website" name="cdw_website" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="zcwf_actions">
         <input type="submit" id="formsubmit_host" class="formsubmit zcwf_button" value="Submit interest" aria-label="Submit interest" title="Submit interest">
         <input type="reset" class="zcwf_button" name="reset" value="Reset" aria-label="Reset host application" title="Reset host application">
@@ -1377,6 +1379,12 @@ function validateEmail105101000000481025() {
 function checkMandatory105101000000481025() {
   var mandatoryFields = ['Company', 'First Name', 'Last Name', 'Email'];
   var form = document.forms['WebToLeads105101000000481025'];
+  var formToken = document.getElementById('cdw_form_token');
+  var honeypot = document.getElementById('host_website');
+  if (!formToken || formToken.value !== 'cdw-host-form-v1' ||
+      (honeypot && honeypot.value.trim().length > 0) || Date.now() - hostFormLoadedAt < 4000) {
+    return false;
+  }
   for (var i = 0; i < mandatoryFields.length; i++) {
     var field = form[mandatoryFields[i]];
     if (field && field.value.trim().length === 0) {
@@ -1395,19 +1403,20 @@ function checkMandatory105101000000481025() {
     if (contributionType) contributionType.focus();
     return false;
   }
-  if (contributionType.value === 'Other' && idea && idea.value.trim().length === 0) {
-    alert('Please tell us briefly what you have in mind.');
-    idea.focus();
+  var ideaValue = idea ? idea.value.trim() : '';
+  if (ideaValue.length < 20) {
+    alert('Please tell us what you have in mind using at least 20 characters.');
+    if (idea) idea.focus();
     return false;
   }
-  var formToken = document.getElementById('cdw_form_token');
+  var spamPatterns = /\[url=|\[link=|telegram|bitcoin|crypto|casino|viagra/i;
+  if (spamPatterns.test(ideaValue)) return false;
+
   var descriptionLines = [
-    'CDW Form Token: ' + (formToken ? formToken.value : ''),
+    'CDW Form Token: ' + formToken.value,
     'CDW Contribution Type: ' + contributionType.value
   ];
-  if (idea && idea.value.trim().length > 0) {
-    descriptionLines.push('CDW Contribution Details: ' + idea.value.trim());
-  }
+  descriptionLines.push('CDW Contribution Details: ' + ideaValue);
   description.value = descriptionLines.join('\n');
 
   var urlParams = new URLSearchParams(window.location.search);
@@ -1422,6 +1431,8 @@ function checkMandatory105101000000481025() {
   return true;
 }
 
+var hostFormLoadedAt = Date.now();
+document.getElementById('cdw_form_loaded_at').value = String(hostFormLoadedAt);
 var mailingListDialog = document.getElementById('mailing-list-dialog');
 document.querySelectorAll('[data-open-mailing-list]').forEach(function (trigger) {
   trigger.addEventListener('click', function (event) {
