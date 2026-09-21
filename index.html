@@ -162,6 +162,7 @@ a:hover { text-decoration: underline; }
 }
 .section--navy .section-header__eyebrow { color: var(--cdw-yellow); }
 .section-header p { font-size: 1.02rem; max-inline-size: 640px; margin-inline: auto; margin-block-start: 12px; }
+.section-header__action { margin-block-start: 24px; }
 
 /* ── Mission cards ────────────────────────────────────────────── */
 .mission-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
@@ -669,6 +670,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
       <p class="section-header__eyebrow">About the Festival</p>
       <h2>Why Canberra Data Week?</h2>
       <p>Canberra is Australia's data capital, home to the ABS, federal policy institutions and world-class research universities. Data Week is a free, open, citywide festival that puts that expertise to work for the whole community.</p>
+      <button class="btn btn--navy section-header__action" type="button" data-open-mailing-list>Subscribe to hear more</button>
     </div>
     <div class="mission-grid">
       <div class="mission-card">
