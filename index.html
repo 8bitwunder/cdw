@@ -266,9 +266,10 @@ a:hover { text-decoration: underline; }
 .event-card__footer--confirmed { background: #E5FAF9; border-color: #A6E7E5; }
 .event-card__footer--host { background: #FFF4D8; border-color: #FFD27A; }
 .event-card__status-row { display: flex; align-items: center; gap: 11px; color: var(--cdw-navy); }
-.event-card__status-icon { inline-size: 42px; block-size: 34px; flex: 0 0 auto; color: var(--cdw-navy); }
-.event-card__status-icon--asset,
-.event-card__status-icon--bus { object-fit: contain; border-radius: 5px; }
+.event-card__status-icon {
+  inline-size: 34px; block-size: 34px; flex: 0 0 auto; color: var(--cdw-navy);
+  fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8;
+}
 .event-card__status-label { font-size: .74rem; letter-spacing: .07em; line-height: 1.2; }
 .event-card__footer .event-card__action {
   align-self: flex-start; margin: 0; padding: 0; border: 0; background: transparent;
@@ -768,7 +769,10 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="Confirmed event">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="m8 12 2.5 2.5L16 9"></path>
+            </svg>
             <strong class="event-card__status-label">CONFIRMED EVENT</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
@@ -785,7 +789,10 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Walk, talk and connect around the lake with a volunteer guide, pausing every 15 minutes to explore a new data story.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="Confirmed event">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="m8 12 2.5 2.5L16 9"></path>
+            </svg>
             <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">Reserve your spot <span class="event-card__action-arrow">&rarr;</span></span>
@@ -802,7 +809,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Connect with the women shaping Canberra's data profession through networking, peer stories and a forward-looking panel. Claim your place at the table.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -819,7 +828,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>See how government agencies are using data to improve policy, services and outcomes for Australians. Come along for the insights, or step up to showcase your own work.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -836,7 +847,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Build practical, job-ready skills in data tools, visualisation and analysis, whatever your starting level. Roll up your sleeves and dive in.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -853,7 +866,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Discover how visitor insights and destination data are shaping the future of tourism and place-making in the ACT. Get the inside view, or host the session yourself.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -870,7 +885,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Meet employers, map out your career pathway and hear real stories from Canberra's data community. Kick-start your data career here.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -887,7 +904,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Grab lunch and soak up short, punchy talks on data stories that changed a decision, shifted a policy or touched real lives. Pull up a chair.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -904,7 +923,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Team up for a full day of building real solutions to public-sector challenges using open government and community datasets. Bring your ideas and start hacking.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -921,7 +942,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Join an open forum on data ethics, privacy and community impact at Canberra's cultural institutions. Every voice counts, so come and have your say.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -938,7 +961,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Learn to understand, question and use data in your everyday life and work, with no experience needed. Start your data journey today.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
@@ -955,7 +980,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>See AI-powered data tools in action across government, research and industry, with time to ask questions and explore hands-on. Come and see what's possible.</p>
         <div class="event-card__footer event-card__footer--host">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
             <strong class="event-card__status-label">HOST NEEDED</strong>
           </div>
           <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
