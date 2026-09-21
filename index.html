@@ -230,11 +230,18 @@ a:hover { text-decoration: underline; }
 .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .event-card {
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm);
-  padding: 22px; display: flex; flex-direction: column; gap: 10px;
+  padding: 22px; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
   border: 1px solid var(--grey-100); transition: box-shadow .2s, transform .15s;
 }
 .event-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .event-card__meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.event-card__badge {
+  margin-inline-start: auto; padding: 4px 10px; border-radius: 999px;
+  color: var(--cdw-navy); font-size: .68rem; font-weight: 800; line-height: 1.25;
+}
+.event-card__badge--confirmed { background: #CFF7F5; }
+.event-card__badge--host { background: #FFE6B0; }
+.event-card__meta .tag--venue { flex-basis: 100%; }
 .tag {
   display: inline-block; padding: 3px 10px; border-radius: 12px;
   font-size: .72rem; font-weight: 700; letter-spacing: .02em;
@@ -252,12 +259,23 @@ a:hover { text-decoration: underline; }
 .tag--venue     { background: transparent; color: var(--grey-400); font-size: .72rem; font-weight: 400; }
 .event-card h3  { font-size: .97rem; color: var(--text); line-height: 1.3; }
 .event-card p   { font-size: .82rem; }
-.event-card__status {
-  margin-block-start: auto; font-size: .75rem; font-weight: 600; color: var(--grey-600);
-  display: flex; align-items: center; gap: 5px;
+.event-card__footer {
+  margin: auto -22px -22px; padding: 15px 22px 17px;
+  border-block-start: 1px solid; display: flex; flex-direction: column; gap: 7px;
 }
-.event-card__status::before { content: '●'; font-size: .55rem; color: var(--cdw-turquoise); }
-.event-card__status--open::before { color: var(--cdw-orange); }
+.event-card__footer--confirmed { background: #E5FAF9; border-color: #A6E7E5; }
+.event-card__footer--host { background: #FFF4D8; border-color: #FFD27A; }
+.event-card__status-row { display: flex; align-items: center; gap: 11px; color: var(--cdw-navy); }
+.event-card__status-icon {
+  inline-size: 34px; block-size: 34px; flex: 0 0 auto; color: var(--cdw-navy);
+  fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8;
+}
+.event-card__status-label { font-size: .74rem; letter-spacing: .07em; line-height: 1.2; }
+.event-card__footer .event-card__action {
+  align-self: flex-start; margin: 0; padding: 0; border: 0; background: transparent;
+  color: #6F2EAA; font-family: inherit; cursor: pointer; text-align: start;
+}
+.event-card__footer .event-card__action:hover { color: #4F1E7C; text-decoration: underline; }
 .events-cta   { text-align: center; margin-block-start: 36px; }
 .events-note  { text-align: center; margin-block-start: 14px; font-size: .82rem; color: var(--grey-400); font-style: italic; }
 
@@ -485,6 +503,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   .mission-grid   { grid-template-columns: 1fr; }
   .pillar-grid    { grid-template-columns: 1fr 1fr; }
   .events-grid    { grid-template-columns: 1fr; }
+  .event-card__footer { padding-block: 16px 18px; }
   .opps-grid      { grid-template-columns: 1fr; }
   .venues-grid    { grid-template-columns: 1fr; }
   .footer__grid   { grid-template-columns: 1fr; }
@@ -743,123 +762,231 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
       <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="microsoft-event-dialog" data-open-microsoft-event>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
           <span class="tag tag--venue">Microsoft Canberra &middot; Anchor Event</span>
         </div>
         <h3>Opening Event: Using Data and AI for Public Good</h3>
         <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
-        <p class="event-card__status">Confirmed</p>
-        <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="m8 12 2.5 2.5L16 9"></path>
+            </svg>
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
       </article>
 
       <article class="event-card event-card--interactive" data-type="walk" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-walk-dialog" data-open-data-walk>
         <div class="event-card__meta">
           <span class="tag tag--walk">Walk</span>
+          <span class="event-card__badge event-card__badge--confirmed">Open</span>
           <span class="tag tag--venue">30 Sept &middot; Lake Burley Griffin</span>
         </div>
         <h3>Data Chat Walk: Lake Burley Griffin</h3>
         <p>Walk, talk and connect around the lake with a volunteer guide, pausing every 15 minutes to explore a new data story.</p>
-        <p class="event-card__status">Registrations open</p>
-        <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="m8 12 2.5 2.5L16 9"></path>
+            </svg>
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">Reserve your spot <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
       </article>
 
       <article class="event-card" data-type="panel">
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">TBC</span>
         </div>
         <h3>Women in Data: Celebrating and Connecting</h3>
         <p>Connect with the women shaping Canberra's data profession through networking, peer stories and a forward-looking panel. Claim your place at the table.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="showcase">
         <div class="event-card__meta">
           <span class="tag tag--showcase">Showcase</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">Microsoft Canberra / TBC</span>
         </div>
         <h3>Public Sector Data Showcase</h3>
         <p>See how government agencies are using data to improve policy, services and outcomes for Australians. Come along for the insights, or step up to showcase your own work.</p>
-        <p class="event-card__status">Open to Partner Hosts</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="workshop">
         <div class="event-card__meta">
           <span class="tag tag--workshop">Workshop</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">TBC</span>
         </div>
         <h3>Hands-On Data Skills Workshop</h3>
         <p>Build practical, job-ready skills in data tools, visualisation and analysis, whatever your starting level. Roll up your sleeves and dive in.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="talk">
         <div class="event-card__meta">
           <span class="tag tag--talk">Talk</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">Canberra CBD</span>
         </div>
         <h3>Canberra Tourism: How Data Shapes Our City's Story</h3>
         <p>Discover how visitor insights and destination data are shaping the future of tourism and place-making in the ACT. Get the inside view, or host the session yourself.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="careers">
         <div class="event-card__meta">
           <span class="tag tag--careers">Careers</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">University / CBD</span>
         </div>
         <h3>Student Data Careers Session</h3>
         <p>Meet employers, map out your career pathway and hear real stories from Canberra's data community. Kick-start your data career here.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="lunch">
         <div class="event-card__meta">
           <span class="tag tag--lunch">Lunch Event</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">TBC</span>
         </div>
         <h3>Data Storytelling Lunch</h3>
         <p>Grab lunch and soak up short, punchy talks on data stories that changed a decision, shifted a policy or touched real lives. Pull up a chair.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="hackathon">
         <div class="event-card__meta">
           <span class="tag tag--hackathon">Hackathon</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">Microsoft Canberra</span>
         </div>
         <h3>Open Data Hackathon &amp; Ideation Day</h3>
         <p>Team up for a full day of building real solutions to public-sector challenges using open government and community datasets. Bring your ideas and start hacking.</p>
-        <p class="event-card__status">Open to Partner Hosts</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="community">
         <div class="event-card__meta">
           <span class="tag tag--community">Community Forum</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">National Museum / Arts Venues</span>
         </div>
         <h3>Community Data Discussion</h3>
         <p>Join an open forum on data ethics, privacy and community impact at Canberra's cultural institutions. Every voice counts, so come and have your say.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="workshop">
         <div class="event-card__meta">
           <span class="tag tag--workshop">Workshop</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">Online / Hybrid</span>
         </div>
         <h3>Data Literacy for Everyone</h3>
         <p>Learn to understand, question and use data in your everyday life and work, with no experience needed. Start your data journey today.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
 
       <article class="event-card" data-type="demo">
         <div class="event-card__meta">
           <span class="tag tag--demo">Demonstration</span>
+          <span class="event-card__badge event-card__badge--host">Host needed</span>
           <span class="tag tag--venue">TBC</span>
         </div>
         <h3>AI &amp; Data Tools in Government</h3>
         <p>See AI-powered data tools in action across government, research and industry, with time to ask questions and explore hands-on. Come and see what's possible.</p>
-        <p class="event-card__status event-card__status--open">Apply to Host</p>
+        <div class="event-card__footer event-card__footer--host">
+          <div class="event-card__status-row">
+            <svg class="event-card__status-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6M3 21h18"></path>
+            </svg>
+            <strong class="event-card__status-label">HOST NEEDED</strong>
+          </div>
+          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </article>
     </div>
 
