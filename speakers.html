@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en-AU" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Meet the speakers sharing their expertise at Canberra Data Week 2026.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Speakers | Canberra Data Week</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal: #00C8D6;
+  --blue: #00B4D8;
+  --purple: #9B48E4;
+  --magenta: #FF006E;
+  --orange: #FF6B00;
+  --yellow: #FFBA08;
+  --navy: #001B3C;
+  --white: #FFFFFF;
+  --ink: #10233E;
+  --muted: #667085;
+  --surface: #F4F6FA;
+  --line: #DDE2EA;
+  --gradient: linear-gradient(90deg, var(--teal), var(--purple) 38%, var(--magenta) 62%, var(--orange) 84%, var(--yellow));
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --max-width: 1160px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--surface); color: var(--ink); font-family: var(--font); line-height: 1.6; }
+a { color: inherit; }
+.container { width: min(var(--max-width), calc(100% - 48px)); margin-inline: auto; }
+.nav { position: sticky; inset-block-start: 0; z-index: 10; background: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.nav__inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--white); text-decoration: none; font-weight: 700; }
+.brand img { width: 54px; height: 38px; object-fit: contain; }
+.brand strong { background: linear-gradient(90deg, var(--teal), var(--purple), var(--magenta)); background-clip: text; color: transparent; }
+.nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
+.nav__links a { display: block; padding: 8px 12px; border-radius: 4px; color: rgba(255,255,255,.82); font-size: .875rem; font-weight: 600; text-decoration: none; }
+.nav__links a:hover, .nav__links a[aria-current="page"] { background: rgba(255,255,255,.12); color: var(--white); }
+.hero { position: relative; overflow: hidden; background: var(--navy); color: var(--white); padding-block: 88px 96px; }
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.hero::before { width: 420px; height: 420px; inset: -220px -90px auto auto; background: rgba(155,72,228,.28); }
+.hero::after { width: 250px; height: 250px; inset: auto auto -190px 8%; border: 1px solid rgba(0,200,214,.35); }
+.hero__content { position: relative; z-index: 1; max-width: 750px; }
+.eyebrow { color: var(--teal); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { max-width: 700px; margin-block: 12px 20px; font-size: clamp(3rem, 7vw, 5.7rem); letter-spacing: -.055em; line-height: .98; }
+h1 span { background: var(--gradient); background-clip: text; color: transparent; }
+.hero p:last-child { max-width: 650px; color: rgba(255,255,255,.76); font-size: clamp(1rem, 2vw, 1.18rem); }
+.speakers { padding-block: 84px 104px; }
+.section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-block-end: 56px; }
+.section-heading h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; letter-spacing: -.035em; }
+.section-heading p { color: var(--muted); }
+.speaker-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 42px 30px; }
+.speaker { text-align: center; }
+.speaker__portrait-wrap { position: relative; width: min(100%, 300px); aspect-ratio: 1; margin-inline: auto; padding: 7px; border-radius: 50%; background: var(--gradient); transition: transform .2s ease, box-shadow .2s ease; }
+.speaker:hover .speaker__portrait-wrap { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0,27,60,.16); }
+.speaker__portrait { display: block; width: 100%; height: 100%; border: 7px solid var(--surface); border-radius: 50%; object-fit: cover; object-position: center; background: #DDE2EA; }
+.speaker__body { padding-block-start: 22px; }
+.speaker h3 { color: var(--navy); font-size: 1.4rem; line-height: 1.2; }
+.speaker__position { margin-block-start: 6px; color: var(--muted); font-size: .95rem; }
+.speaker__agency { color: var(--navy); font-size: .95rem; font-weight: 750; }
+.speaker__agency a { text-decoration: none; }
+.speaker__agency a:hover { color: var(--purple); text-decoration: underline; }
+.speaker__session { max-width: 290px; margin: 14px auto 0; padding-block-start: 14px; border-block-start: 1px solid var(--line); color: var(--muted); font-size: .8rem; line-height: 1.45; }
+.speaker__session strong { display: block; margin-block-end: 2px; color: var(--magenta); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
+.speaker__event-link { display: block; margin-block-start: 8px; color: var(--purple); font-weight: 750; text-decoration: none; }
+.speaker__event-link:hover { text-decoration: underline; }
+.speaker__linkedin { display: inline-flex; align-items: center; gap: 7px; margin-block-start: 15px; color: #0A66C2; font-size: .85rem; font-weight: 750; text-decoration: none; }
+.speaker__linkedin:hover { text-decoration: underline; }
+.speaker__linkedin svg { width: 19px; height: 19px; fill: currentColor; }
+.speaker--placeholder .speaker__portrait-wrap { background: linear-gradient(135deg, #DDE2EA, #EEF1F6); }
+.speaker--placeholder .speaker__portrait { display: grid; place-items: center; border-color: var(--surface); background: transparent; color: #98A2B3; }
+.speaker--placeholder .speaker__portrait span { font-size: clamp(2.7rem, 8vw, 5rem); font-weight: 800; letter-spacing: -.08em; }
+.footer { background: #0D1117; color: var(--white); padding-block: 40px; }
+.footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.footer p { color: rgba(255,255,255,.5); font-size: .84rem; }
+.footer a { color: rgba(255,255,255,.72); font-size: .84rem; text-decoration: none; }
+.footer a:hover { color: var(--white); text-decoration: underline; }
+@media (max-width: 800px) {
+  .nav__links li { display: none; }
+  .nav__links li:has(a[aria-current="page"]) { display: block; }
+  .section-heading { grid-template-columns: 1fr; gap: 18px; }
+  .speaker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .container { width: min(100% - 32px, var(--max-width)); }
+  .brand span { font-size: .88rem; }
+  .hero { padding-block: 64px 70px; }
+  .speakers { padding-block: 60px 76px; }
+  .speaker-grid { grid-template-columns: 1fr; gap: 46px; }
+  .speaker__portrait-wrap { width: min(82vw, 300px); }
+  .footer__inner { align-items: flex-start; flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .speaker__portrait-wrap { transition: none; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav__inner">
+    <a class="brand" href="index.html" aria-label="Canberra Data Week home">
+      <img src="CDW Logo_dark background.svg" alt="">
+      <span>Canberra <strong>Data Week</strong></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="speakers.html" aria-current="page">Speakers</a></li>
+      <li><a href="hosts.html">Hosts</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="container hero__content">
+      <p class="eyebrow">Canberra Data Week 2026</p>
+      <h1>Meet the people behind the <span>ideas.</span></h1>
+      <p>Hear from data leaders, public sector innovators, researchers and community voices using data to create better outcomes.</p>
+    </div>
+  </header>
+
+  <section class="speakers" aria-labelledby="speaker-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Our speakers</p>
+          <h2 id="speaker-heading">Voices shaping data for public good</h2>
+        </div>
+        <p>Our 2026 speaker line-up is growing. Explore the experts already joining us, with more announcements coming soon.</p>
+      </div>
+
+      <div class="speaker-grid">
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-matthias-wong.jpg" alt="Dr Matthias Wong" width="790" height="790">
+          </div>
+          <div class="speaker__body">
+            <h3>Dr Matthias Wong</h3>
+            <p class="speaker__position">Senior Manager</p>
+            <p class="speaker__agency">35 South Advisors</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Demo: Turning Public Data Into Insights, Impact and Outcomes<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/dr-matthias-wong-9195263a9/" target="_blank" rel="noopener noreferrer" aria-label="Dr Matthias Wong on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-william-gledhill.jpg" alt="William Gledhill" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>William Gledhill</h3>
+            <p class="speaker__position">ANU Student</p>
+            <p class="speaker__agency">Australian National University</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Demo: Turning Public Data Into Insights, Impact and Outcomes<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/william-gledhill-a2bb63205/" target="_blank" rel="noopener noreferrer" aria-label="William Gledhill on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-heather-riley.jpg" alt="Heather Riley" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Heather Riley</h3>
+            <p class="speaker__position">Associate Director</p>
+            <p class="speaker__agency">KPMG</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Discussion: Governance, Privacy and Guardrails for Trusted Innovation<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/heather-riley-8115a6233/" target="_blank" rel="noopener noreferrer" aria-label="Heather Riley on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-michael-amon.jpg" alt="Michael Amon" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Michael Amon</h3>
+            <p class="speaker__position">Director of Information and Data Management</p>
+            <p class="speaker__agency">Australian Office of Parliamentary Counsel</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Discussion: Governance, Privacy and Guardrails for Trusted Innovation<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/michael-amon-03b5aab2/" target="_blank" rel="noopener noreferrer" aria-label="Michael Amon on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-glynnis-barodien.jpg" alt="Glynnis Barodien" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Glynnis Barodien</h3>
+            <p class="speaker__position">Director, Data and AI Governance</p>
+            <p class="speaker__agency">Department of Veterans' Affairs</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Discussion: Governance, Privacy and Guardrails for Trusted Innovation<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/glynnis-barodien-59aa70182/" target="_blank" rel="noopener noreferrer" aria-label="Glynnis Barodien on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-khin-kimber.jpg" alt="Khin Kimber" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Khin Kimber</h3>
+            <p class="speaker__position">Information Architect</p>
+            <p class="speaker__agency">Airservices Australia</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Discussion: Governance, Privacy and Guardrails for Trusted Innovation<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/khin-kimber/" target="_blank" rel="noopener noreferrer" aria-label="Khin Kimber on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-ross-garrett.jpg" alt="Ross Garrett" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Ross Garrett</h3>
+            <p class="speaker__position">Associate Principal, Architecture | Data, Analytics and AI</p>
+            <p class="speaker__agency">LTM</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Demo: Chief Minister of the Day<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/mercuryswitchlab/" target="_blank" rel="noopener noreferrer" aria-label="Ross Garrett on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-courtney-withers.jpg" alt="Courtney Withers" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Courtney Withers</h3>
+            <p class="speaker__position">Cloud &amp; AI Leader</p>
+            <p class="speaker__agency">Microsoft</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Event Emcee<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/courtney-withers-96042916a/" target="_blank" rel="noopener noreferrer" aria-label="Courtney Withers on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-a23.jpg" alt="A23 logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Nick Price</h3>
+            <p class="speaker__position">Data &amp; AI Practice Lead</p>
+            <p class="speaker__agency"><a href="https://www.linkedin.com/company/19153403/" target="_blank" rel="noopener noreferrer">A23</a></p>
+            <p class="speaker__session"><strong>Speaking session</strong>Partner Showcase<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/nickckprice/" target="_blank" rel="noopener noreferrer" aria-label="Nick Price on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-a23.jpg" alt="A23 logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Sarah Alam</h3>
+            <p class="speaker__position">Principal Data Architect</p>
+            <p class="speaker__agency"><a href="https://www.linkedin.com/company/19153403/" target="_blank" rel="noopener noreferrer">A23</a></p>
+            <p class="speaker__session"><strong>Speaking session</strong>Partner Showcase<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/sarah-alam-a386a3b3/" target="_blank" rel="noopener noreferrer" aria-label="Sarah Alam on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-a23.jpg" alt="A23 logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Alan Biju</h3>
+            <p class="speaker__position">Software Engineer</p>
+            <p class="speaker__agency"><a href="https://www.linkedin.com/company/19153403/" target="_blank" rel="noopener noreferrer">A23</a></p>
+            <p class="speaker__session"><strong>Speaking session</strong>Partner Showcase<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/alan-biju-a24a1b300/" target="_blank" rel="noopener noreferrer" aria-label="Alan Biju on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-a23.jpg" alt="A23 logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Dung Chu</h3>
+            <p class="speaker__position">Principal Consultant</p>
+            <p class="speaker__agency"><a href="https://www.linkedin.com/company/19153403/" target="_blank" rel="noopener noreferrer">A23</a></p>
+            <p class="speaker__session"><strong>Speaking session</strong>Partner Showcase<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/dungchu/" target="_blank" rel="noopener noreferrer" aria-label="Dung Chu on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-charmaine-mcgowan.jpg" alt="Charmaine McGowan" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Charmaine McGowan</h3>
+            <p class="speaker__position">Founder &amp; Lead, Canberra Data Week</p>
+            <p class="speaker__agency">Solution Engineer - Data and Analytics, Microsoft</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Demo: Chief Minister of the Day<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/charmaine-mcgowan/" target="_blank" rel="noopener noreferrer" aria-label="Charmaine McGowan on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-henry-rooney.jpg" alt="Henry Rooney" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Henry Rooney</h3>
+            <p class="speaker__position">Senior Solutions Engineer, Data and Analytics</p>
+            <p class="speaker__agency">Microsoft</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Workshop: Prep Your Data for &amp; with AI<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/henryrooney/" target="_blank" rel="noopener noreferrer" aria-label="Henry Rooney on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-jessica-barritt-eyles.jpg" alt="Jessica Barritt-Eyles" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Jessica Barritt-Eyles</h3>
+            <p class="speaker__position">Director</p>
+            <p class="speaker__agency">Tourism Research Australia, Austrade</p>
+            <p class="speaker__session"><strong>Speaking session</strong>Public Sector Showcase<a class="speaker__event-link" href="index.html#microsoft-event-dialog">View event details</a></p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-databricks.jpg" alt="Databricks logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Richard Jones</h3>
+            <p class="speaker__position">Canberra Data Week Speaker</p>
+            <p class="speaker__agency">Databricks</p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/richardedjones/" target="_blank" rel="noopener noreferrer" aria-label="Richard Jones on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-databricks.jpg" alt="Databricks logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Calvin Hung</h3>
+            <p class="speaker__position">Canberra Data Week Speaker</p>
+            <p class="speaker__agency">Databricks</p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/calvinkaiyuanhung/" target="_blank" rel="noopener noreferrer" aria-label="Calvin Hung on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-emanate-technology.jpg" alt="Emanate Technology logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Morgan Bell</h3>
+            <p class="speaker__position">Careers Session Speaker</p>
+            <p class="speaker__agency">Emanate Technology</p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/morgan-bell-bb3287181/" target="_blank" rel="noopener noreferrer" aria-label="Morgan Bell on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+            <p class="speaker__session"><strong>Speaking session</strong>Data Careers with Emanate Technology<a class="speaker__event-link" href="index.html#careers-session-dialog">View event details</a></p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-emanate-technology.jpg" alt="Emanate Technology logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Evie Martin</h3>
+            <p class="speaker__position">Careers Session Speaker</p>
+            <p class="speaker__agency">Emanate Technology</p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/evie-martin/" target="_blank" rel="noopener noreferrer" aria-label="Evie Martin on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+            <p class="speaker__session"><strong>Speaking session</strong>Data Careers with Emanate Technology<a class="speaker__event-link" href="index.html#careers-session-dialog">View event details</a></p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/host-emanate-technology.jpg" alt="Emanate Technology logo" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Mal Konfu</h3>
+            <p class="speaker__position">Careers Session Speaker</p>
+            <p class="speaker__agency">Emanate Technology</p>
+            <a class="speaker__linkedin" href="https://www.linkedin.com/in/mal-konfu-602b7a230/" target="_blank" rel="noopener noreferrer" aria-label="Mal Konfu on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.1 20.45H3.54V8.98H7.1v11.47Z"/></svg>
+              LinkedIn profile
+            </a>
+            <p class="speaker__session"><strong>Speaking session</strong>Data Careers with Emanate Technology<a class="speaker__event-link" href="index.html#careers-session-dialog">View event details</a></p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-tim-spence-headshot.png" alt="Tim Spence" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Tim Spence</h3>
+            <p class="speaker__position">Regional Sales Director - MuleSoft</p>
+            <p class="speaker__agency">Salesforce</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-heike-schraeder.jpg" alt="Heike Schraeder" width="512" height="512">
+          </div>
+          <div class="speaker__body">
+            <h3>Heike Schraeder</h3>
+            <p class="speaker__position">Data Foundations - MuleSoft, Account Executive</p>
+            <p class="speaker__agency">Salesforce</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-daniel-hein.jpeg" alt="Daniel Hein" width="200" height="200">
+          </div>
+          <div class="speaker__body">
+            <h3>Daniel Hein</h3>
+            <p class="speaker__position">CTO, Data Foundations</p>
+            <p class="speaker__agency">Salesforce</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-matt-lammi.png" alt="Matt Lammi" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Matt Lammi</h3>
+            <p class="speaker__position">Principal, Account Solution Engineer</p>
+            <p class="speaker__agency">Salesforce</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-nathaniel-arthur-ellis.png" alt="Nathaniel Arthur-Ellis" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Nathaniel Arthur-Ellis</h3>
+            <p class="speaker__position">Territory Account Executive</p>
+            <p class="speaker__agency">Salesforce</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="speaker">
+          <div class="speaker__portrait-wrap">
+            <img class="speaker__portrait" src="assets/speaker-jared-hill.jpg" alt="Jared Hill" width="800" height="800">
+          </div>
+          <div class="speaker__body">
+            <h3>Jared Hill</h3>
+            <p class="speaker__position">VP | Head of Cloud &amp; Customer Experience Solutions</p>
+            <p class="speaker__agency">Capgemini</p>
+            <p class="speaker__session">
+              <strong>Speaking session</strong>
+              Context is Key: From Legacy Siloes to a Trusted Data Foundation
+              <a class="speaker__event-link" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">View event details</a>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; 2026 Canberra Data Week. Data. Insight. Impact.</p>
+    <a href="index.html">Return to the festival home page</a>
+  </div>
+</footer>
+</body>
+</html>

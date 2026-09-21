@@ -604,6 +604,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <li><a href="#about">About</a></li>
         <li><a href="#anchor">Anchor Event</a></li>
         <li><a href="#events">Events</a></li>
+        <li><a href="speakers.html">Speakers</a></li>
+        <li><a href="hosts.html">Hosts</a></li>
+        <li><a href="community.html">Community</a></li>
         <li><a href="#partners">Partner</a></li>
         <li><a href="#host">Host an Event</a></li>
         <li><a href="#venues">Venues</a></li>
@@ -1644,6 +1647,9 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
           <li><a href="#about">About</a></li>
           <li><a href="#pillar">Our Pillar</a></li>
           <li><a href="#events">Events</a></li>
+          <li><a href="speakers.html">Speakers</a></li>
+          <li><a href="hosts.html">Event Hosts</a></li>
+          <li><a href="community.html">Community</a></li>
           <li><a href="#venues">Venues</a></li>
         </ul>
       </div>
@@ -1845,6 +1851,9 @@ function setupEventDialog(name, dialogId) {
   });
   closeControl.addEventListener('click', function () {
     dialog.close();
+    if (window.location.hash === '#' + dialogId) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   });
   dialog.addEventListener('click', function (event) {
     if (event.target === dialog) dialog.close();
@@ -1852,6 +1861,13 @@ function setupEventDialog(name, dialogId) {
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && dialog.open) dialog.close();
   });
+  function openDialogFromHash() {
+    if (window.location.hash === '#' + dialogId && !dialog.open) {
+      dialog.showModal();
+    }
+  }
+  window.addEventListener('hashchange', openDialogFromHash);
+  openDialogFromHash();
 }
 
 setupEventDialog('salesforce-breakfast', 'salesforce-breakfast-dialog');
