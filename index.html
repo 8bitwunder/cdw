@@ -241,6 +241,7 @@ a:hover { text-decoration: underline; }
 }
 .event-card__badge--confirmed { background: #CFF7F5; }
 .event-card__badge--host { background: #FFE6B0; }
+.event-card__badge--pending { background: #E5E7EB; }
 .event-card__meta .tag--venue { flex-basis: 100%; }
 .tag {
   display: inline-block; padding: 3px 10px; border-radius: 12px;
@@ -265,10 +266,12 @@ a:hover { text-decoration: underline; }
 }
 .event-card__footer--confirmed { background: #E5FAF9; border-color: #A6E7E5; }
 .event-card__footer--host { background: #FFF4D8; border-color: #FFD27A; }
+.event-card__footer--pending { background: #F3F4F6; border-color: #D1D5DB; }
 .event-card__status-row { display: flex; align-items: center; gap: 11px; color: var(--cdw-navy); }
 .event-card__status-icon { inline-size: 42px; block-size: 34px; flex: 0 0 auto; color: var(--cdw-navy); }
 .event-card__status-icon--asset,
 .event-card__status-icon--bus { object-fit: contain; border-radius: 5px; }
+.event-card__status-dot { inline-size: 12px; block-size: 12px; margin-inline: 11px 19px; border-radius: 50%; background: var(--grey-400); flex: 0 0 auto; }
 .event-card__status-label { font-size: .74rem; letter-spacing: .07em; line-height: 1.2; }
 .event-card__footer .event-card__action {
   align-self: flex-start; margin: 0; padding: 0; border: 0; background: transparent;
@@ -758,18 +761,69 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     </div>
 
     <div class="events-grid">
+      <article class="event-card event-card--interactive" data-type="showcase" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="salesforce-breakfast-dialog" data-open-salesforce-breakfast>
+        <div class="event-card__meta">
+          <span class="tag tag--showcase">Breakfast &amp; Showcase</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">29 Sept &middot; 8:00-11:00 AM &middot; The Marion</span>
+        </div>
+        <h3>Context is Key: From Legacy Siloes to a Trusted Data Foundation</h3>
+        <p>Join Salesforce for breakfast, tabletop discussion, an innovation showcase and industry insights on building a trusted data foundation.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
       <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="microsoft-event-dialog" data-open-microsoft-event>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
-          <span class="tag tag--venue">Microsoft Canberra &middot; Anchor Event</span>
+          <span class="tag tag--venue">29 Sept &middot; 10:00 AM-3:00 PM &middot; Microsoft Canberra</span>
         </div>
         <h3>Opening Event: Using Data and AI for Public Good</h3>
         <p>Hear Canberra's data leaders reveal how government and industry are transforming citizen services, then put your questions to the panel. Save your seat for the event that launches the week.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="Confirmed event">
-            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
+      <article class="event-card event-card--interactive" data-type="showcase" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="public-sector-showcase-dialog" data-open-public-sector-showcase>
+        <div class="event-card__meta">
+          <span class="tag tag--showcase">Showcase</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">29 Sept &middot; 1:10-1:40 PM &middot; Microsoft Canberra</span>
+        </div>
+        <h3>Public Sector Data Showcase: Tourism Research Australia</h3>
+        <p>See how Tourism Research Australia and Austrade use public-sector data to turn visitor insights into better decisions and outcomes.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
+      <article class="event-card event-card--interactive" data-type="workshop" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-skills-workshop-dialog" data-open-data-skills-workshop>
+        <div class="event-card__meta">
+          <span class="tag tag--workshop">Workshop</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">29 Sept &middot; 2:10-2:50 PM &middot; Microsoft Canberra</span>
+        </div>
+        <h3>Prep Your Data for and with AI</h3>
+        <p>Join Henry Rooney for a practical Microsoft Data Champs workshop on preparing trusted, useful data for AI-powered work.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
@@ -785,112 +839,77 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <p>Walk, talk and connect around the lake with a volunteer guide, pausing every 15 minutes to explore a new data story.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="Confirmed event">
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
             <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">Reserve your spot <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
 
-      <article class="event-card" data-type="panel">
+      <article class="event-card event-card--interactive" data-type="careers" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="careers-session-dialog" data-open-careers-session>
+        <div class="event-card__meta">
+          <span class="tag tag--careers">Careers</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">1 Oct &middot; Time and venue TBC</span>
+        </div>
+        <h3>Data Careers with Emanate Technology</h3>
+        <p>Explore pathways into Canberra's data profession and hear practical career insights from the team at Emanate Technology.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
+      <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="women-in-data-dialog" data-open-women-in-data>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">TBC</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">2 Oct &middot; 1:30-2:30 PM &middot; Exclaim IT, Belconnen</span>
         </div>
         <h3>Women in Data: Celebrating and Connecting</h3>
-        <p>Connect with the women shaping Canberra's data profession through networking, peer stories and a forward-looking panel. Claim your place at the table.</p>
-        <div class="event-card__footer event-card__footer--host">
+        <p>Connect with the women shaping Canberra's data profession through peer stories, discussion and new professional connections.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
           </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
 
-      <article class="event-card" data-type="showcase">
+      <article class="event-card event-card--interactive" data-type="talk" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="census-data-dialog" data-open-census-data>
         <div class="event-card__meta">
-          <span class="tag tag--showcase">Showcase</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">Microsoft Canberra / TBC</span>
+          <span class="tag tag--talk">Talk</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">2 Oct &middot; 2:30-3:30 PM &middot; Exclaim IT, Belconnen</span>
         </div>
-        <h3>Public Sector Data Showcase</h3>
-        <p>See how government agencies are using data to improve policy, services and outcomes for Australians. Come along for the insights, or step up to showcase your own work.</p>
-        <div class="event-card__footer event-card__footer--host">
+        <h3>Behind the Census: Collection and Data Processing</h3>
+        <p>Hear from Australian Bureau of Statistics specialists about how Census information is collected, processed and prepared for use.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
           </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
-        </div>
-      </article>
-
-      <article class="event-card" data-type="workshop">
-        <div class="event-card__meta">
-          <span class="tag tag--workshop">Workshop</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">TBC</span>
-        </div>
-        <h3>Hands-On Data Skills Workshop</h3>
-        <p>Build practical, job-ready skills in data tools, visualisation and analysis, whatever your starting level. Roll up your sleeves and dive in.</p>
-        <div class="event-card__footer event-card__footer--host">
-          <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
-          </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
 
       <article class="event-card" data-type="talk">
         <div class="event-card__meta">
           <span class="tag tag--talk">Talk</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">Canberra CBD</span>
+          <span class="event-card__badge event-card__badge--pending">In development</span>
+          <span class="tag tag--venue">Date, time and venue TBC</span>
         </div>
-        <h3>Canberra Tourism: How Data Shapes Our City's Story</h3>
-        <p>Discover how visitor insights and destination data are shaping the future of tourism and place-making in the ACT. Get the inside view, or host the session yourself.</p>
-        <div class="event-card__footer event-card__footer--host">
+        <h3>Data Stories from Emergency Responders</h3>
+        <p>A prospective speaker will explore how emergency responders use data to make time-critical decisions and support communities.</p>
+        <div class="event-card__footer event-card__footer--pending">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
+            <span class="event-card__status-dot" aria-hidden="true"></span>
+            <strong class="event-card__status-label">DETAILS BEING FINALISED</strong>
           </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
-        </div>
-      </article>
-
-      <article class="event-card" data-type="careers">
-        <div class="event-card__meta">
-          <span class="tag tag--careers">Careers</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">University / CBD</span>
-        </div>
-        <h3>Student Data Careers Session</h3>
-        <p>Meet employers, map out your career pathway and hear real stories from Canberra's data community. Kick-start your data career here.</p>
-        <div class="event-card__footer event-card__footer--host">
-          <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
-          </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
-        </div>
-      </article>
-
-      <article class="event-card" data-type="lunch">
-        <div class="event-card__meta">
-          <span class="tag tag--lunch">Lunch Event</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">TBC</span>
-        </div>
-        <h3>Data Storytelling Lunch</h3>
-        <p>Grab lunch and soak up short, punchy talks on data stories that changed a decision, shifted a policy or touched real lives. Pull up a chair.</p>
-        <div class="event-card__footer event-card__footer--host">
-          <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
-          </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
         </div>
       </article>
 
@@ -1372,6 +1391,135 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   </div>
 </dialog>
 
+<!-- SALESFORCE BREAKFAST DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="salesforce-breakfast-dialog" aria-labelledby="salesforce-breakfast-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Salesforce &middot; The Marion</p>
+    <h2 id="salesforce-breakfast-title">Context is Key: From Legacy Siloes to a Trusted Data Foundation</h2>
+    <p class="mailing-dialog__intro">A breakfast event exploring how organisations can move from disconnected legacy data to a trusted foundation for innovation.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Salesforce breakfast details" data-close-salesforce-breakfast>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Tuesday 29 September 2026</strong></span>
+      <span>8:00 AM - 11:00 AM</span>
+      <span>The Marion</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Join Salesforce for breakfast, tabletop discussion, an innovation showcase and industry insights focused on creating a trusted data foundation.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://invite.salesforce.com/datafoundations-canberra" target="_blank" rel="noopener noreferrer">Register with Salesforce</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- PUBLIC SECTOR SHOWCASE DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="public-sector-showcase-dialog" aria-labelledby="public-sector-showcase-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Microsoft Canberra &middot; Public Sector Showcase</p>
+    <h2 id="public-sector-showcase-title">Public Sector Data Showcase: Tourism Research Australia</h2>
+    <p class="mailing-dialog__intro">A focused showcase within the Canberra Data Week anchor event.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Public Sector Data Showcase details" data-close-public-sector-showcase>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Tuesday 29 September 2026</strong></span>
+      <span>1:10 PM - 1:40 PM</span>
+      <span>Microsoft Canberra</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Tourism Research Australia and Austrade will share how public-sector data and visitor insights support better decisions and outcomes.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://msevents.microsoft.com/event?id=1168084618" target="_blank" rel="noopener noreferrer">Register for the Microsoft event</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- DATA SKILLS WORKSHOP DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="data-skills-workshop-dialog" aria-labelledby="data-skills-workshop-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Microsoft Canberra &middot; Microsoft Data Champs</p>
+    <h2 id="data-skills-workshop-title">Prep Your Data for and with AI</h2>
+    <p class="mailing-dialog__intro">A practical workshop hosted by Henry Rooney at the Canberra Data Week anchor event.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close data skills workshop details" data-close-data-skills-workshop>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Tuesday 29 September 2026</strong></span>
+      <span>2:10 PM - 2:50 PM</span>
+      <span>Microsoft Canberra</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Henry Rooney will lead a hands-on session about preparing trusted, useful data for AI and using AI to improve data preparation.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://msevents.microsoft.com/event?id=1168084618" target="_blank" rel="noopener noreferrer">Register for the Microsoft event</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- CAREERS SESSION DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="careers-session-dialog" aria-labelledby="careers-session-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Emanate Technology &middot; Data Careers</p>
+    <h2 id="careers-session-title">Data Careers with Emanate Technology</h2>
+    <p class="mailing-dialog__intro">A careers session exploring pathways into Canberra's data profession.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close data careers session details" data-close-careers-session>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Thursday 1 October 2026</strong></span>
+      <span>Time to be confirmed</span>
+      <span>Venue to be confirmed</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Meet the team from Emanate Technology and hear practical insights about career pathways and opportunities in Canberra's data sector.</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- WOMEN IN DATA DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="women-in-data-dialog" aria-labelledby="women-in-data-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Exclaim IT &middot; Belconnen</p>
+    <h2 id="women-in-data-title">Women in Data: Celebrating and Connecting</h2>
+    <p class="mailing-dialog__intro">An afternoon session celebrating the women shaping Canberra's data profession.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Women in Data details" data-close-women-in-data>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Friday 2 October 2026</strong></span>
+      <span>1:30 PM - 2:30 PM</span>
+      <span>Exclaim IT, Belconnen</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Connect through peer stories, discussion and networking with women working across Canberra's data community.</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- CENSUS DATA DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="census-data-dialog" aria-labelledby="census-data-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Australian Bureau of Statistics &middot; Exclaim IT</p>
+    <h2 id="census-data-title">Behind the Census: Collection and Data Processing</h2>
+    <p class="mailing-dialog__intro">A behind-the-scenes look at how Australia's Census becomes trusted national data.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Census data details" data-close-census-data>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Friday 2 October 2026</strong></span>
+      <span>2:30 PM - 3:30 PM</span>
+      <span>Exclaim IT, Belconnen</span>
+    </div>
+    <div class="event-dialog__description">
+      <p>Australian Bureau of Statistics specialists will explain how Census information is collected, processed and prepared for use.</p>
+    </div>
+  </div>
+</dialog>
+
 <!-- FOOTER -->
 <footer class="footer" aria-label="Site footer">
   <div class="container">
@@ -1568,51 +1716,42 @@ document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' && hostFormDialog.open) hostFormDialog.close();
 });
 
-var dataWalkDialog = document.getElementById('data-walk-dialog');
-document.querySelectorAll('[data-open-data-walk]').forEach(function (trigger) {
-  trigger.addEventListener('click', function (event) {
-    event.preventDefault();
-    dataWalkDialog.showModal();
-  });
-  trigger.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      dataWalkDialog.showModal();
-    }
-  });
-});
-document.querySelector('[data-close-data-walk]').addEventListener('click', function () {
-  dataWalkDialog.close();
-});
-dataWalkDialog.addEventListener('click', function (event) {
-  if (event.target === dataWalkDialog) dataWalkDialog.close();
-});
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape' && dataWalkDialog.open) dataWalkDialog.close();
-});
+function setupEventDialog(name, dialogId) {
+  var dialog = document.getElementById(dialogId);
+  var openSelector = '[data-open-' + name + ']';
+  var closeControl = document.querySelector('[data-close-' + name + ']');
 
-var microsoftEventDialog = document.getElementById('microsoft-event-dialog');
-document.querySelectorAll('[data-open-microsoft-event]').forEach(function (trigger) {
-  trigger.addEventListener('click', function (event) {
-    event.preventDefault();
-    microsoftEventDialog.showModal();
-  });
-  trigger.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' || event.key === ' ') {
+  document.querySelectorAll(openSelector).forEach(function (trigger) {
+    trigger.addEventListener('click', function (event) {
       event.preventDefault();
-      microsoftEventDialog.showModal();
-    }
+      dialog.showModal();
+    });
+    trigger.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        dialog.showModal();
+      }
+    });
   });
-});
-document.querySelector('[data-close-microsoft-event]').addEventListener('click', function () {
-  microsoftEventDialog.close();
-});
-microsoftEventDialog.addEventListener('click', function (event) {
-  if (event.target === microsoftEventDialog) microsoftEventDialog.close();
-});
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape' && microsoftEventDialog.open) microsoftEventDialog.close();
-});
+  closeControl.addEventListener('click', function () {
+    dialog.close();
+  });
+  dialog.addEventListener('click', function (event) {
+    if (event.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && dialog.open) dialog.close();
+  });
+}
+
+setupEventDialog('salesforce-breakfast', 'salesforce-breakfast-dialog');
+setupEventDialog('microsoft-event', 'microsoft-event-dialog');
+setupEventDialog('public-sector-showcase', 'public-sector-showcase-dialog');
+setupEventDialog('data-skills-workshop', 'data-skills-workshop-dialog');
+setupEventDialog('data-walk', 'data-walk-dialog');
+setupEventDialog('careers-session', 'careers-session-dialog');
+setupEventDialog('women-in-data', 'women-in-data-dialog');
+setupEventDialog('census-data', 'census-data-dialog');
 </script>
 
 </body>
