@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-AU" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Meet the organisations hosting and contributing to Canberra Data Week 2026.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Event Hosts | Canberra Data Week</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal: #00C8D6; --purple: #9B48E4; --magenta: #FF006E;
+  --orange: #FF6B00; --yellow: #FFBA08; --navy: #001B3C;
+  --white: #FFFFFF; --ink: #10233E; --muted: #667085; --surface: #F4F6FA;
+  --gradient: linear-gradient(90deg, var(--teal), var(--purple) 38%, var(--magenta) 62%, var(--orange) 84%, var(--yellow));
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --max-width: 1160px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--surface); color: var(--ink); font-family: var(--font); line-height: 1.6; }
+.container { width: min(var(--max-width), calc(100% - 48px)); margin-inline: auto; }
+.nav { position: sticky; inset-block-start: 0; z-index: 10; background: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.nav__inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--white); text-decoration: none; font-weight: 700; }
+.brand img { width: 54px; height: 38px; object-fit: contain; }
+.brand strong { background: linear-gradient(90deg, var(--teal), var(--purple), var(--magenta)); background-clip: text; color: transparent; }
+.nav__links { display: flex; align-items: center; gap: 4px; list-style: none; }
+.nav__links a { display: block; padding: 8px 12px; border-radius: 4px; color: rgba(255,255,255,.82); font-size: .875rem; font-weight: 600; text-decoration: none; }
+.nav__links a:hover, .nav__links a[aria-current="page"] { background: rgba(255,255,255,.12); color: var(--white); }
+.hero { position: relative; overflow: hidden; background: var(--navy); color: var(--white); padding-block: 88px 96px; }
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.hero::before { width: 460px; height: 460px; inset: -250px -90px auto auto; background: rgba(0,200,214,.18); }
+.hero::after { width: 310px; height: 310px; inset: auto 15% -260px auto; border: 1px solid rgba(255,0,110,.38); }
+.hero__content { position: relative; z-index: 1; max-width: 820px; }
+.eyebrow { color: var(--teal); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { max-width: 800px; margin-block: 12px 20px; font-size: clamp(3rem, 7vw, 5.7rem); letter-spacing: -.055em; line-height: .98; }
+h1 span { background: var(--gradient); background-clip: text; color: transparent; }
+.hero p:last-child { max-width: 680px; color: rgba(255,255,255,.76); font-size: clamp(1rem, 2vw, 1.18rem); }
+.hosts { padding-block: 84px 104px; }
+.section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-block-end: 56px; }
+.section-heading h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; letter-spacing: -.035em; }
+.section-heading p { color: var(--muted); }
+.host-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 30px; justify-content: center; }
+.host { text-align: center; }
+.host__logo-wrap { width: min(100%, 300px); aspect-ratio: 1; margin-inline: auto; padding: 7px; border-radius: 50%; background: var(--gradient); transition: transform .2s ease, box-shadow .2s ease; }
+.host:hover .host__logo-wrap { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0,27,60,.16); }
+.host__logo { display: block; width: 100%; height: 100%; border: 7px solid var(--surface); border-radius: 50%; object-fit: cover; background: var(--white); }
+.host__logo--contain { padding: 18%; object-fit: contain; }
+.host__body { padding-block-start: 22px; }
+.host h3 { color: var(--navy); font-size: 1.45rem; line-height: 1.2; }
+.host__role { margin-block-start: 7px; color: var(--magenta); font-size: .73rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.host__copy { max-width: 290px; margin: 10px auto 0; color: var(--muted); font-size: .9rem; }
+.host-cta { margin-block-start: 74px; padding: 38px; border-radius: 16px; background: var(--navy); color: var(--white); text-align: center; }
+.host-cta h2 { font-size: clamp(1.65rem, 3vw, 2.35rem); }
+.host-cta p { max-width: 600px; margin: 10px auto 24px; color: rgba(255,255,255,.72); }
+.button { display: inline-block; padding: 12px 24px; border-radius: 6px; background: var(--magenta); color: var(--white); font-weight: 750; text-decoration: none; }
+.button:hover { opacity: .88; }
+.footer { background: #0D1117; color: var(--white); padding-block: 40px; }
+.footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.footer p { color: rgba(255,255,255,.5); font-size: .84rem; }
+.footer a { color: rgba(255,255,255,.72); font-size: .84rem; text-decoration: none; }
+.footer a:hover { color: var(--white); text-decoration: underline; }
+@media (max-width: 800px) {
+  .nav__links li { display: none; }
+  .nav__links li:has(a[aria-current="page"]) { display: block; }
+  .section-heading { grid-template-columns: 1fr; gap: 18px; }
+  .host-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .container { width: min(100% - 32px, var(--max-width)); }
+  .brand span { font-size: .88rem; }
+  .hero { padding-block: 64px 70px; }
+  .hosts { padding-block: 60px 76px; }
+  .host-grid { grid-template-columns: 1fr; gap: 46px; }
+  .host__logo-wrap { width: min(82vw, 300px); }
+  .host-cta { margin-block-start: 56px; padding: 30px 20px; }
+  .footer__inner { align-items: flex-start; flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .host__logo-wrap { transition: none; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav__inner">
+    <a class="brand" href="index.html" aria-label="Canberra Data Week home">
+      <img src="CDW Logo_dark background.svg" alt="">
+      <span>Canberra <strong>Data Week</strong></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="hosts.html" aria-current="page">Hosts</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="container hero__content">
+      <p class="eyebrow">Canberra Data Week 2026</p>
+      <h1>Meet the organisations making the week <span>possible.</span></h1>
+      <p>Canberra Data Week is a citywide festival powered by organisations that open their doors, share their expertise and create places for our data community to connect.</p>
+    </div>
+  </header>
+
+  <section class="hosts" aria-labelledby="host-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Event hosts</p>
+          <h2 id="host-heading">Proudly hosting across Canberra</h2>
+        </div>
+        <p>Thank you to the organisations contributing venues, people and program experiences to Canberra Data Week 2026.</p>
+      </div>
+
+      <div class="host-grid">
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo" src="assets/host-a23.jpg" alt="A23" width="800" height="800"></div>
+          <div class="host__body"><h3>A23</h3><p class="host__role">Event host</p><p class="host__copy">Contributing to Canberra's citywide celebration of data, insight and impact.</p></div>
+        </article>
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo" src="assets/host-databricks.jpg" alt="Databricks" width="800" height="800"></div>
+          <div class="host__body"><h3>Databricks</h3><p class="host__role">Event host</p><p class="host__copy">Contributing to Canberra's citywide celebration of data, insight and impact.</p></div>
+        </article>
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo" src="assets/host-emanate-technology.jpg" alt="Emanate Technology" width="800" height="800"></div>
+          <div class="host__body"><h3>Emanate Technology</h3><p class="host__role">Careers session host</p><p class="host__copy">Hosting Data Careers with Emanate Technology and connecting emerging talent with Canberra's data community.</p></div>
+        </article>
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo" src="assets/host-microsoft.jpg" alt="Microsoft" width="800" height="800"></div>
+          <div class="host__body"><h3>Microsoft</h3><p class="host__role">Anchor event host</p><p class="host__copy">Hosting the festival's anchor event and bringing Canberra's data community together.</p></div>
+        </article>
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo" src="assets/host-salesforce.jpg" alt="Salesforce" width="800" height="800"></div>
+          <div class="host__body"><h3>Salesforce</h3><p class="host__role">Event host</p><p class="host__copy">Contributing to Canberra's citywide celebration of data, insight and impact.</p></div>
+        </article>
+        <article class="host">
+          <div class="host__logo-wrap"><img class="host__logo host__logo--contain" src="assets/host-exclaim-it.png" alt="Exclaim IT" width="168" height="38"></div>
+          <div class="host__body"><h3>Exclaim IT</h3><p class="host__role">Venue host</p><p class="host__copy">Providing a welcoming space for Canberra's data community to connect and collaborate.</p></div>
+        </article>
+      </div>
+
+      <aside class="host-cta">
+        <h2>Interested in hosting an event?</h2>
+        <p>Join organisations across Canberra in creating an official event for the 2026 festival program.</p>
+        <a class="button" href="index.html#host">Explore hosting opportunities</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; 2026 Canberra Data Week. Data. Insight. Impact.</p>
+    <a href="index.html">Return to the festival home page</a>
+  </div>
+</footer>
+</body>
+</html>
