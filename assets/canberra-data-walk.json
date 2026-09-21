@@ -1,0 +1,125 @@
+{
+  "title": "Lake Burley Griffin Data Walk Starter Dataset",
+  "version": "2.0",
+  "lastUpdated": "2026-09-22",
+  "licence": "Hackathon starter content. Verify facts, coordinates, permissions, accessibility conditions and source licences before publication.",
+  "routeNote": "The route follows the central Lake Burley Griffin loop between Commonwealth Avenue and Kings Avenue bridges, with a short Parliamentary Zone extension for the women's suffrage and first women in Parliament stops.",
+  "route": {
+    "type": "LineString",
+    "note": "Indicative geometry only. Confirm paths, crossings, closures and accessibility conditions on site.",
+    "coordinates": [
+      [149.1275, -35.2965],
+      [149.1353, -35.2978],
+      [149.1334, -35.2987],
+      [149.1311, -35.3032],
+      [149.1308, -35.3028],
+      [149.1334, -35.2987],
+      [149.1417, -35.2985],
+      [149.1465, -35.2993],
+      [149.1458, -35.2908],
+      [149.1345, -35.2905],
+      [149.1296, -35.2904],
+      [149.1252, -35.2898],
+      [149.1248, -35.2965],
+      [149.1275, -35.2965]
+    ]
+  },
+  "places": [
+    {
+      "id": "australian-of-the-year-walk",
+      "name": "Australian of the Year Walk",
+      "latitude": -35.2965,
+      "longitude": 149.1275,
+      "theme": "Recognition",
+      "story": "Plaques along the southern foreshore recognise Australian of the Year recipients from 1960 onward, with new recipients added annually.",
+      "dataPrompt": "Whose achievements are recognised here, how has that representation changed over time, and what could the plaques reveal as a dataset?",
+      "accessibility": "The shared path is generally level, but cyclists can pass quickly and the low plaques may require visitors to bend or approach closely.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/australian-year-walk",
+      "nextPlaceId": "international-flag-display"
+    },
+    {
+      "id": "international-flag-display",
+      "name": "International Flag Display",
+      "latitude": -35.2978,
+      "longitude": 149.1353,
+      "theme": "Diplomacy",
+      "story": "The display at Commonwealth Place flies flags for nations represented by diplomatic missions in Canberra and selected international organisations.",
+      "dataPrompt": "How could a flag display become a gateway to data about Canberra's diplomatic community and Australia's international relationships?",
+      "accessibility": "The area is broadly paved, although routes between the lake and upper terrace include noticeable gradients.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/international-flag-display",
+      "nextPlaceId": "reconciliation-place"
+    },
+    {
+      "id": "reconciliation-place",
+      "name": "Reconciliation Place",
+      "latitude": -35.2987,
+      "longitude": 149.1334,
+      "theme": "Reconciliation",
+      "story": "A national public landscape where sculptural slivers share Indigenous histories, experiences and achievements.",
+      "dataPrompt": "How can digital interpretation provide context without separating stories from Country, community authority and lived experience?",
+      "accessibility": "Most primary routes are paved, but some approaches cross grass or sloping ground and interpretation appears at varied heights.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/reconciliation-place",
+      "nextPlaceId": "womens-suffrage-fountain"
+    },
+    {
+      "id": "womens-suffrage-fountain",
+      "name": "Women's Suffrage Commemorative Fountain",
+      "latitude": -35.3032,
+      "longitude": 149.1311,
+      "theme": "Equality",
+      "story": "The fountain and timeline commemorate the Commonwealth Franchise Act 1902 and the women who campaigned for equal federal voting and candidacy rights.",
+      "dataPrompt": "What does electoral data show about the time between gaining formal political rights and achieving equal representation?",
+      "accessibility": "This stop is a short uphill extension from the lake. Confirm garden opening hours, paths and any temporary security closures.",
+      "sourceUrl": "https://www.aph.gov.au/Visit_Parliament/Art/Icons/Womens_Suffrage_Commemorative_Fountain",
+      "nextPlaceId": "lyons-tangney-statues"
+    },
+    {
+      "id": "lyons-tangney-statues",
+      "name": "Statues of Dame Enid Lyons and Senator Dame Dorothy Tangney",
+      "latitude": -35.3028,
+      "longitude": 149.1308,
+      "theme": "Women in Parliament",
+      "story": "The paired bronze statues honour the first two women elected to Australia's federal Parliament in 1943: Enid Lyons to the House of Representatives and Dorothy Tangney to the Senate.",
+      "dataPrompt": "How has the number and diversity of women in federal Parliament changed since Lyons and Tangney were elected?",
+      "accessibility": "The Parliamentary Zone extension involves an uphill walk and road crossings. Events or temporary barriers may alter access.",
+      "sourceUrl": "https://www.aph.gov.au/News_and_Events/News/Statues_of_first_women_in_federal_Parliament",
+      "nextPlaceId": "national-carillon"
+    },
+    {
+      "id": "national-carillon",
+      "name": "National Carillon",
+      "latitude": -35.2985,
+      "longitude": 149.1417,
+      "theme": "Sound",
+      "story": "The 50-metre bell tower on Queen Elizabeth II Island was presented by the British Government for Canberra's 50th anniversary and now contains 57 bells.",
+      "dataPrompt": "How could recital schedules, sound levels, weather and visitor movement help tell the story of this instrument and place?",
+      "accessibility": "The island is reached by a long pedestrian bridge exposed to sun, wind and weather. Tower entry is generally limited to organised activities.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/national-carillon",
+      "nextPlaceId": "menzies-memorial"
+    },
+    {
+      "id": "menzies-memorial",
+      "name": "Sir Robert Menzies Memorial",
+      "latitude": -35.2905,
+      "longitude": 149.1345,
+      "theme": "Public sculpture",
+      "story": "A life-size bronze figure depicts Australia's longest-serving prime minister walking beside the lake on RG Menzies Walk.",
+      "dataPrompt": "What choices do artists and institutions make when representing political leadership in public space?",
+      "accessibility": "The memorial sits beside a busy shared path. Groups should stop clear of cyclists, runners and other path users.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/sir-robert-menzies-memorial",
+      "nextPlaceId": "captain-cook-memorial"
+    },
+    {
+      "id": "captain-cook-memorial",
+      "name": "Captain Cook Memorial",
+      "latitude": -35.2904,
+      "longitude": 149.1296,
+      "theme": "Mapping",
+      "story": "A terrestrial globe at Regatta Point and a lake jet commemorate the bicentenary of James Cook's 1770 voyage along Australia's east coast.",
+      "dataPrompt": "How have maps, place names and public monuments shaped whose perspectives visitors encounter?",
+      "accessibility": "The globe approach is paved and gently sloping. The jet operates to a schedule and may stop for wind, water quality or maintenance.",
+      "sourceUrl": "https://www.nca.gov.au/attractions/captain-cook-memorial",
+      "nextPlaceId": "australian-of-the-year-walk"
+    }
+  ]
+}
