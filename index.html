@@ -175,12 +175,21 @@ a:hover { text-decoration: underline; }
 .mission-card:nth-child(2) { border-block-start-color: var(--cdw-magenta); }
 .mission-card:nth-child(3) { border-block-start-color: var(--cdw-orange); }
 .mission-card__marker {
-  inline-size: 42px; block-size: 42px; display: grid; place-items: center;
-  border-radius: 50%; background: var(--navy); color: var(--white);
-  font-size: .72rem; font-weight: 800; letter-spacing: .06em;
+  position: relative; inline-size: 72px; block-size: 72px; display: grid; place-items: center;
+  overflow: hidden; border: 2px solid var(--navy); border-radius: 50%; background: var(--white);
 }
-.mission-card:nth-child(2) .mission-card__marker { background: var(--cdw-magenta); }
-.mission-card:nth-child(3) .mission-card__marker { background: var(--cdw-orange); }
+.mission-card__marker img { inline-size: 58px; block-size: 58px; object-fit: contain; }
+.mission-card__number {
+  position: absolute; inset-inline-end: 3px; inset-block-end: 3px;
+  min-inline-size: 25px; block-size: 25px; display: grid; place-items: center;
+  padding-inline: 4px; border: 2px solid var(--white); border-radius: 50%;
+  background: var(--navy); color: var(--white);
+  font-size: .62rem; font-weight: 800; letter-spacing: .02em;
+}
+.mission-card:nth-child(2) .mission-card__marker { border-color: var(--cdw-magenta); }
+.mission-card:nth-child(2) .mission-card__number { background: var(--cdw-magenta); }
+.mission-card:nth-child(3) .mission-card__marker { border-color: var(--cdw-orange); }
+.mission-card:nth-child(3) .mission-card__number { background: var(--cdw-orange); }
 .mission-card h3 { font-size: 1rem; color: var(--text); margin-block-end: 5px; }
 .mission-card p  { font-size: .88rem; }
 
@@ -541,7 +550,8 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 @media (max-width: 600px) {
   .section        { padding-block: 56px; }
   .mission-card   { padding: 20px; }
-  .mission-card__marker { inline-size: 36px; block-size: 36px; }
+  .mission-card__marker { inline-size: 64px; block-size: 64px; }
+  .mission-card__marker img { inline-size: 52px; block-size: 52px; }
   .pillar-grid    { grid-template-columns: 1fr 1fr; }
   .events-grid    { grid-template-columns: 1fr; }
   .event-card__footer { padding-block: 16px 18px; }
@@ -662,21 +672,30 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     </div>
     <div class="mission-grid">
       <div class="mission-card">
-        <div class="mission-card__marker" aria-hidden="true">01</div>
+        <div class="mission-card__marker" aria-hidden="true">
+          <img src="assets/Canberra Data Week Belconnen Owl.png" alt="">
+          <span class="mission-card__number">01</span>
+        </div>
         <div>
           <h3>Distributed &amp; Citywide</h3>
           <p>A central anchor at Microsoft's Canberra office, plus satellite events hosted by partner organisations across offices, museums, galleries, lakeside and online.</p>
         </div>
       </div>
       <div class="mission-card">
-        <div class="mission-card__marker" aria-hidden="true">02</div>
+        <div class="mission-card__marker" aria-hidden="true">
+          <img src="assets/Canberra Data Week Belconnen Owl.png" alt="">
+          <span class="mission-card__number">02</span>
+        </div>
         <div>
           <h3>Open to Everyone</h3>
           <p>All events are free to attend. Whether you're a data scientist, a public servant, a student or just curious, there is a Canberra Data Week event for you.</p>
         </div>
       </div>
       <div class="mission-card">
-        <div class="mission-card__marker" aria-hidden="true">03</div>
+        <div class="mission-card__marker" aria-hidden="true">
+          <img src="assets/Canberra Data Week Belconnen Owl.png" alt="">
+          <span class="mission-card__number">03</span>
+        </div>
         <div>
           <h3>Community-Driven</h3>
           <p>Any organisation can apply to host an event. We invite teams and individuals to design and run their own session as an official part of the week's program.</p>
