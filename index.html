@@ -190,9 +190,17 @@ a:hover { text-decoration: underline; }
   display: flex; flex-wrap: wrap; gap: 8px;
   justify-content: center;
 }
-.event-filter-set { display: grid; gap: 9px; margin-block-end: 20px; }
+.event-filter-set {
+  min-inline-size: 0; display: grid; gap: 9px; margin: 0 0 20px;
+  padding: 16px 18px 18px; border: 1px solid var(--grey-200);
+  border-radius: var(--radius); background: var(--surface);
+}
 .event-filter-set + .event-filter-set { margin-block-end: 32px; }
-.event-filter-set__label { color: var(--grey-600); font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+.event-filter-set__label {
+  margin-inline: auto; padding-inline: 10px; color: var(--grey-600);
+  font-size: .76rem; font-weight: 700; letter-spacing: .08em;
+  text-align: center; text-transform: uppercase;
+}
 /* Visually-hidden radio inputs drive the filter (pure CSS, no JS) */
 .filter-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .filter-chip {
@@ -774,8 +782,8 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
       <p>28 September - 2 October 2026. A diverse program of free events across five days. Browse the types of events you can attend, or apply to run your own as a partner host.</p>
     </div>
 
-    <div class="event-filter-set">
-      <p class="event-filter-set__label">Event type</p>
+    <fieldset class="event-filter-set">
+      <legend class="event-filter-set__label">Event type</legend>
       <div class="event-filters" role="group" aria-label="Filter events by type">
         <label class="filter-chip" for="f-all">All Types</label>
         <label class="filter-chip" for="f-panel">Panel</label>
@@ -789,10 +797,10 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <label class="filter-chip" for="f-community">Community</label>
         <label class="filter-chip" for="f-demo">Demonstration</label>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="event-filter-set">
-      <p class="event-filter-set__label">Day</p>
+    <fieldset class="event-filter-set">
+      <legend class="event-filter-set__label">Day</legend>
       <div class="event-filters" role="group" aria-label="Filter events by day">
         <label class="filter-chip" for="d-all">All Days</label>
         <label class="filter-chip" for="d-mon">Mon 28</label>
@@ -802,7 +810,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <label class="filter-chip" for="d-fri">Fri 2</label>
         <label class="filter-chip" for="d-tbc">Schedule TBC</label>
       </div>
-    </div>
+    </fieldset>
 
     <div class="events-grid">
       <article class="event-card event-card--interactive" data-type="showcase" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="salesforce-breakfast-dialog" data-open-salesforce-breakfast>
