@@ -188,8 +188,11 @@ a:hover { text-decoration: underline; }
 /* ── Events ──────────────────────────────────────────────────── */
 .event-filters {
   display: flex; flex-wrap: wrap; gap: 8px;
-  margin-block-end: 32px; justify-content: center;
+  justify-content: center;
 }
+.event-filter-set { display: grid; gap: 9px; margin-block-end: 20px; }
+.event-filter-set + .event-filter-set { margin-block-end: 32px; }
+.event-filter-set__label { color: var(--grey-600); font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
 /* Visually-hidden radio inputs drive the filter (pure CSS, no JS) */
 .filter-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .filter-chip {
@@ -200,20 +203,30 @@ a:hover { text-decoration: underline; }
 }
 .filter-chip:hover { border-color: var(--blue); color: var(--blue); }
 /* Active chip: highlight the label whose radio is checked */
-#f-all:checked      ~ .event-filters label[for="f-all"],
-#f-panel:checked    ~ .event-filters label[for="f-panel"],
-#f-workshop:checked ~ .event-filters label[for="f-workshop"],
-#f-walk:checked     ~ .event-filters label[for="f-walk"],
-#f-talk:checked     ~ .event-filters label[for="f-talk"],
-#f-showcase:checked ~ .event-filters label[for="f-showcase"],
-#f-careers:checked  ~ .event-filters label[for="f-careers"],
-#f-lunch:checked    ~ .event-filters label[for="f-lunch"],
-#f-hackathon:checked ~ .event-filters label[for="f-hackathon"],
-#f-community:checked ~ .event-filters label[for="f-community"],
-#f-demo:checked     ~ .event-filters label[for="f-demo"] {
+#f-all:checked      ~ .event-filter-set label[for="f-all"],
+#f-panel:checked    ~ .event-filter-set label[for="f-panel"],
+#f-workshop:checked ~ .event-filter-set label[for="f-workshop"],
+#f-walk:checked     ~ .event-filter-set label[for="f-walk"],
+#f-talk:checked     ~ .event-filter-set label[for="f-talk"],
+#f-showcase:checked ~ .event-filter-set label[for="f-showcase"],
+#f-careers:checked  ~ .event-filter-set label[for="f-careers"],
+#f-lunch:checked    ~ .event-filter-set label[for="f-lunch"],
+#f-hackathon:checked ~ .event-filter-set label[for="f-hackathon"],
+#f-community:checked ~ .event-filter-set label[for="f-community"],
+#f-demo:checked     ~ .event-filter-set label[for="f-demo"] {
   background: var(--navy); color: var(--white); border-color: var(--navy);
 }
-.filter-input:focus-visible ~ .event-filters label[for="f-all"] { outline: 2px solid var(--blue); outline-offset: 2px; }
+#d-all:checked ~ .event-filter-set label[for="d-all"],
+#d-mon:checked ~ .event-filter-set label[for="d-mon"],
+#d-tue:checked ~ .event-filter-set label[for="d-tue"],
+#d-wed:checked ~ .event-filter-set label[for="d-wed"],
+#d-thu:checked ~ .event-filter-set label[for="d-thu"],
+#d-fri:checked ~ .event-filter-set label[for="d-fri"],
+#d-tbc:checked ~ .event-filter-set label[for="d-tbc"] {
+  background: var(--cdw-purple); color: var(--white); border-color: var(--cdw-purple);
+}
+#f-all:focus-visible ~ .event-filter-set label[for="f-all"],
+#d-all:focus-visible ~ .event-filter-set label[for="d-all"] { outline: 2px solid var(--blue); outline-offset: 2px; }
 /* Show only cards matching the checked filter */
 #f-panel:checked    ~ .events-grid .event-card:not([data-type~="panel"]),
 #f-workshop:checked ~ .events-grid .event-card:not([data-type~="workshop"]),
@@ -225,6 +238,14 @@ a:hover { text-decoration: underline; }
 #f-hackathon:checked ~ .events-grid .event-card:not([data-type~="hackathon"]),
 #f-community:checked ~ .events-grid .event-card:not([data-type~="community"]),
 #f-demo:checked     ~ .events-grid .event-card:not([data-type~="demo"]) {
+  display: none;
+}
+#d-mon:checked ~ .events-grid .event-card:not([data-day="mon"]),
+#d-tue:checked ~ .events-grid .event-card:not([data-day="tue"]),
+#d-wed:checked ~ .events-grid .event-card:not([data-day="wed"]),
+#d-thu:checked ~ .events-grid .event-card:not([data-day="thu"]),
+#d-fri:checked ~ .events-grid .event-card:not([data-day="fri"]),
+#d-tbc:checked ~ .events-grid .event-card:not([data-day="tbc"]) {
   display: none;
 }
 .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -739,6 +760,13 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     <input type="radio" name="event-filter" id="f-hackathon" class="filter-input">
     <input type="radio" name="event-filter" id="f-community" class="filter-input">
     <input type="radio" name="event-filter" id="f-demo" class="filter-input">
+    <input type="radio" name="day-filter" id="d-all" class="filter-input" checked>
+    <input type="radio" name="day-filter" id="d-mon" class="filter-input">
+    <input type="radio" name="day-filter" id="d-tue" class="filter-input">
+    <input type="radio" name="day-filter" id="d-wed" class="filter-input">
+    <input type="radio" name="day-filter" id="d-thu" class="filter-input">
+    <input type="radio" name="day-filter" id="d-fri" class="filter-input">
+    <input type="radio" name="day-filter" id="d-tbc" class="filter-input">
 
     <div class="section-header">
       <p class="section-header__eyebrow">The Program</p>
@@ -746,22 +774,38 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
       <p>28 September - 2 October 2026. A diverse program of free events across five days. Browse the types of events you can attend, or apply to run your own as a partner host.</p>
     </div>
 
-    <div class="event-filters" role="group" aria-label="Filter events by type">
-      <label class="filter-chip" for="f-all">All Events</label>
-      <label class="filter-chip" for="f-panel">Panel</label>
-      <label class="filter-chip" for="f-workshop">Workshop</label>
-      <label class="filter-chip" for="f-walk">Walk</label>
-      <label class="filter-chip" for="f-talk">Talk</label>
-      <label class="filter-chip" for="f-showcase">Showcase</label>
-      <label class="filter-chip" for="f-careers">Careers</label>
-      <label class="filter-chip" for="f-lunch">Lunch</label>
-      <label class="filter-chip" for="f-hackathon">Hackathon</label>
-      <label class="filter-chip" for="f-community">Community</label>
-      <label class="filter-chip" for="f-demo">Demonstration</label>
+    <div class="event-filter-set">
+      <p class="event-filter-set__label">Event type</p>
+      <div class="event-filters" role="group" aria-label="Filter events by type">
+        <label class="filter-chip" for="f-all">All Types</label>
+        <label class="filter-chip" for="f-panel">Panel</label>
+        <label class="filter-chip" for="f-workshop">Workshop</label>
+        <label class="filter-chip" for="f-walk">Walk</label>
+        <label class="filter-chip" for="f-talk">Talk</label>
+        <label class="filter-chip" for="f-showcase">Showcase</label>
+        <label class="filter-chip" for="f-careers">Careers</label>
+        <label class="filter-chip" for="f-lunch">Lunch</label>
+        <label class="filter-chip" for="f-hackathon">Hackathon</label>
+        <label class="filter-chip" for="f-community">Community</label>
+        <label class="filter-chip" for="f-demo">Demonstration</label>
+      </div>
+    </div>
+
+    <div class="event-filter-set">
+      <p class="event-filter-set__label">Day</p>
+      <div class="event-filters" role="group" aria-label="Filter events by day">
+        <label class="filter-chip" for="d-all">All Days</label>
+        <label class="filter-chip" for="d-mon">Mon 28</label>
+        <label class="filter-chip" for="d-tue">Tue 29</label>
+        <label class="filter-chip" for="d-wed">Wed 30</label>
+        <label class="filter-chip" for="d-thu">Thu 1</label>
+        <label class="filter-chip" for="d-fri">Fri 2</label>
+        <label class="filter-chip" for="d-tbc">Schedule TBC</label>
+      </div>
     </div>
 
     <div class="events-grid">
-      <article class="event-card event-card--interactive" data-type="showcase" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="salesforce-breakfast-dialog" data-open-salesforce-breakfast>
+      <article class="event-card event-card--interactive" data-type="showcase" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="salesforce-breakfast-dialog" data-open-salesforce-breakfast>
         <div class="event-card__meta">
           <span class="tag tag--showcase">Breakfast &amp; Showcase</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
@@ -778,7 +822,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="microsoft-event-dialog" data-open-microsoft-event>
+      <article class="event-card event-card--interactive" data-type="panel" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="microsoft-event-dialog" data-open-microsoft-event>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
@@ -795,7 +839,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="showcase" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="public-sector-showcase-dialog" data-open-public-sector-showcase>
+      <article class="event-card event-card--interactive" data-type="showcase" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="public-sector-showcase-dialog" data-open-public-sector-showcase>
         <div class="event-card__meta">
           <span class="tag tag--showcase">Showcase</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
@@ -812,7 +856,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="workshop" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-skills-workshop-dialog" data-open-data-skills-workshop>
+      <article class="event-card event-card--interactive" data-type="workshop" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-skills-workshop-dialog" data-open-data-skills-workshop>
         <div class="event-card__meta">
           <span class="tag tag--workshop">Workshop</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
@@ -829,7 +873,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="walk" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-walk-dialog" data-open-data-walk>
+      <article class="event-card event-card--interactive" data-type="walk" data-day="wed" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-walk-dialog" data-open-data-walk>
         <div class="event-card__meta">
           <span class="tag tag--walk">Walk</span>
           <span class="event-card__badge event-card__badge--confirmed">Open</span>
@@ -846,7 +890,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="careers" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="careers-session-dialog" data-open-careers-session>
+      <article class="event-card event-card--interactive" data-type="careers" data-day="thu" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="careers-session-dialog" data-open-careers-session>
         <div class="event-card__meta">
           <span class="tag tag--careers">Careers</span>
           <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
@@ -863,7 +907,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="panel" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="women-in-data-dialog" data-open-women-in-data>
+      <article class="event-card event-card--interactive" data-type="panel" data-day="fri" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="women-in-data-dialog" data-open-women-in-data>
         <div class="event-card__meta">
           <span class="tag tag--panel">Panel</span>
           <span class="event-card__badge event-card__badge--confirmed">Open</span>
@@ -880,7 +924,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card event-card--interactive" data-type="talk" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="census-data-dialog" data-open-census-data>
+      <article class="event-card event-card--interactive" data-type="talk" data-day="fri" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="census-data-dialog" data-open-census-data>
         <div class="event-card__meta">
           <span class="tag tag--talk">Talk</span>
           <span class="event-card__badge event-card__badge--confirmed">Open</span>
@@ -897,7 +941,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="talk">
+      <article class="event-card" data-type="talk" data-day="tbc">
         <div class="event-card__meta">
           <span class="tag tag--talk">Talk</span>
           <span class="event-card__badge event-card__badge--pending">In development</span>
@@ -913,7 +957,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="hackathon">
+      <article class="event-card" data-type="hackathon" data-day="tbc">
         <div class="event-card__meta">
           <span class="tag tag--hackathon">Hackathon</span>
           <span class="event-card__badge event-card__badge--host">Host needed</span>
@@ -930,7 +974,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="community">
+      <article class="event-card" data-type="community" data-day="tbc">
         <div class="event-card__meta">
           <span class="tag tag--community">Community Forum</span>
           <span class="event-card__badge event-card__badge--host">Host needed</span>
@@ -947,7 +991,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="workshop">
+      <article class="event-card" data-type="workshop" data-day="mon">
         <div class="event-card__meta">
           <span class="tag tag--workshop">Workshop</span>
           <span class="event-card__badge event-card__badge--pending">Being scheduled</span>
@@ -963,7 +1007,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="demo">
+      <article class="event-card" data-type="demo" data-day="tbc">
         <div class="event-card__meta">
           <span class="tag tag--demo">Demonstration</span>
           <span class="event-card__badge event-card__badge--host">Host needed</span>
