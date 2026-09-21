@@ -413,12 +413,16 @@ a:hover { text-decoration: underline; }
   content: ''; position: absolute; inset-inline-end: -80px; inset-block-start: -80px;
   inline-size: 400px; block-size: 400px; border-radius: 50%; background: rgba(255,255,255,.10);
 }
+.cta-band__heading {
+  display: grid; grid-template-columns: minmax(90px, 150px) auto minmax(90px, 150px);
+  gap: clamp(18px, 4vw, 48px); justify-content: center; align-items: center;
+  margin-block-end: 18px;
+}
 .cta-band__icon {
-  inline-size: clamp(120px, 14vw, 170px); block-size: auto;
-  margin: 0 auto 22px;
+  inline-size: 100%; block-size: auto;
   filter: drop-shadow(0 12px 22px rgba(0,27,60,.28));
 }
-.cta-band h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-block-end: 16px; }
+.cta-band h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
 .cta-band p  { color: rgba(255,255,255,.78); font-size: 1.05rem; max-inline-size: 540px; margin-inline: auto; margin-block-end: 36px; }
 .cta-band__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
@@ -557,6 +561,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 600px) {
   .section        { padding-block: 56px; }
+  .cta-band__heading { grid-template-columns: 72px minmax(0, auto) 72px; gap: 12px; }
   .mission-card   { padding: 20px; }
   .mission-card__marker { inline-size: 64px; block-size: 64px; }
   .mission-card__marker img { inline-size: 52px; block-size: 52px; }
@@ -1315,8 +1320,11 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 <!-- CTA -->
 <section class="cta-band" id="apply" aria-label="Call to action">
   <div class="container" style="position:relative;z-index:1;">
-    <img class="cta-band__icon" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="Canberra Data Week bus shelter">
-    <h2>Ready to get involved?</h2>
+    <div class="cta-band__heading">
+      <img class="cta-band__icon" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+      <h2>Ready to get involved?</h2>
+      <img class="cta-band__icon" src="assets/Canberra Data Week Belconnen Owl.png" alt="">
+    </div>
     <p>Canberra Data Week is built by the community. Tell us how you would like to contribute, from hosting an event or speaking to sharing data, offering a venue or supporting the week.</p>
     <div class="cta-band__actions">
       <button class="btn btn--primary" type="button" data-open-host-form>Get Involved</button>
