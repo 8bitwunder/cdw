@@ -243,7 +243,6 @@ a:hover { text-decoration: underline; }
 #f-demo:checked     ~ .event-filter-set label[for="f-demo"] {
   background: var(--navy); color: var(--white); border-color: var(--navy);
 }
-#d-all:checked ~ .event-filter-set label[for="d-all"],
 #d-mon:checked ~ .event-filter-set label[for="d-mon"],
 #d-tue:checked ~ .event-filter-set label[for="d-tue"],
 #d-wed:checked ~ .event-filter-set label[for="d-wed"],
@@ -251,6 +250,9 @@ a:hover { text-decoration: underline; }
 #d-fri:checked ~ .event-filter-set label[for="d-fri"],
 #d-tbc:checked ~ .event-filter-set label[for="d-tbc"] {
   background: var(--cdw-purple); color: var(--white); border-color: var(--cdw-purple);
+}
+#d-all:checked ~ .event-filter-set label[for="d-all"] {
+  background: var(--navy); color: var(--white); border-color: var(--navy);
 }
 #f-all:focus-visible ~ .event-filter-set label[for="f-all"],
 #d-all:focus-visible ~ .event-filter-set label[for="d-all"] { outline: 2px solid var(--blue); outline-offset: 2px; }
