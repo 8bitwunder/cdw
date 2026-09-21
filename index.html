@@ -163,24 +163,17 @@ a:hover { text-decoration: underline; }
 .section--navy .section-header__eyebrow { color: var(--cdw-yellow); }
 .section-header p { font-size: 1.02rem; max-inline-size: 640px; margin-inline: auto; margin-block-start: 12px; }
 
-/* ── About & mission cards ────────────────────────────────────── */
-.about-layout {
-  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
-  gap: clamp(40px, 6vw, 84px); align-items: center;
-}
-.about-copy .section-header { text-align: start; margin-block-end: 30px; }
-.about-copy .section-header::after { margin-inline: 0; }
-.about-copy .section-header p { max-inline-size: 680px; margin-inline: 0; }
-.mission-grid { display: grid; gap: 14px; }
+/* ── Mission cards ────────────────────────────────────────────── */
+.mission-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .mission-card {
-  display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: start;
+  display: grid; grid-template-rows: auto 1fr; gap: 16px; align-items: start;
   background: var(--off-white); border: 1px solid var(--grey-200);
-  border-inline-start: 4px solid var(--cdw-teal); border-radius: var(--radius);
-  padding: 20px 22px; transition: border-color .2s, box-shadow .2s, transform .2s;
+  border-block-start: 4px solid var(--cdw-teal); border-radius: var(--radius);
+  padding: 24px; transition: border-color .2s, box-shadow .2s, transform .2s;
 }
-.mission-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
-.mission-card:nth-child(2) { border-inline-start-color: var(--cdw-magenta); }
-.mission-card:nth-child(3) { border-inline-start-color: var(--cdw-orange); }
+.mission-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.mission-card:nth-child(2) { border-block-start-color: var(--cdw-magenta); }
+.mission-card:nth-child(3) { border-block-start-color: var(--cdw-orange); }
 .mission-card__marker {
   inline-size: 42px; block-size: 42px; display: grid; place-items: center;
   border-radius: 50%; background: var(--navy); color: var(--white);
@@ -190,24 +183,6 @@ a:hover { text-decoration: underline; }
 .mission-card:nth-child(3) .mission-card__marker { background: var(--cdw-orange); }
 .mission-card h3 { font-size: 1rem; color: var(--text); margin-block-end: 5px; }
 .mission-card p  { font-size: .88rem; }
-.about-art { margin: 0; }
-.about-art__frame {
-  position: relative; isolation: isolate; overflow: hidden;
-  padding: clamp(18px, 3vw, 34px); border-radius: 28px;
-  background: var(--navy); box-shadow: var(--shadow-lg);
-}
-.about-art__frame::before {
-  content: ''; position: absolute; z-index: -1; inset: -25% 35% 35% -25%;
-  border-radius: 50%; background: var(--grad-full); filter: blur(16px); opacity: .7;
-}
-.about-art img {
-  display: block; inline-size: 100%; block-size: auto; border-radius: 18px;
-  background: var(--surface);
-}
-.about-art figcaption {
-  margin-block-start: 12px; color: var(--grey-600);
-  font-size: .76rem; text-align: center;
-}
 
 /* ── Pillar ──────────────────────────────────────────────────── */
 .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -552,8 +527,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 @media (max-width: 960px) {
   .hero__inner    { grid-template-columns: 1fr; }
   .hero__visual   { display: none; }
-  .about-layout   { grid-template-columns: 1fr; }
-  .about-art      { max-inline-size: 620px; margin-inline: auto; }
+  .mission-grid   { grid-template-columns: 1fr; }
   .pillar-grid    { grid-template-columns: 1fr 1fr; }
   .events-grid    { grid-template-columns: 1fr 1fr; }
   .opps-grid      { grid-template-columns: 1fr 1fr; }
@@ -566,9 +540,8 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 600px) {
   .section        { padding-block: 56px; }
-  .mission-card   { grid-template-columns: 42px 1fr; padding: 18px; }
+  .mission-card   { padding: 20px; }
   .mission-card__marker { inline-size: 36px; block-size: 36px; }
-  .about-art__frame { border-radius: 20px; }
   .pillar-grid    { grid-template-columns: 1fr 1fr; }
   .events-grid    { grid-template-columns: 1fr; }
   .event-card__footer { padding-block: 16px 18px; }
@@ -682,43 +655,33 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 <!-- ABOUT -->
 <section class="section section--white" id="about" aria-label="About">
   <div class="container">
-    <div class="about-layout">
-      <div class="about-copy">
-        <div class="section-header">
-          <p class="section-header__eyebrow">About the Festival</p>
-          <h2>Why Canberra Data Week?</h2>
-          <p>Canberra is Australia's data capital, home to the ABS, federal policy institutions and world-class research universities. Data Week is a free, open, citywide festival that puts that expertise to work for the whole community.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <div class="mission-card__marker" aria-hidden="true">01</div>
-            <div>
-              <h3>Distributed &amp; Citywide</h3>
-              <p>A central anchor at Microsoft's Canberra office, plus satellite events hosted by partner organisations across offices, museums, galleries, lakeside and online.</p>
-            </div>
-          </div>
-          <div class="mission-card">
-            <div class="mission-card__marker" aria-hidden="true">02</div>
-            <div>
-              <h3>Open to Everyone</h3>
-              <p>All events are free to attend. Whether you're a data scientist, a public servant, a student or just curious, there is a Canberra Data Week event for you.</p>
-            </div>
-          </div>
-          <div class="mission-card">
-            <div class="mission-card__marker" aria-hidden="true">03</div>
-            <div>
-              <h3>Community-Driven</h3>
-              <p>Any organisation can apply to host an event. We invite teams and individuals to design and run their own session as an official part of the week's program.</p>
-            </div>
-          </div>
+    <div class="section-header">
+      <p class="section-header__eyebrow">About the Festival</p>
+      <h2>Why Canberra Data Week?</h2>
+      <p>Canberra is Australia's data capital, home to the ABS, federal policy institutions and world-class research universities. Data Week is a free, open, citywide festival that puts that expertise to work for the whole community.</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="mission-card__marker" aria-hidden="true">01</div>
+        <div>
+          <h3>Distributed &amp; Citywide</h3>
+          <p>A central anchor at Microsoft's Canberra office, plus satellite events hosted by partner organisations across offices, museums, galleries, lakeside and online.</p>
         </div>
       </div>
-      <figure class="about-art">
-        <div class="about-art__frame">
-          <img src="assets/Canberra Data Week Bus Shelter.svg" alt="Illustration of a Canberra bus shelter in Canberra Data Week colours">
+      <div class="mission-card">
+        <div class="mission-card__marker" aria-hidden="true">02</div>
+        <div>
+          <h3>Open to Everyone</h3>
+          <p>All events are free to attend. Whether you're a data scientist, a public servant, a student or just curious, there is a Canberra Data Week event for you.</p>
         </div>
-        <figcaption>Canberra icons, reimagined through the Canberra Data Week visual identity.</figcaption>
-      </figure>
+      </div>
+      <div class="mission-card">
+        <div class="mission-card__marker" aria-hidden="true">03</div>
+        <div>
+          <h3>Community-Driven</h3>
+          <p>Any organisation can apply to host an event. We invite teams and individuals to design and run their own session as an official part of the week's program.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
