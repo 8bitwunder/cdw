@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en-AU" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An interactive, step-by-step guide to building the Canberra Data Walk NFC web app with Azure during Canberra Data Week.">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<title>Hackathon Build Guide | Canberra Data Week</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+:root {
+  --teal: #00B4D8;
+  --turquoise: #00C8D6;
+  --purple: #9B48E4;
+  --magenta: #FF006E;
+  --orange: #FF6B00;
+  --yellow: #FFBA08;
+  --navy: #001B3C;
+  --white: #FFFFFF;
+  --surface: #FFFFFF;
+  --background: #F5F6FA;
+  --line: #D8DCE5;
+  --muted: #526070;
+  --text: #001B3C;
+  --success: #107C10;
+  --radius: 14px;
+  --shadow: 0 8px 30px rgba(0, 27, 60, .09);
+  --gradient: linear-gradient(90deg, var(--teal), var(--purple) 42%, var(--magenta) 65%, var(--orange), var(--yellow));
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #121F36;
+    --background: #081426;
+    --line: #33415A;
+    --muted: #C2CBD8;
+    --text: #F6F8FC;
+    --shadow: 0 8px 30px rgba(0, 0, 0, .3);
+  }
+}
+body { font-family: var(--font); color: var(--text); background: var(--background); line-height: 1.6; }
+body::after {
+  content: "UNDER CONSTRUCTION";
+  position: fixed;
+  z-index: 999;
+  inset: 50% auto auto 50%;
+  color: var(--magenta);
+  font-size: clamp(3rem, 10vw, 9rem);
+  font-weight: 900;
+  letter-spacing: .08em;
+  line-height: .9;
+  opacity: .055;
+  pointer-events: none;
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(-22deg);
+  white-space: nowrap;
+}
+a { color: var(--purple); }
+a:hover { text-decoration-thickness: 2px; }
+button, input { font: inherit; }
+.container { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+.skip-link { position: fixed; inset: 8px auto auto 8px; z-index: 999; padding: 10px 14px; background: var(--white); color: var(--navy); transform: translateY(-150%); }
+.skip-link:focus { transform: none; }
+.nav { position: sticky; inset-block-start: 0; z-index: 30; background: rgba(0, 27, 60, .96); border-block-end: 1px solid rgba(255,255,255,.12); }
+.nav__inner { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 11px; color: var(--white); font-weight: 750; text-decoration: none; }
+.brand img { width: 55px; height: 32px; object-fit: contain; }
+.nav__links { display: flex; gap: 18px; align-items: center; list-style: none; }
+.nav__links a { color: rgba(255,255,255,.82); text-decoration: none; font-size: .9rem; }
+.nav__links a:hover { color: var(--white); }
+.draft-notice { padding-block: 10px; color: var(--navy); background: var(--yellow); text-align: center; font-size: .84rem; font-weight: 750; }
+.draft-notice strong { margin-inline-end: 5px; }
+.hero { position: relative; overflow: hidden; padding-block: 90px 76px; color: var(--white); background: var(--navy); }
+.hero::before { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(155,72,228,.38), transparent 68%); inset: -150px -100px auto auto; }
+.hero::after { content: ""; position: absolute; height: 6px; inset: auto 0 0; background: var(--gradient); }
+.hero__grid { position: relative; display: grid; grid-template-columns: 1.25fr .75fr; gap: 64px; align-items: center; }
+.eyebrow { color: var(--yellow); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { max-width: 780px; margin-block: 10px 20px; font-size: clamp(2.35rem, 6vw, 4.8rem); line-height: 1.02; letter-spacing: -.045em; }
+.hero p { max-width: 680px; color: rgba(255,255,255,.77); font-size: clamp(1rem, 2vw, 1.18rem); }
+.hero__actions, .resource-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-block-start: 28px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border: 0; border-radius: 7px; font-weight: 750; cursor: pointer; text-decoration: none; }
+.button:hover { transform: translateY(-1px); text-decoration: none; }
+.button--primary { background: var(--magenta); color: var(--white); }
+.button--secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.5); }
+.button--quiet { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.architecture { padding: 24px; border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius); background: rgba(255,255,255,.06); }
+.architecture__item { display: flex; align-items: center; gap: 13px; padding: 13px 0; color: rgba(255,255,255,.85); }
+.architecture__item + .architecture__item { border-block-start: 1px solid rgba(255,255,255,.12); }
+.architecture__icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px; color: var(--navy); background: var(--yellow); font-weight: 850; }
+.progress-shell { position: sticky; inset-block-start: 66px; z-index: 20; background: color-mix(in srgb, var(--surface) 95%, transparent); border-block-end: 1px solid var(--line); backdrop-filter: blur(12px); }
+.progress { min-height: 74px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; }
+.progress strong { font-size: .88rem; }
+.progress__track { height: 10px; overflow: hidden; border-radius: 99px; background: var(--line); }
+.progress__bar { width: 0; height: 100%; background: var(--gradient); transition: width .25s ease; }
+.progress__count { min-width: 52px; color: var(--muted); font-size: .84rem; text-align: end; }
+main section { padding-block: 76px; }
+.section-heading { max-width: 760px; margin-block-end: 34px; }
+.section-heading h2 { margin-block: 7px 10px; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.12; }
+.section-heading p { color: var(--muted); }
+.notice { display: grid; grid-template-columns: auto 1fr; gap: 14px; padding: 20px; border-inline-start: 5px solid var(--yellow); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow); }
+.notice strong { display: block; margin-block-end: 3px; }
+.notice p { color: var(--muted); font-size: .9rem; }
+.level-picker { display: flex; flex-wrap: wrap; gap: 9px; margin-block: 28px; }
+.level-button { padding: 9px 16px; border: 1px solid var(--line); border-radius: 99px; color: var(--text); background: var(--surface); cursor: pointer; font-weight: 700; }
+.level-button[aria-pressed="true"] { color: var(--white); border-color: var(--navy); background: var(--navy); }
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+.day { min-height: 175px; padding: 18px 15px; border-radius: var(--radius); background: var(--surface); border-block-start: 4px solid var(--teal); box-shadow: var(--shadow); }
+.day:nth-child(2), .day:nth-child(6) { border-color: var(--purple); }
+.day:nth-child(3), .day:nth-child(7) { border-color: var(--magenta); }
+.day:nth-child(4) { border-color: var(--orange); }
+.day:nth-child(5) { border-color: var(--yellow); }
+.day span { color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.day h3 { margin-block: 6px; font-size: .96rem; line-height: 1.25; }
+.day p { color: var(--muted); font-size: .8rem; }
+.map-shell { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.map-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 14px 16px; border-block-end: 1px solid var(--line); }
+.map-toolbar p { color: var(--muted); font-size: .82rem; }
+.map-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.map-action { padding: 7px 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--text); background: var(--surface); cursor: pointer; font-weight: 700; }
+.map-action:hover { border-color: var(--purple); color: var(--purple); }
+#lake-map { width: 100%; height: min(68vh, 680px); min-height: 460px; background: #CBE7F4; }
+.map-marker { width: 34px; height: 34px; display: grid; place-items: center; border: 3px solid var(--white); border-radius: 50% 50% 50% 0; color: var(--white); background: var(--magenta); box-shadow: 0 3px 10px rgba(0,27,60,.35); font-weight: 850; cursor: pointer; transform: rotate(-45deg); }
+.map-marker span { transform: rotate(45deg); }
+.maplibregl-popup-content { max-width: 280px; padding: 16px; color: #001B3C; border-radius: 10px; box-shadow: var(--shadow); }
+.map-popup__number { color: #7B2CBF; font-size: .7rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.map-popup__title { margin-block: 4px 6px; font-size: 1rem; line-height: 1.2; }
+.map-popup__text { color: #526070; font-size: .8rem; line-height: 1.45; }
+.map-popup__link { display: inline-block; margin-block-start: 9px; font-size: .78rem; font-weight: 750; }
+.map-error { display: none; padding: 24px; color: var(--text); background: var(--surface); }
+.map-error strong { display: block; margin-block-end: 5px; }
+.map-error p { color: var(--muted); }
+.route-key { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 14px 16px 16px; }
+.route-key__item { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .78rem; }
+.route-key__number { width: 24px; height: 24px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; color: var(--white); background: var(--magenta); font-weight: 800; }
+.steps { display: grid; gap: 16px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.step summary { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; padding: 22px; cursor: pointer; list-style: none; }
+.step summary::-webkit-details-marker { display: none; }
+.step__number { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--white); background: var(--navy); font-weight: 850; }
+.step__title h3 { font-size: 1.08rem; }
+.step__title p { color: var(--muted); font-size: .86rem; }
+.step__chevron { font-size: 1.35rem; transition: transform .2s; }
+.step[open] .step__chevron { transform: rotate(45deg); }
+.step__body { padding: 4px 22px 24px 82px; }
+.step__body > p, .step__body li { color: var(--muted); }
+.step__body ol, .step__body ul { margin: 14px 0 18px 20px; }
+.step__body li + li { margin-block-start: 7px; }
+.task { display: flex; align-items: flex-start; gap: 10px; margin-block-start: 18px; padding: 14px; border-radius: 8px; background: var(--background); }
+.task input { width: 20px; height: 20px; margin-block-start: 2px; accent-color: var(--success); }
+.task label { cursor: pointer; font-weight: 700; }
+.code { position: relative; margin-block: 18px; border-radius: 10px; overflow: hidden; background: #071327; color: #D9E6F6; }
+.code pre { padding: 22px; overflow-x: auto; font: .82rem/1.65 Consolas, "Courier New", monospace; }
+.copy-button { position: absolute; inset: 9px 9px auto auto; padding: 6px 10px; border: 1px solid rgba(255,255,255,.22); border-radius: 5px; color: var(--white); background: rgba(255,255,255,.1); cursor: pointer; }
+.data-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.resource-card { padding: 26px; border-radius: var(--radius); background: var(--navy); color: var(--white); box-shadow: var(--shadow); }
+.resource-card p { color: rgba(255,255,255,.72); }
+.resource-card .button--quiet { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { width: 100%; border-collapse: collapse; min-width: 650px; }
+th, td { padding: 12px 14px; border-block-end: 1px solid var(--line); text-align: start; font-size: .82rem; }
+th { color: var(--navy); background: #E8F8FB; }
+td { color: var(--muted); }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.tool { display: flex; flex-direction: column; min-height: 245px; padding: 24px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.tool[hidden] { display: none; }
+.tool__level { align-self: flex-start; padding: 3px 9px; border-radius: 99px; color: var(--navy); background: #E8F8FB; font-size: .7rem; font-weight: 850; text-transform: uppercase; }
+.tool h3 { margin-block: 14px 7px; }
+.tool p { flex-grow: 1; color: var(--muted); font-size: .88rem; }
+.tool a { margin-block-start: 15px; font-weight: 750; }
+.guardrails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.guardrail { padding: 22px; border-radius: var(--radius); color: var(--white); background: var(--navy); }
+.guardrail h3 { color: var(--yellow); margin-block-end: 6px; font-size: 1rem; }
+.guardrail p { color: rgba(255,255,255,.72); font-size: .85rem; }
+.finish { text-align: center; padding: 58px 20px; border-radius: var(--radius); color: var(--white); background: linear-gradient(135deg, var(--navy), #34266F); }
+.finish p { max-width: 650px; margin: 10px auto 0; color: rgba(255,255,255,.75); }
+.footer { margin-block-start: 76px; padding-block: 32px; color: rgba(255,255,255,.6); background: var(--navy); }
+.footer__inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: .82rem; }
+.footer a { color: var(--white); }
+@media (max-width: 940px) {
+  .hero__grid, .data-layout { grid-template-columns: 1fr; }
+  .week-grid { grid-template-columns: repeat(4, 1fr); }
+  .route-key { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav__links { display: none; }
+}
+@media (max-width: 650px) {
+  .container { width: min(100% - 28px, 1160px); }
+  .hero { padding-block: 60px 54px; }
+  .architecture { display: none; }
+  .progress { grid-template-columns: 1fr auto; padding-block: 12px; }
+  .progress strong { grid-column: 1 / -1; }
+  .week-grid, .tools-grid, .guardrails { grid-template-columns: 1fr; }
+  .route-key { grid-template-columns: 1fr; }
+  #lake-map { height: 520px; min-height: 420px; }
+  .day { min-height: auto; }
+  .step summary { grid-template-columns: auto 1fr; padding: 18px; }
+  .step__chevron { display: none; }
+  .step__body { padding: 0 18px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to guide</a>
+
+<nav class="nav" aria-label="Guide navigation">
+  <div class="container nav__inner">
+    <a class="brand" href="index.html" aria-label="Back to Canberra Data Week">
+      <img src="CDW Logo_dark background.svg" alt="">
+      <span>Canberra Data Week</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#week">Week plan</a></li>
+      <li><a href="#map">3D map</a></li>
+      <li><a href="#build">Build steps</a></li>
+      <li><a href="#data">Starter data</a></li>
+      <li><a href="#level-up">Level up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="draft-notice" role="status">
+  <strong>Under construction.</strong> This is a working preview; route, content and accessibility details may change.
+</div>
+
+<header class="hero">
+  <div class="container hero__grid">
+    <div>
+      <p class="eyebrow">Canberra Data Walk hackathon</p>
+      <h1>Build an NFC-powered data walk in one week.</h1>
+      <p>Follow a practical path from a blank Azure account to a live web app. Store the supplied place data in Blob Storage, publish the app, and connect each location with an NFC tag or QR code.</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#build">Start building</a>
+        <a class="button button--secondary" href="assets/canberra-data-walk.json" download>Download starter data</a>
+      </div>
+    </div>
+    <div class="architecture" aria-label="Solution architecture">
+      <div class="architecture__item"><span class="architecture__icon">1</span><span>NFC tag or QR code opens a place URL</span></div>
+      <div class="architecture__item"><span class="architecture__icon">2</span><span>Azure Static Web Apps serves the experience</span></div>
+      <div class="architecture__item"><span class="architecture__icon">3</span><span>Azure Blob Storage supplies the place data</span></div>
+      <div class="architecture__item"><span class="architecture__icon">4</span><span>Optional services add AI, analytics and a database</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="progress-shell" aria-label="Build progress">
+  <div class="container progress">
+    <strong>Your build progress</strong>
+    <div class="progress__track" role="progressbar" aria-label="Completed build steps" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0">
+      <div class="progress__bar"></div>
+    </div>
+    <span class="progress__count">0 / 7</span>
+  </div>
+</div>
+
+<main id="main">
+  <section id="week">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">A week, not a weekend</p>
+        <h2>Move from idea to field test one outcome at a time.</h2>
+        <p>The core Azure build is the same for every team. Choose extra tools only after the simple experience works end to end.</p>
+      </div>
+      <div class="notice">
+        <strong aria-hidden="true">$</strong>
+        <div>
+          <strong>Start with a budget guardrail.</strong>
+          <p>Eligible new Azure customers may receive USD $200 credit for 30 days. Offers, currencies and eligibility can change, so confirm the current terms before signing up and set a budget alert immediately.</p>
+        </div>
+      </div>
+      <div class="week-grid" style="margin-block-start: 28px;">
+        <article class="day"><span>Monday</span><h3>Define</h3><p>Pick a user, route and one story worth discovering.</p></article>
+        <article class="day"><span>Tuesday</span><h3>Prepare data</h3><p>Clean the starter JSON and add your own local context.</p></article>
+        <article class="day"><span>Wednesday</span><h3>Build</h3><p>Create the place page and load data from Blob Storage.</p></article>
+        <article class="day"><span>Thursday</span><h3>Deploy</h3><p>Publish with Azure Static Web Apps and test on mobile.</p></article>
+        <article class="day"><span>Friday</span><h3>Connect</h3><p>Write NFC tags or generate QR codes for each place.</p></article>
+        <article class="day"><span>Saturday</span><h3>Level up</h3><p>Add AI, analytics or a database only if it helps users.</p></article>
+        <article class="day"><span>Sunday</span><h3>Share</h3><p>Walk the route, gather feedback and demo the story.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="map">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Explore the route</p>
+        <h2>A 3D view of the Lake Burley Griffin data walk.</h2>
+        <p>Rotate, tilt and zoom to explore the eight stops. The line connects points in walking order but is indicative only; teams must confirm safe, accessible paths and crossings on site.</p>
+      </div>
+      <div class="map-shell">
+        <div class="map-toolbar">
+          <p><strong>Tip:</strong> drag to move, Ctrl + drag to rotate, or use the controls.</p>
+          <div class="map-actions" aria-label="Map view controls">
+            <button class="map-action" type="button" id="map-3d">3D view</button>
+            <button class="map-action" type="button" id="map-top">Top down</button>
+            <button class="map-action" type="button" id="map-fit">Fit route</button>
+          </div>
+        </div>
+        <div id="lake-map" role="region" aria-label="Interactive 3D map of the Lake Burley Griffin data walk"></div>
+        <div class="map-error" id="map-error" role="status">
+          <strong>The interactive map could not load.</strong>
+          <p>The route and downloadable dataset remain available below. Check your connection or try again later.</p>
+        </div>
+        <div class="route-key" id="route-key" aria-label="Map points of interest"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="build">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Core build</p>
+        <h2>Seven steps to a working data walk.</h2>
+        <p>Open each step for instructions. Tick the outcome when it works; progress is saved in this browser.</p>
+      </div>
+      <div class="steps">
+        <details class="step" open>
+          <summary>
+            <span class="step__number">1</span>
+            <span class="step__title"><h3>Frame one useful visitor journey</h3><p>Keep the first version small enough to finish.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <p>Use the eight supplied Lake Burley Griffin stops or choose a shorter subset for your audience. A useful first story is: "When a visitor taps a tag, show what happened here, why the data matters, and the next nearby stop."</p>
+            <ol>
+              <li>Write a one-sentence problem statement.</li>
+              <li>Choose the fields your page actually needs.</li>
+              <li>Sketch one mobile screen before selecting technology.</li>
+            </ol>
+            <div class="task"><input id="task-1" type="checkbox" data-task><label for="task-1">I have a user, a route and a one-sentence outcome.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">2</span>
+            <span class="step__title"><h3>Create Azure access and cost controls</h3><p>Use the credit carefully and avoid surprise spend.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <ol>
+              <li>Review the <a href="https://azure.microsoft.com/en-au/pricing/purchase-options/azure-account" target="_blank" rel="noopener">Azure account offer and terms</a>.</li>
+              <li>Create or sign in to your account, then open the Azure portal.</li>
+              <li>Create one resource group, for example <code>rg-datawalk-dev</code>, in an Australian region available to your subscription.</li>
+              <li>In Cost Management, create a small budget and alerts at 50%, 75% and 90%.</li>
+              <li>Use a consistent suffix such as your team name because storage account names must be globally unique.</li>
+            </ol>
+            <div class="task"><input id="task-2" type="checkbox" data-task><label for="task-2">My resource group and budget alerts are ready.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">3</span>
+            <span class="step__title"><h3>Store the starter data in Azure Blob Storage</h3><p>Create one container and upload the supplied JSON.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <ol>
+              <li>Create a Standard general-purpose v2 storage account in your resource group.</li>
+              <li>Create a blob container named <code>datawalk</code>.</li>
+              <li>Upload <a href="assets/canberra-data-walk.json" download>canberra-data-walk.json</a> and set its content type to <code>application/json</code>.</li>
+              <li>For a public hackathon prototype, allow read access only to this container. For private or sensitive data, keep it private and use an authenticated API instead.</li>
+              <li>Add a CORS rule for your deployed app origin with GET and HEAD methods. Avoid a wildcard origin after prototyping.</li>
+            </ol>
+            <p>Follow the official <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal" target="_blank" rel="noopener">Blob Storage portal quickstart</a> if this is your first container.</p>
+            <div class="task"><input id="task-3" type="checkbox" data-task><label for="task-3">The JSON blob opens in my browser and contains no sensitive data.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">4</span>
+            <span class="step__title"><h3>Build the mobile web experience</h3><p>Read a place ID from the URL and display matching data.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <p>Create <code>index.html</code>, <code>styles.css</code> and <code>app.js</code> in a GitHub repository. Replace the example URL below with your blob URL.</p>
+            <div class="code">
+              <button class="copy-button" type="button" data-copy>Copy</button>
+              <pre><code>const DATA_URL = "https://YOUR_ACCOUNT.blob.core.windows.net/datawalk/canberra-data-walk.json";
+const placeId = new URLSearchParams(location.search).get("place") || "australian-of-the-year-walk";
+
+async function showPlace() {
+  const response = await fetch(DATA_URL);
+  if (!response.ok) throw new Error(`Data request failed: ${response.status}`);
+
+  const { places } = await response.json();
+  const place = places.find((item) =&gt; item.id === placeId);
+  if (!place) throw new Error("Place not found");
+
+  document.querySelector("h1").textContent = place.name;
+  document.querySelector("#story").textContent = place.story;
+}
+
+showPlace().catch((error) =&gt; {
+  document.querySelector("#status").textContent = error.message;
+});</code></pre>
+            </div>
+            <p>Design for a phone outdoors: large tap targets, strong contrast, concise text, useful alt text, a visible loading state and a clear error state.</p>
+            <div class="task"><input id="task-4" type="checkbox" data-task><label for="task-4">My local page loads a place using <code>?place=australian-of-the-year-walk</code>.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">5</span>
+            <span class="step__title"><h3>Publish the app with Azure Static Web Apps</h3><p>Connect the GitHub repository and receive a public HTTPS URL.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <ol>
+              <li>Push the working app to GitHub.</li>
+              <li>Create an Azure Static Web App and connect the repository and branch.</li>
+              <li>For a plain HTML app, set the app location to <code>/</code> and leave API and output locations empty.</li>
+              <li>Wait for the GitHub Actions deployment to finish, then open the generated HTTPS address.</li>
+              <li>Return to Blob Storage CORS and allow this exact origin.</li>
+            </ol>
+            <p>Use the official <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/getting-started" target="_blank" rel="noopener">Static Web Apps quickstart</a> for the current portal flow.</p>
+            <div class="task"><input id="task-5" type="checkbox" data-task><label for="task-5">My deployed HTTPS URL loads the correct place data.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">6</span>
+            <span class="step__title"><h3>Connect NFC tags and QR fallbacks</h3><p>Give every location a stable, testable URL.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <p>Build one URL per place, such as <code>https://YOUR_APP.azurestaticapps.net/?place=national-carillon</code>. Write that full HTTPS URL to an NDEF-compatible NFC tag using a trusted mobile NFC writer. Generate the same URL as a QR code so visitors without NFC can still participate.</p>
+            <ul>
+              <li>Test every tag with both iOS and Android before placing it.</li>
+              <li>Print a short URL or route name beside the tag as a final fallback.</li>
+              <li>Get site-owner permission before attaching anything in public space.</li>
+              <li>Do not place tags where they create a hazard or obscure existing signs.</li>
+            </ul>
+            <div class="task"><input id="task-6" type="checkbox" data-task><label for="task-6">At least one NFC tag and QR code open the correct live page.</label></div>
+          </div>
+        </details>
+
+        <details class="step">
+          <summary>
+            <span class="step__number">7</span>
+            <span class="step__title"><h3>Field test, secure and demo</h3><p>Test the experience where people will actually use it.</p></span>
+            <span class="step__chevron" aria-hidden="true">+</span>
+          </summary>
+          <div class="step__body">
+            <ol>
+              <li>Walk the route on mobile data, in bright light and with a screen reader.</li>
+              <li>Ask someone outside the team to complete it without instructions.</li>
+              <li>Remove personal, secret, licensed or unsafe data from public blobs and source code.</li>
+              <li>Prepare a three-minute demo: problem, tap, insight, architecture, next step.</li>
+              <li>At the end of the event, delete unused resources or the entire resource group.</li>
+            </ol>
+            <div class="task"><input id="task-7" type="checkbox" data-task><label for="task-7">A new user completed the walk and my team addressed their top issue.</label></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="data">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Starter resource</p>
+        <h2>Use realistic structure without pretending the sample is authoritative.</h2>
+        <p>The supplied JSON follows eight connected landmarks around the central Lake Burley Griffin loop, with a short Parliamentary Zone extension for two women-focused stops. Validate facts, coordinates, permissions and accessibility conditions before public use.</p>
+      </div>
+      <div class="data-layout">
+        <div class="resource-card">
+          <h3>Canberra Data Walk starter JSON</h3>
+          <p>Includes stable IDs, coordinates, short stories, data themes, accessibility notes and next-stop references.</p>
+          <div class="resource-actions">
+            <a class="button button--quiet" href="assets/canberra-data-walk.json" download>Download JSON</a>
+            <a class="button button--secondary" href="assets/canberra-data-walk.json" target="_blank">Preview file</a>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Place</th><th>Theme</th><th>Next stop</th></tr></thead>
+            <tbody>
+              <tr><td>australian-of-the-year-walk</td><td>Australian of the Year Walk</td><td>Recognition</td><td>international-flag-display</td></tr>
+              <tr><td>international-flag-display</td><td>International Flag Display</td><td>Diplomacy</td><td>reconciliation-place</td></tr>
+              <tr><td>reconciliation-place</td><td>Reconciliation Place</td><td>Reconciliation</td><td>womens-suffrage-fountain</td></tr>
+              <tr><td>womens-suffrage-fountain</td><td>Women's Suffrage Fountain</td><td>Equality</td><td>lyons-tangney-statues</td></tr>
+              <tr><td>lyons-tangney-statues</td><td>Lyons and Tangney Statues</td><td>Women in Parliament</td><td>national-carillon</td></tr>
+              <tr><td>national-carillon</td><td>National Carillon</td><td>Sound</td><td>menzies-memorial</td></tr>
+              <tr><td>menzies-memorial</td><td>Sir Robert Menzies Memorial</td><td>Public sculpture</td><td>captain-cook-memorial</td></tr>
+              <tr><td>captain-cook-memorial</td><td>Captain Cook Memorial</td><td>Mapping</td><td>australian-of-the-year-walk</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="level-up">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Choose your level</p>
+        <h2>Add complexity only when it improves the walk.</h2>
+        <p>Filter the optional toolkit by your team's confidence and available time.</p>
+      </div>
+      <div class="level-picker" role="group" aria-label="Filter tools by level">
+        <button class="level-button" type="button" data-level="all" aria-pressed="true">All levels</button>
+        <button class="level-button" type="button" data-level="beginner" aria-pressed="false">Beginner</button>
+        <button class="level-button" type="button" data-level="builder" aria-pressed="false">Builder</button>
+        <button class="level-button" type="button" data-level="advanced" aria-pressed="false">Advanced</button>
+      </div>
+      <div class="tools-grid">
+        <article class="tool" data-tool-level="beginner">
+          <span class="tool__level">Beginner</span><h3>GitHub Copilot</h3>
+          <p>Ask for a small mobile-first page, tests for data lookup, or explanations of unfamiliar code. Review every suggestion and never paste secrets into prompts.</p>
+          <a href="https://docs.github.com/en/copilot" target="_blank" rel="noopener">Open Copilot docs</a>
+        </article>
+        <article class="tool" data-tool-level="beginner">
+          <span class="tool__level">Beginner</span><h3>Copilot Cowork</h3>
+          <p>If your organisation provides Copilot Cowork, use it to split research, content and testing tasks while keeping a shared definition of done. Availability may vary.</p>
+          <a href="https://www.microsoft.com/en-us/microsoft-copilot" target="_blank" rel="noopener">Explore Microsoft Copilot</a>
+        </article>
+        <article class="tool" data-tool-level="builder">
+          <span class="tool__level">Builder</span><h3>Microsoft Fabric</h3>
+          <p>Use a lakehouse or Power BI report when the project needs repeatable ingestion, transformation and visual analytics beyond the public JSON file.</p>
+          <a href="https://learn.microsoft.com/en-us/fabric/get-started/" target="_blank" rel="noopener">Explore Fabric</a>
+        </article>
+        <article class="tool" data-tool-level="builder">
+          <span class="tool__level">Builder</span><h3>Azure Database for PostgreSQL</h3>
+          <p>Move from static JSON when users need submissions, accounts, moderation or frequently changing relational data. Put an authenticated API in front of the database.</p>
+          <a href="https://learn.microsoft.com/en-us/azure/postgresql/" target="_blank" rel="noopener">Explore PostgreSQL on Azure</a>
+        </article>
+        <article class="tool" data-tool-level="advanced">
+          <span class="tool__level">Advanced</span><h3>Microsoft Foundry</h3>
+          <p>Add a grounded guide that answers questions from approved place content. Include citations, test unsafe inputs and keep a non-AI path through the experience.</p>
+          <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/" target="_blank" rel="noopener">Explore Microsoft Foundry</a>
+        </article>
+        <article class="tool" data-tool-level="advanced">
+          <span class="tool__level">Advanced</span><h3>Application Insights</h3>
+          <p>Measure page failures and route completion without collecting unnecessary personal information. Document what is collected and respect user consent.</p>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview" target="_blank" rel="noopener">Explore Application Insights</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Non-negotiables</p>
+        <h2>Protect people, data and the team's credit.</h2>
+      </div>
+      <div class="guardrails">
+        <article class="guardrail"><h3>Public means public</h3><p>Never upload secrets, personal information or restricted data to a public blob. Use open or explicitly licensed content.</p></article>
+        <article class="guardrail"><h3>Cloud resources cost money</h3><p>Prefer free tiers where appropriate, watch the budget daily and delete experiments you no longer use.</p></article>
+        <article class="guardrail"><h3>Access is part of the build</h3><p>Provide QR and text fallbacks, keyboard support, readable contrast and a route option for people who cannot reach every location.</p></article>
+      </div>
+      <div class="finish" style="margin-block-start: 34px;">
+        <h2 id="finish-title">Complete the seven core outcomes.</h2>
+        <p id="finish-message">Your goal is not the largest stack. It is a working, trustworthy experience that helps someone discover Canberra through data.</p>
+        <button class="button button--secondary" id="reset-progress" type="button" style="margin-block-start: 22px;">Reset progress</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span>Canberra Data Week hackathon build guide</span>
+    <a href="index.html">Back to the event program</a>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+const tasks = [...document.querySelectorAll("[data-task]")];
+const progressBar = document.querySelector(".progress__bar");
+const progressTrack = document.querySelector(".progress__track");
+const progressCount = document.querySelector(".progress__count");
+const finishTitle = document.querySelector("#finish-title");
+const finishMessage = document.querySelector("#finish-message");
+const storageKey = "cdw-hackathon-progress-v1";
+
+function readProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(storageKey)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function renderProgress() {
+  const completed = tasks.filter((task) => task.checked).length;
+  const percentage = Math.round((completed / tasks.length) * 100);
+  progressBar.style.width = `${percentage}%`;
+  progressTrack.setAttribute("aria-valuenow", completed);
+  progressCount.textContent = `${completed} / ${tasks.length}`;
+  localStorage.setItem(storageKey, JSON.stringify(tasks.filter((task) => task.checked).map((task) => task.id)));
+
+  if (completed === tasks.length) {
+    finishTitle.textContent = "Core build complete.";
+    finishMessage.textContent = "Field test once more, check your Azure spend, then share the story your team made possible.";
+  } else {
+    finishTitle.textContent = "Complete the seven core outcomes.";
+    finishMessage.textContent = "Your goal is not the largest stack. It is a working, trustworthy experience that helps someone discover Canberra through data.";
+  }
+}
+
+const savedTasks = readProgress();
+tasks.forEach((task) => {
+  task.checked = savedTasks.includes(task.id);
+  task.addEventListener("change", renderProgress);
+});
+renderProgress();
+
+document.querySelector("#reset-progress").addEventListener("click", () => {
+  tasks.forEach((task) => { task.checked = false; });
+  renderProgress();
+});
+
+document.querySelectorAll("[data-copy]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const code = button.nextElementSibling.textContent;
+    await navigator.clipboard.writeText(code);
+    button.textContent = "Copied";
+    window.setTimeout(() => { button.textContent = "Copy"; }, 1500);
+  });
+});
+
+const levelButtons = [...document.querySelectorAll("[data-level]")];
+const tools = [...document.querySelectorAll("[data-tool-level]")];
+levelButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const level = button.dataset.level;
+    levelButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+    tools.forEach((tool) => { tool.hidden = level !== "all" && tool.dataset.toolLevel !== level; });
+  });
+});
+
+async function initialiseLakeMap() {
+  const mapElement = document.querySelector("#lake-map");
+  const errorElement = document.querySelector("#map-error");
+
+  if (!window.maplibregl) {
+    mapElement.hidden = true;
+    errorElement.style.display = "block";
+    return;
+  }
+
+  try {
+    const response = await fetch("assets/canberra-data-walk.json");
+    if (!response.ok) throw new Error(`Route data request failed: ${response.status}`);
+    const data = await response.json();
+    const coordinates = data.places.map((place) => [place.longitude, place.latitude]);
+    const routeCoordinates = data.route?.coordinates || [...coordinates, coordinates[0]];
+    const bounds = coordinates.reduce(
+      (result, coordinate) => result.extend(coordinate),
+      new maplibregl.LngLatBounds(coordinates[0], coordinates[0])
+    );
+
+    const map = new maplibregl.Map({
+      container: "lake-map",
+      style: "https://tiles.openfreemap.org/styles/liberty",
+      center: [149.133, -35.296],
+      zoom: 14,
+      pitch: 58,
+      bearing: -20,
+      antialias: true,
+      maxPitch: 75
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
+    map.addControl(new maplibregl.FullscreenControl(), "top-right");
+    map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
+
+    const routeKey = document.querySelector("#route-key");
+    data.places.forEach((place, index) => {
+      const markerElement = document.createElement("button");
+      markerElement.className = "map-marker";
+      markerElement.type = "button";
+      markerElement.setAttribute("aria-label", `Stop ${index + 1}: ${place.name}`);
+      const markerNumber = document.createElement("span");
+      markerNumber.textContent = index + 1;
+      markerElement.append(markerNumber);
+
+      const popupContent = document.createElement("div");
+      const popupNumber = document.createElement("p");
+      popupNumber.className = "map-popup__number";
+      popupNumber.textContent = `Stop ${index + 1} - ${place.theme}`;
+      const popupTitle = document.createElement("h3");
+      popupTitle.className = "map-popup__title";
+      popupTitle.textContent = place.name;
+      const popupText = document.createElement("p");
+      popupText.className = "map-popup__text";
+      popupText.textContent = place.story;
+      const popupLink = document.createElement("a");
+      popupLink.className = "map-popup__link";
+      popupLink.href = place.sourceUrl;
+      popupLink.target = "_blank";
+      popupLink.rel = "noopener";
+      popupLink.textContent = "Official information";
+      popupContent.append(popupNumber, popupTitle, popupText, popupLink);
+
+      new maplibregl.Marker({ element: markerElement, anchor: "bottom" })
+        .setLngLat([place.longitude, place.latitude])
+        .setPopup(new maplibregl.Popup({ offset: 28 }).setDOMContent(popupContent))
+        .addTo(map);
+
+      const keyItem = document.createElement("div");
+      keyItem.className = "route-key__item";
+      const keyNumber = document.createElement("span");
+      keyNumber.className = "route-key__number";
+      keyNumber.textContent = index + 1;
+      const keyName = document.createElement("span");
+      keyName.textContent = place.name;
+      keyItem.append(keyNumber, keyName);
+      routeKey.append(keyItem);
+    });
+
+    map.on("load", () => {
+      map.addSource("route", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: { type: "LineString", coordinates: routeCoordinates }
+        }
+      });
+
+      map.addLayer({
+        id: "route-shadow",
+        type: "line",
+        source: "route",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": "#001B3C", "line-width": 9, "line-opacity": .28 }
+      });
+
+      map.addLayer({
+        id: "route-line",
+        type: "line",
+        source: "route",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": "#FF006E", "line-width": 5 }
+      });
+
+      map.addSource("terrain", {
+        type: "raster-dem",
+        tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+        tileSize: 256,
+        encoding: "terrarium",
+        maxzoom: 15
+      });
+      map.setTerrain({ source: "terrain", exaggeration: 1.35 });
+
+      if (map.getSource("openmaptiles")) {
+        map.addLayer({
+          id: "3d-buildings",
+          source: "openmaptiles",
+          "source-layer": "building",
+          type: "fill-extrusion",
+          minzoom: 13,
+          paint: {
+            "fill-extrusion-color": "#D8DCE5",
+            "fill-extrusion-height": ["coalesce", ["get", "render_height"], ["get", "height"], 8],
+            "fill-extrusion-base": ["coalesce", ["get", "render_min_height"], ["get", "min_height"], 0],
+            "fill-extrusion-opacity": .78
+          }
+        });
+      }
+    });
+
+    document.querySelector("#map-3d").addEventListener("click", () => {
+      map.easeTo({ pitch: 58, bearing: -20, duration: 900 });
+    });
+    document.querySelector("#map-top").addEventListener("click", () => {
+      map.easeTo({ pitch: 0, bearing: 0, duration: 900 });
+    });
+    document.querySelector("#map-fit").addEventListener("click", () => {
+      map.fitBounds(bounds, { padding: 75, pitch: 48, bearing: -20, duration: 900 });
+    });
+  } catch (error) {
+    console.error(error);
+    mapElement.hidden = true;
+    errorElement.style.display = "block";
+  }
+}
+
+initialiseLakeMap();
+</script>
+</body>
+</html>
