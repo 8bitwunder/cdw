@@ -872,6 +872,23 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     </fieldset>
 
     <div class="events-grid">
+      <article class="event-card event-card--interactive" data-type="careers talk" data-day="mon" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="tanya-career-session-dialog" data-open-tanya-career-session>
+        <div class="event-card__meta">
+          <span class="tag tag--careers">Careers</span>
+          <span class="event-card__badge event-card__badge--confirmed">Open</span>
+          <span class="tag tag--venue">28 Sept &middot; 2:00 PM &middot; Microsoft Canberra, Barton</span>
+        </div>
+        <h3>Colourful Data Career Session with Tanya Smith</h3>
+        <p>Hear the good, the bad and the colourful realities of a career in data, with practical lessons for avoiding common pitfalls.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--asset event-card__status-icon--partner" src="assets/host-microsoft.jpg" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
       <article class="event-card event-card--interactive" data-type="showcase" data-day="tue" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="salesforce-breakfast-dialog" data-open-salesforce-breakfast>
         <div class="event-card__meta">
           <span class="tag tag--showcase">Breakfast &amp; Showcase</span>
@@ -1447,6 +1464,33 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   </div>
 </dialog>
 
+<!-- COLOURFUL DATA CAREER SESSION DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="tanya-career-session-dialog" aria-labelledby="tanya-career-session-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Microsoft Canberra &middot; Data Careers</p>
+    <img class="event-dialog__logo event-dialog__logo--partner" src="assets/host-microsoft.jpg" alt="Microsoft">
+    <h2 id="tanya-career-session-title">Colourful Data Career Session with Tanya Smith</h2>
+    <p class="mailing-dialog__intro">An honest and colourful look at the highs, lows and lessons of working in data.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Colourful Data Career Session details" data-close-tanya-career-session>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Monday 28 September 2026</strong></span>
+      <span>2:00 PM</span>
+      <span>Microsoft Canberra, Barton</span>
+      <span>Presented by Tanya Smith</span>
+    </div>
+    <h3>About this event</h3>
+    <div class="event-dialog__description">
+      <p>Have you ever wanted to hear about the ups and downs of a career in data? Wondered about the good, the bad and perhaps a bit of the ugly side of working in data? See the bright and shiny instead of just the dull facts? What can go wrong, what can go right, and how can you avoid the pitfalls that others have fallen into?</p>
+      <p>This is the event for you. Come along and learn from someone else's lessons, so you can avoid the scars and come out smelling like roses instead.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://www.trybooking.com/DQENT" target="_blank" rel="noopener noreferrer">Register for this session</a>
+    </div>
+  </div>
+</dialog>
+
 <!-- DATA WALK EVENT DETAILS -->
 <dialog class="mailing-dialog event-dialog" id="data-walk-dialog" aria-labelledby="data-walk-title">
   <div class="mailing-dialog__header">
@@ -1947,6 +1991,7 @@ function setupEventDialog(name, dialogId) {
 }
 
 setupEventDialog('salesforce-breakfast', 'salesforce-breakfast-dialog');
+setupEventDialog('tanya-career-session', 'tanya-career-session-dialog');
 setupEventDialog('microsoft-event', 'microsoft-event-dialog');
 setupEventDialog('public-sector-showcase', 'public-sector-showcase-dialog');
 setupEventDialog('data-skills-workshop', 'data-skills-workshop-dialog');
