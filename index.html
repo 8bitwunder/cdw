@@ -269,12 +269,12 @@ a:hover { text-decoration: underline; }
 #f-demo:checked     ~ .events-grid .event-card:not([data-type~="demo"]) {
   display: none;
 }
-#d-mon:checked ~ .events-grid .event-card:not([data-day="mon"]),
-#d-tue:checked ~ .events-grid .event-card:not([data-day="tue"]),
-#d-wed:checked ~ .events-grid .event-card:not([data-day="wed"]),
-#d-thu:checked ~ .events-grid .event-card:not([data-day="thu"]),
-#d-fri:checked ~ .events-grid .event-card:not([data-day="fri"]),
-#d-tbc:checked ~ .events-grid .event-card:not([data-day="tbc"]) {
+#d-mon:checked ~ .events-grid .event-card:not([data-day~="mon"]),
+#d-tue:checked ~ .events-grid .event-card:not([data-day~="tue"]),
+#d-wed:checked ~ .events-grid .event-card:not([data-day~="wed"]),
+#d-thu:checked ~ .events-grid .event-card:not([data-day~="thu"]),
+#d-fri:checked ~ .events-grid .event-card:not([data-day~="fri"]),
+#d-tbc:checked ~ .events-grid .event-card:not([data-day~="tbc"]) {
   display: none;
 }
 .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -458,8 +458,16 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .event-dialog__session { color: var(--text); font-size: .9rem; line-height: 1.45; }
 .event-dialog__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .event-card--interactive { cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
+.event-card:has(.event-card__badge--confirmed) {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(120deg, #FF006E, #FFBE0B, #34D399, #00B4D8, #6C3CE1, #FF006E) border-box;
+}
 .event-card--interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--cdw-teal); }
 .event-card--interactive:focus-visible { outline: 3px solid rgba(0,180,216,.35); outline-offset: 3px; border-color: var(--cdw-teal); }
+.event-card--interactive:has(.event-card__badge--confirmed):hover,
+.event-card--interactive:has(.event-card__badge--confirmed):focus-visible { border-color: transparent; }
 .event-card__action { display: inline-flex; align-items: center; gap: 8px; margin-block-start: 8px; color: var(--cdw-purple); font-size: .88rem; font-weight: 700; }
 .event-card__action-arrow { display: inline-block; transition: transform .15s; }
 .event-card--interactive:hover .event-card__action-arrow,
@@ -936,7 +944,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
           <span class="tag tag--venue">30 Sept &middot; Lake Burley Griffin</span>
         </div>
         <h3>Data Chat Walk: Lake Burley Griffin</h3>
-        <p>Walk, talk and connect around the lake with a volunteer guide, pausing every 15 minutes to explore a new data story.</p>
+        <p>Walk, talk and connect around the lake, with Microsoft&rsquo;s Jim McCleod contributing practical ideas about building with data and AI.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
             <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
@@ -1013,21 +1021,20 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="hackathon" data-day="tbc">
+      <article class="event-card event-card--interactive" data-type="hackathon" data-day="mon tue wed thu fri" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="open-data-hackathon-dialog" data-open-open-data-hackathon>
         <div class="event-card__meta">
           <span class="tag tag--hackathon">Hackathon</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">Microsoft Canberra</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">28 Sept-2 Oct &middot; Online</span>
         </div>
-        <h3>Open Data Hackathon &amp; Ideation Day</h3>
-        <p>Team up for a full day of building real solutions to public-sector challenges using open government and community datasets. Bring your ideas and start hacking.</p>
-        <div class="event-card__footer event-card__footer--host">
+        <h3>Open Data Hackathon &amp; Ideation Week</h3>
+        <p>Build along with Microsoft&rsquo;s Jim McCleod through a week of online sessions for every skill level, from a beginner MVP to advanced AI-enabled applications.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
           </div>
-          <a class="event-card__action" href="hackathon.html">Preview the participant build guide (under construction) <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></a>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
 
@@ -1064,20 +1071,20 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </div>
       </article>
 
-      <article class="event-card" data-type="demo" data-day="tbc">
+      <article class="event-card event-card--interactive" data-type="demo" data-day="tbc" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="databricks-government-dialog" data-open-databricks-government>
         <div class="event-card__meta">
           <span class="tag tag--demo">Demonstration</span>
-          <span class="event-card__badge event-card__badge--host">Host needed</span>
-          <span class="tag tag--venue">TBC</span>
+          <span class="event-card__badge event-card__badge--confirmed">Confirmed</span>
+          <span class="tag tag--venue">Date and time TBC &middot; Emanate Technology, Braddon</span>
         </div>
         <h3>AI &amp; Data Tools in Government</h3>
-        <p>See AI-powered data tools in action across government, research and industry, with time to ask questions and explore hands-on. Come and see what's possible.</p>
-        <div class="event-card__footer event-card__footer--host">
+        <p>Join Databricks to explore how government can turn trusted data and governed AI into better services and measurable outcomes.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/Canberra Data Week Belconnen Owl.png" alt="Host opportunity">
-            <strong class="event-card__status-label">HOST NEEDED</strong>
+            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <strong class="event-card__status-label">CONFIRMED EVENT</strong>
           </div>
-          <button class="event-card__action" type="button" data-open-host-form>Apply to host this session <span class="event-card__action-arrow" aria-hidden="true">&rarr;</span></button>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
     </div>
@@ -1449,15 +1456,43 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     <div class="event-dialog__details" aria-label="Event details">
       <span><strong>Wednesday 30 September 2026</strong></span>
       <span>Lake Burley Griffin</span>
+      <span>With Jim McCleod from Microsoft</span>
     </div>
     <h3>About the walk</h3>
     <div class="event-dialog__description">
       <p>A volunteer guide will lead a relaxed walk around the lake, stopping every 15 minutes to share a new story about data, AI and how they can be used for good.</p>
+      <p>Jim McCleod from Microsoft will join as a co-contributor, bringing practical perspectives from the week-long online Open Data Hackathon and its build-along sessions.</p>
       <p>Inspired by the She Shapes History style of walking and talking, the walk is designed to help people learn and connect through side-by-side conversation.</p>
       <p>No slides. No meeting rooms. Just fresh air, good company and conversations worth having. Lace up, come curious and join the conversation.</p>
     </div>
     <div class="event-dialog__actions">
       <a class="btn btn--primary" href="https://www.trybooking.com/DPTBD" target="_blank" rel="noopener noreferrer">Register for this walk</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- OPEN DATA HACKATHON DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="open-data-hackathon-dialog" aria-labelledby="open-data-hackathon-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Microsoft &middot; Week-long online build</p>
+    <h2 id="open-data-hackathon-title">Open Data Hackathon &amp; Ideation Week</h2>
+    <p class="mailing-dialog__intro">A build-with-me event for all experience levels, hosted by Jim McCleod from Microsoft.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Open Data Hackathon details" data-close-open-data-hackathon>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Monday 28 September-Friday 2 October 2026</strong></span>
+      <span>Online</span>
+      <span>Hosted by Jim McCleod, Microsoft</span>
+    </div>
+    <h3>About this event</h3>
+    <div class="event-dialog__description">
+      <p>Join Jim across Canberra Data Week for a series of online, build-with-me sessions designed for beginners through to experienced builders. You will be able to follow along through YouTube or other video links as each session becomes available.</p>
+      <p>Jim will demonstrate a minimum viable product to help beginners get started, then showcase advanced features that can be added to data and web applications with a little help from AI.</p>
+      <p>Take part at your own pace, use the sessions to develop your own ideas, and see how open data, web technologies and AI can work together in practical applications.</p>
+    </div>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="hackathon.html">Preview the participant build guide</a>
     </div>
   </div>
 </dialog>
@@ -1560,6 +1595,30 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     </div>
     <div class="event-dialog__actions">
       <a class="btn btn--primary" href="https://msevents.microsoft.com/event?id=1168084618" target="_blank" rel="noopener noreferrer">Register for the Microsoft event</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- DATABRICKS GOVERNMENT EVENT DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="databricks-government-dialog" aria-labelledby="databricks-government-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">Databricks &middot; Hosted at Emanate Technology</p>
+    <h2 id="databricks-government-title">AI &amp; Data Tools in Government</h2>
+    <p class="mailing-dialog__intro">From trusted public-sector data foundations to advanced, governed AI.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Databricks government event details" data-close-databricks-government>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Date and time to be confirmed</strong></span>
+      <span>Emanate Technology, Braddon</span>
+      <span>Presented by Richard Jones, Calvin Hung and Fanpeng Kong</span>
+    </div>
+    <h3>About this event</h3>
+    <div class="event-dialog__description">
+      <p>Join Databricks for an engaging session at Canberra Data Week exploring how the Australian Public Sector is turning data into trusted insights, better services and measurable outcomes.</p>
+      <p>The session will provide an overview of the Databricks Data and AI Platform, showcase demonstrations across analytics and AI, and share examples of the innovation shaping public-sector organisations today.</p>
+      <p>Richard Jones, Calvin Hung and Fanpeng Kong from Databricks will discuss the journey from foundational data capabilities to advanced, governed AI and highlight how agencies can move promising ideas from experimentation into production.</p>
+      <p>This session is designed for technology, data, digital and business leaders across government.</p>
     </div>
   </div>
 </dialog>
@@ -1871,7 +1930,9 @@ setupEventDialog('salesforce-breakfast', 'salesforce-breakfast-dialog');
 setupEventDialog('microsoft-event', 'microsoft-event-dialog');
 setupEventDialog('public-sector-showcase', 'public-sector-showcase-dialog');
 setupEventDialog('data-skills-workshop', 'data-skills-workshop-dialog');
+setupEventDialog('databricks-government', 'databricks-government-dialog');
 setupEventDialog('data-walk', 'data-walk-dialog');
+setupEventDialog('open-data-hackathon', 'open-data-hackathon-dialog');
 setupEventDialog('careers-session', 'careers-session-dialog');
 setupEventDialog('women-in-data', 'women-in-data-dialog');
 setupEventDialog('census-data', 'census-data-dialog');
