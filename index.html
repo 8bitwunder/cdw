@@ -450,6 +450,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .host-dialog { inline-size: min(560px, calc(100% - 32px)); }
 .event-dialog { inline-size: min(760px, calc(100% - 32px)); }
 .event-dialog__body { padding: 0 30px 30px; }
+.event-dialog__logo { display: block; inline-size: 92px; block-size: auto; margin-block-end: 14px; border-radius: 6px; }
 .event-dialog__details { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-block: 4px 22px; color: var(--grey-600); font-size: .88rem; }
 .event-dialog__description { display: grid; gap: 12px; margin-block: 8px 26px; }
 .event-dialog__agenda { display: grid; gap: 0; margin-block: 8px 26px; border-block-start: 1px solid var(--grey-200); }
@@ -992,13 +993,13 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="event-card__meta">
           <span class="tag tag--talk">AMA</span>
           <span class="event-card__badge event-card__badge--confirmed">Open</span>
-          <span class="tag tag--venue">2 Oct &middot; 2:30-3:30 PM &middot; Exclaim IT, Belconnen</span>
+          <span class="tag tag--venue">2 Oct &middot; 2:30-3:30 PM &middot; Exclaim IT, JAGA Swanson Court, Belconnen</span>
         </div>
         <h3>AMA with the Team Behind the 2026 Census</h3>
         <p>Ask the team who delivered the 2026 Census about logistics, public sentiment, operations, technology and data processing.</p>
         <div class="event-card__footer event-card__footer--confirmed">
           <div class="event-card__status-row">
-            <img class="event-card__status-icon event-card__status-icon--bus" src="assets/Canberra Data Week Orange Bus Shelter.png" alt="">
+            <img class="event-card__status-icon event-card__status-icon--asset" src="assets/abs-census.png" alt="">
             <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
@@ -1670,6 +1671,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 <dialog class="mailing-dialog event-dialog" id="census-data-dialog" aria-labelledby="census-data-title">
   <div class="mailing-dialog__header">
     <p class="mailing-dialog__eyebrow">Australian Bureau of Statistics &middot; Exclaim IT</p>
+    <img class="event-dialog__logo" src="assets/abs-census.png" alt="Australian Bureau of Statistics Census">
     <h2 id="census-data-title">AMA with the Team Behind the 2026 Census</h2>
     <p class="mailing-dialog__intro">Ask the people behind the Census about its planning, delivery, technology, operations and data.</p>
     <button class="mailing-dialog__close" type="button" aria-label="Close Census data details" data-close-census-data>&times;</button>
@@ -1678,7 +1680,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
     <div class="event-dialog__details" aria-label="Event details">
       <span><strong>Friday 2 October 2026</strong></span>
       <span>2:30 PM - 3:30 PM</span>
-      <span>Exclaim IT, Belconnen</span>
+      <span>Exclaim IT, JAGA Swanson Court, Belconnen</span>
     </div>
     <h3>Meet the panel</h3>
     <div class="event-dialog__description">
