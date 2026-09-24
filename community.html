@@ -81,6 +81,7 @@ h1 span { background: var(--gradient); background-clip: text; color: transparent
   .person__portrait-wrap { transition: none; }
 }
 </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 <nav class="nav" aria-label="Main navigation">
@@ -89,13 +90,16 @@ h1 span { background: var(--gradient); background-clip: text; color: transparent
       <img src="CDW Logo_dark background.svg" alt="">
       <span>Canberra <strong>Data Week</strong></span>
     </a>
-    <ul class="nav__links">
+    <ul class="nav__links" id="main-menu">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#events">Events</a></li>
       <li><a href="speakers.html">Speakers</a></li>
       <li><a href="hosts.html">Hosts</a></li>
       <li><a href="community.html" aria-current="page">Community</a></li>
     </ul>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Open navigation menu">
+      <span class="nav__toggle-icon" aria-hidden="true"></span>
+    </button>
   </div>
 </nav>
 
@@ -223,5 +227,6 @@ h1 span { background: var(--gradient); background-clip: text; color: transparent
     <a href="index.html">Return to the festival home page</a>
   </div>
 </footer>
+<script src="mobile-nav.js"></script>
 </body>
 </html>

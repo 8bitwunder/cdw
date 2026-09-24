@@ -600,6 +600,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   .crm-form { padding: 0 22px 24px; }
 }
 </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 
@@ -623,13 +624,16 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         </svg>
         <span class="nav__wordmark">Canberra <strong>Data Week</strong></span>
       </a>
-      <ul class="nav__links" role="list">
+      <ul class="nav__links" id="main-menu" role="list">
         <li><a href="#about">About</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="speakers.html">Speakers</a></li>
         <li><a href="hosts.html">Hosts</a></li>
         <li><a href="community.html">Community</a></li>
       </ul>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Open navigation menu">
+        <span class="nav__toggle-icon" aria-hidden="true"></span>
+      </button>
       <button class="btn btn--primary nav__cta" type="button" data-open-host-form>Get Involved</button>
     </div>
   </div>
@@ -2123,6 +2127,7 @@ setupEventDialog('careers-session', 'careers-session-dialog');
 setupEventDialog('women-in-data', 'women-in-data-dialog');
 setupEventDialog('census-data', 'census-data-dialog');
 </script>
+<script src="mobile-nav.js"></script>
 
 </body>
 </html>
