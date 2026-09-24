@@ -89,6 +89,11 @@ a { color: var(--cdw-purple); text-decoration: none; }
 a:hover { text-decoration: underline; }
 /* gradient text utility */
 .grad-text { background: var(--grad-full); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@property --badge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
 
 /* ── Buttons ─────────────────────────────────────────────────── */
 .btn {
@@ -135,14 +140,41 @@ a:hover { text-decoration: underline; }
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
 .hero__badge {
+  position: relative; isolation: isolate;
   display: inline-flex; align-items: center; gap: 10px;
   background: linear-gradient(110deg, rgba(0,200,214,.24), rgba(155,72,228,.2));
-  border: 1px solid rgba(255,186,8,.72);
+  border: 1px solid transparent;
   box-shadow: 0 8px 24px rgba(0,0,0,.2), 0 0 20px rgba(0,200,214,.14);
   color: var(--white); font-size: clamp(.95rem, 2vw, 1.12rem); font-weight: 800; letter-spacing: .09em;
   text-transform: uppercase; padding: 10px 18px; border-radius: 24px; margin-block-end: 22px;
 }
+.hero__badge::before {
+  position: absolute; z-index: -1; inset: -2px; padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--badge-angle), var(--cdw-turquoise), var(--cdw-teal), var(--cdw-purple), var(--cdw-magenta), var(--cdw-orange), var(--cdw-yellow), var(--cdw-turquoise));
+  content: "";
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: hero-badge-rainbow 4s linear infinite;
+}
+.hero__badge::after {
+  position: absolute; z-index: 1; inset: 0 auto auto 0;
+  inline-size: 8px; block-size: 8px; border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 7px 2px var(--white), 0 0 15px 5px var(--cdw-turquoise);
+  offset-path: inset(-2px round 24px);
+  offset-distance: 0%;
+  content: "";
+  animation: hero-badge-dot 4s linear infinite;
+}
 .hero__badge svg { inline-size: 12px; block-size: 12px; flex: 0 0 auto; }
+@keyframes hero-badge-rainbow {
+  to { --badge-angle: 1turn; }
+}
+@keyframes hero-badge-dot {
+  to { offset-distance: 100%; }
+}
 .hero__eyebrow { font-size: .82rem; color: rgba(255,255,255,.55); letter-spacing: .08em; text-transform: uppercase; margin-block-end: 8px; }
 .hero__title { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); line-height: 1.08; margin-block-end: 20px; }
 .hero__title em { background: var(--grad-w); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
@@ -601,6 +633,11 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   .hero           { padding-block: 64px 48px; }
   .mailing-dialog__header { padding: 24px 60px 14px 22px; }
   .crm-form { padding: 0 22px 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__badge::before,
+  .hero__badge::after { animation: none; }
+  .hero__badge::after { display: none; }
 }
 </style>
 <link rel="stylesheet" href="mobile-nav.css">
