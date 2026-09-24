@@ -135,11 +135,14 @@ a:hover { text-decoration: underline; }
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
 .hero__badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(0,200,214,.16); border: 1px solid rgba(0,200,214,.45);
-  color: var(--cdw-turquoise); font-size: .78rem; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-block-end: 20px;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(110deg, rgba(0,200,214,.24), rgba(155,72,228,.2));
+  border: 1px solid rgba(255,186,8,.72);
+  box-shadow: 0 8px 24px rgba(0,0,0,.2), 0 0 20px rgba(0,200,214,.14);
+  color: var(--white); font-size: clamp(.95rem, 2vw, 1.12rem); font-weight: 800; letter-spacing: .09em;
+  text-transform: uppercase; padding: 10px 18px; border-radius: 24px; margin-block-end: 22px;
 }
+.hero__badge svg { inline-size: 12px; block-size: 12px; flex: 0 0 auto; }
 .hero__eyebrow { font-size: .82rem; color: rgba(255,255,255,.55); letter-spacing: .08em; text-transform: uppercase; margin-block-end: 8px; }
 .hero__title { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); line-height: 1.08; margin-block-end: 20px; }
 .hero__title em { background: var(--grad-w); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
@@ -681,7 +684,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
       <div>
         <div class="hero__badge">
           <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#00C8D6" stroke-width="1.5" fill="none"/><circle cx="5" cy="5" r="2" fill="#00C8D6"/></svg>
-          Canberra, ACT &middot; 28 SEP - 2 OCT 2026
+          28 SEP - 2 OCT 2026
         </div>
         <p class="hero__eyebrow">A citywide data festival</p>
         <h1 class="hero__title">Data for<br><em>public good.</em></h1>
