@@ -459,6 +459,17 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .event-dialog__agenda-row { display: grid; grid-template-columns: 132px 1fr; gap: 18px; padding-block: 13px; border-block-end: 1px solid var(--grey-200); }
 .event-dialog__time { color: var(--cdw-magenta); font-size: .82rem; font-weight: 700; }
 .event-dialog__session { color: var(--text); font-size: .9rem; line-height: 1.45; }
+.event-dialog__feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-block: 10px 26px; }
+.event-dialog__feature {
+  padding: 18px; border: 1px solid var(--grey-200); border-radius: 10px; background: var(--grey-50);
+}
+.event-dialog__feature-icon { display: block; margin-block-end: 8px; font-size: 1.45rem; line-height: 1; }
+.event-dialog__feature h4 { margin-block-end: 5px; color: var(--text); font-size: .9rem; }
+.event-dialog__feature p { color: var(--grey-600); font-size: .82rem; line-height: 1.45; }
+.event-dialog__public-good {
+  margin-block: 4px 26px; padding: 14px 16px; border-inline-start: 4px solid var(--cdw-teal);
+  background: rgba(0,200,214,.08); color: var(--text); font-size: .9rem; font-weight: 650;
+}
 .event-dialog__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .event-card--interactive { cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
 .event-card:has(.event-card__badge--confirmed) {
@@ -477,6 +488,7 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
 .event-card--interactive:focus-visible .event-card__action-arrow { transform: translateX(4px); }
 @media (max-width: 600px) {
   .event-dialog__agenda-row { grid-template-columns: 1fr; gap: 4px; }
+  .event-dialog__feature-grid { grid-template-columns: 1fr; }
 }
 .crm-form { inline-size: 100%; padding: 0 30px 30px; }
 .crm-form * { box-sizing: border-box; }
@@ -971,6 +983,23 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
             <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
           </div>
           <span class="event-card__action" aria-hidden="true">Reserve your spot <span class="event-card__action-arrow">&rarr;</span></span>
+        </div>
+      </article>
+
+      <article class="event-card event-card--interactive" data-type="workshop" data-day="wed" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="data-detectives-dialog" data-open-data-detectives>
+        <div class="event-card__meta">
+          <span class="tag tag--workshop">Workshop</span>
+          <span class="event-card__badge event-card__badge--confirmed">Open</span>
+          <span class="tag tag--venue">30 Sept &middot; 1:00-3:00 PM &middot; Black VC</span>
+        </div>
+        <h3>Data Detectives: A Hands-On Data Lab for Kids</h3>
+        <p>Count something, draw it, take it home &mdash; a hands-on data lab where kids aged 5&ndash;14 build real charts out of ordinary stuff.</p>
+        <div class="event-card__footer event-card__footer--confirmed">
+          <div class="event-card__status-row">
+            <img class="event-card__status-icon event-card__status-icon--asset event-card__status-icon--partner" src="assets/host-black-vc.png" alt="">
+            <strong class="event-card__status-label">REGISTRATIONS OPEN</strong>
+          </div>
+          <span class="event-card__action" aria-hidden="true">View event details <span class="event-card__action-arrow">&rarr;</span></span>
         </div>
       </article>
 
@@ -1651,6 +1680,93 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   </div>
 </dialog>
 
+<!-- DATA DETECTIVES DETAILS -->
+<dialog class="mailing-dialog event-dialog" id="data-detectives-dialog" aria-labelledby="data-detectives-title">
+  <div class="mailing-dialog__header">
+    <p class="mailing-dialog__eyebrow">DATASANJ Analytics Consultancy &middot; Hosted by Workspace by Black VC</p>
+    <img class="event-dialog__logo event-dialog__logo--partner" src="assets/host-black-vc.png" alt="Workspace by Black VC">
+    <h2 id="data-detectives-title">Data Detectives: A Hands-On Data Lab for Kids</h2>
+    <p class="mailing-dialog__intro">Count something, draw it, take it home &mdash; a hands-on data lab where kids aged 5&ndash;14 build real charts out of ordinary stuff.</p>
+    <button class="mailing-dialog__close" type="button" aria-label="Close Data Detectives event details" data-close-data-detectives>&times;</button>
+  </div>
+  <div class="event-dialog__body">
+    <div class="event-dialog__details" aria-label="Event details">
+      <span><strong>Wednesday 30 September 2026</strong></span>
+      <span>1:00 PM - 3:00 PM</span>
+      <span><a href="https://www.linkedin.com/showcase/workspace-by-black-vc/" target="_blank" rel="noopener noreferrer">Black VC</a>, Level 3, 4 Mort Street, Canberra ACT 2601</span>
+      <span>Ages 5&ndash;14, with a parent or carer</span>
+      <span>Free</span>
+      <span>Presented by Zohal Zahir, Founder and Principal Consultant, DATASANJ Analytics Consultancy</span>
+      <span>Microsoft Certified: Power BI Data Analyst Associate; Fabric Analytics Engineer Associate</span>
+    </div>
+    <h3>About this event</h3>
+    <div class="event-dialog__description">
+      <p>Most children meet graphs as a page in a maths book. Here they meet them as a dig, a hunt, a card game and a packet of lollies &mdash; and they are halfway through making one before anyone has said the word &ldquo;chart&rdquo;.</p>
+      <p><strong>AGES 5&ndash;8:</strong> There is digging. There is treasure. And there is something sweet they are not allowed to eat until they have turned it into a chart.</p>
+      <p><strong>AGES 9&ndash;14:</strong> Their own name. A card game. Their own Saturday. Three things nobody would call data until you have drawn them &mdash; and one of them turns the same ten minutes of play into three completely different charts, then works out which picture answers which question. That is the trick behind every chart they will ever see in the news.</p>
+      <p>There is also a table for older kids, teenagers and parents, where you can walk a real job through a real data office and hunt for the mistakes hidden in a messy pile of numbers. Most of a data job, it turns out, is finding those.</p>
+      <p>No maths required, no experience needed, and nothing on a screen.</p>
+      <p>Ages 5&ndash;14 with a parent or carer. Free &mdash; book through the Canberra Data Week website.</p>
+    </div>
+    <h3>What the kids take home</h3>
+    <div class="event-dialog__feature-grid">
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">📊</span>
+        <h4>Their own charts</h4>
+        <p>Every child leaves with finished charts they made with their own hands, out of things they counted themselves.</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🛂</span>
+        <h4>A Data Detective passport</h4>
+        <p>Stamped three times as they work through the tables.</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🏅</span>
+        <h4>A certificate with their name on it</h4>
+        <p>Earned after three completed activities.</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🏠</span>
+        <h4>A free pack of things to count at home all week</h4>
+        <p>To keep the counting going after the session.</p>
+      </div>
+    </div>
+    <h3>What parents and carers get</h3>
+    <div class="event-dialog__feature-grid">
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🙌</span>
+        <h4>Nothing to prepare and nothing to know</h4>
+        <p>You do not need to be good at maths to help. The two most useful things you can say are &ldquo;which one is winning?&rdquo; and &ldquo;how can you tell?&rdquo;</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">👀</span>
+        <h4>A front-row seat</h4>
+        <p>While your child works something out slowly, which is where the learning actually happens.</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🧠</span>
+        <h4>A grown-up table of your own</h4>
+        <p>Where you can walk a real data job through a real data office and hunt for the mistakes hidden in a messy pile of numbers.</p>
+      </div>
+      <div class="event-dialog__feature">
+        <span class="event-dialog__feature-icon" aria-hidden="true">🗓️</span>
+        <h4>Two hours</h4>
+        <p>Drop into a set-up table and start &mdash; every table is ready to go, so there is no waiting for a session to begin.</p>
+      </div>
+    </div>
+    <h3>Access and practical information</h3>
+    <div class="event-dialog__description">
+      <p>Lift access is available to Level 3. Prams are welcome. Children stay with their adult throughout.</p>
+      <p>Activities include Skittles and dry rice. The event is nut-free, and a non-food alternative is always available.</p>
+      <p><strong>Contact:</strong> Zohal Zahir &middot; <a href="mailto:d_zohal@datasanj.com">d_zohal@datasanj.com</a> &middot; <a href="tel:+61435916536">0435 916 536</a></p>
+    </div>
+    <p class="event-dialog__public-good">Data literacy for the next generation &mdash; Data for Public Good, starting early.</p>
+    <div class="event-dialog__actions">
+      <a class="btn btn--primary" href="https://www.trybooking.com/DQGLC" target="_blank" rel="noopener noreferrer">Register for Data Detectives</a>
+    </div>
+  </div>
+</dialog>
+
 <!-- DATABRICKS GOVERNMENT EVENT DETAILS -->
 <dialog class="mailing-dialog event-dialog" id="databricks-government-dialog" aria-labelledby="databricks-government-title">
   <div class="mailing-dialog__header">
@@ -1999,6 +2115,7 @@ setupEventDialog('tanya-career-session', 'tanya-career-session-dialog');
 setupEventDialog('microsoft-event', 'microsoft-event-dialog');
 setupEventDialog('public-sector-showcase', 'public-sector-showcase-dialog');
 setupEventDialog('data-skills-workshop', 'data-skills-workshop-dialog');
+setupEventDialog('data-detectives', 'data-detectives-dialog');
 setupEventDialog('databricks-government', 'databricks-government-dialog');
 setupEventDialog('data-walk', 'data-walk-dialog');
 setupEventDialog('open-data-hackathon', 'open-data-hackathon-dialog');
