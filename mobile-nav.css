@@ -1,0 +1,120 @@
+.nav__inner {
+  position: relative;
+}
+
+.nav__toggle {
+  display: none;
+  inline-size: 44px;
+  block-size: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 6px;
+  background: transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.nav__toggle:hover,
+.nav__toggle:focus-visible {
+  background: rgba(255, 255, 255, .12);
+}
+
+.nav__toggle:focus-visible {
+  outline: 3px solid #00C8D6;
+  outline-offset: 2px;
+}
+
+.nav__toggle-icon,
+.nav__toggle-icon::before,
+.nav__toggle-icon::after {
+  display: block;
+  inline-size: 22px;
+  block-size: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.nav__toggle-icon {
+  position: relative;
+}
+
+.nav__toggle-icon::before,
+.nav__toggle-icon::after {
+  position: absolute;
+  inset-inline-start: 0;
+  content: "";
+}
+
+.nav__toggle-icon::before {
+  inset-block-start: -7px;
+}
+
+.nav__toggle-icon::after {
+  inset-block-start: 7px;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-icon {
+  background: transparent;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-icon::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-icon::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 960px) {
+  .nav__toggle {
+    display: inline-flex;
+    margin-inline-start: auto;
+  }
+
+  .nav__links {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    display: none;
+    inline-size: min(280px, calc(100vw - 32px));
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px;
+    border-block-start: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 0 0 8px 8px;
+    background: #001B3C;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .3);
+  }
+
+  .nav__links.is-open {
+    display: flex;
+  }
+
+  .nav__links li {
+    display: block;
+    inline-size: 100%;
+  }
+
+  .nav__links a {
+    inline-size: 100%;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav__cta {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__toggle-icon,
+  .nav__toggle-icon::before,
+  .nav__toggle-icon::after {
+    transition: none;
+  }
+}
