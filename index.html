@@ -367,6 +367,28 @@ a:hover { text-decoration: underline; }
 .events-cta   { text-align: center; margin-block-start: 36px; }
 .events-note  { text-align: center; margin-block-start: 14px; font-size: .82rem; color: var(--grey-400); font-style: italic; }
 
+/* ── Mobile week at a glance ── */
+.mobile-program { display: none; }
+.mobile-program__list { display: grid; gap: 12px; }
+.mobile-day { overflow: hidden; background: var(--surface); border: 1px solid var(--grey-200); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.mobile-day summary { position: relative; display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 14px; align-items: center; padding: 17px 42px 17px 16px; cursor: pointer; list-style: none; }
+.mobile-day summary::-webkit-details-marker { display: none; }
+.mobile-day summary::after { position: absolute; inset-inline-end: 18px; content: '+'; color: var(--cdw-purple); font-size: 1.5rem; line-height: 1; }
+.mobile-day[open] summary::after { content: '\2212'; }
+.mobile-day[open] summary { border-block-end: 1px solid var(--grey-200); }
+.mobile-day__date { display: grid; place-items: center; align-self: stretch; min-block-size: 58px; padding: 8px 5px; border-radius: 8px; background: var(--navy); color: var(--white); text-align: center; font-size: .7rem; font-weight: 800; letter-spacing: .06em; line-height: 1.25; text-transform: uppercase; }
+.mobile-day__date strong { display: block; color: var(--cdw-yellow); font-size: 1.18rem; letter-spacing: 0; }
+.mobile-day__preview strong { display: block; color: var(--text); font-size: .92rem; line-height: 1.3; }
+.mobile-day__preview span { display: block; margin-block-start: 5px; color: var(--grey-600); font-size: .75rem; line-height: 1.35; }
+.mobile-day__preview .mobile-day__more { color: var(--cdw-purple); font-weight: 700; }
+.mobile-day__events { display: grid; padding-inline: 16px; }
+.mobile-event { padding-block: 15px; border-block-end: 1px solid var(--grey-100); }
+.mobile-event:last-child { border-block-end: 0; }
+.mobile-event h3 { color: var(--text); font-size: .9rem; line-height: 1.35; }
+.mobile-event p { margin-block-start: 4px; font-size: .76rem; line-height: 1.4; }
+.mobile-event__action { margin-block-start: 8px; padding: 0; border: 0; background: transparent; color: var(--cdw-purple); font: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
+.mobile-event__action:hover { text-decoration: underline; }
+
 /* ── Partner Opportunities ───────────────────────────────────── */
 .opps-intro { max-inline-size: 700px; margin-inline: auto; text-align: center; margin-block-end: 40px; }
 .opps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -631,6 +653,10 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
   .footer__grid   { grid-template-columns: 1fr; }
   .decisions-grid { grid-template-columns: 1fr; }
   .hero           { padding-block: 64px 48px; }
+  .mobile-program { display: block; padding-block: 48px 56px; }
+  .mobile-program .section-header { margin-block-end: 28px; text-align: start; }
+  .mobile-program .section-header::after { margin-inline: 0; }
+  .mobile-program .section-header p { margin-inline: 0; }
   .mailing-dialog__header { padding: 24px 60px 14px 22px; }
   .crm-form { padding: 0 22px 24px; }
 }
@@ -737,6 +763,39 @@ body:has(.mailing-dialog[open]) { overflow: hidden; }
         <div class="stat-card"><div class="stat-card__num">4</div><div class="stat-card__label">Sectors united</div></div>
         <div class="stat-card"><div class="stat-card__num">Free</div><div class="stat-card__label">Open to all</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE PROGRAM OVERVIEW -->
+<section class="mobile-program section section--alt" aria-labelledby="mobile-program-title">
+  <div class="container">
+    <div class="section-header"><p class="section-header__eyebrow">The week at a glance</p><h2 id="mobile-program-title">Plan your Data Week</h2><p>Tap a day to see its events, times and details.</p></div>
+    <div class="mobile-program__list">
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">Mon <strong>28</strong> Sep</span><span class="mobile-day__preview"><strong>Data Literacy for Everyone</strong><span>Around 12:00 PM · Online</span><span class="mobile-day__more">3 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Data Literacy for Everyone</h3><p>Around 12:00 PM · Online</p></article><article class="mobile-event"><h3>Colourful Data Career Session with Tanya Smith</h3><p>2:00 PM · Microsoft Canberra, Barton</p><button class="mobile-event__action" type="button" data-open-tanya-career-session>View event details &rarr;</button></article><article class="mobile-event"><h3>Open Data Hackathon & Ideation Week</h3><p>Runs 28 Sept–2 Oct · Online</p><button class="mobile-event__action" type="button" data-open-open-data-hackathon>View event details &rarr;</button></article></div>
+      </details>
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">Tue <strong>29</strong> Sep</span><span class="mobile-day__preview"><strong>Context is Key: From Legacy Siloes to a Trusted Data Foundation</strong><span>8:00–11:00 AM · The Marion</span><span class="mobile-day__more">5 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Context is Key: From Legacy Siloes to a Trusted Data Foundation</h3><p>8:00–11:00 AM · The Marion</p><button class="mobile-event__action" type="button" data-open-salesforce-breakfast>View event details &rarr;</button></article><article class="mobile-event"><h3>Opening Event: Using Data and AI for Public Good</h3><p>10:00 AM–3:00 PM · Microsoft Canberra</p><button class="mobile-event__action" type="button" data-open-microsoft-event>View event details &rarr;</button></article><article class="mobile-event"><h3>Public Sector Data Showcase: Tourism Research Australia</h3><p>1:10–1:40 PM · Microsoft Canberra</p><button class="mobile-event__action" type="button" data-open-public-sector-showcase>View event details &rarr;</button></article><article class="mobile-event"><h3>Prep Your Data for and with AI</h3><p>2:10–2:50 PM · Microsoft Canberra</p><button class="mobile-event__action" type="button" data-open-data-skills-workshop>View event details &rarr;</button></article><article class="mobile-event"><h3>Open Data Hackathon & Ideation Week</h3><p>All week · Online</p><button class="mobile-event__action" type="button" data-open-open-data-hackathon>View event details &rarr;</button></article></div>
+      </details>
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">Wed <strong>30</strong> Sep</span><span class="mobile-day__preview"><strong>Data Chat Walk: Lake Burley Griffin</strong><span>Time TBC · Lake Burley Griffin</span><span class="mobile-day__more">4 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Data Chat Walk: Lake Burley Griffin</h3><p>Time TBC · Lake Burley Griffin</p><button class="mobile-event__action" type="button" data-open-data-walk>View event details &rarr;</button></article><article class="mobile-event"><h3>Data Detectives: A Hands-On Data Lab for Kids</h3><p>1:00–3:00 PM · Black VC</p><button class="mobile-event__action" type="button" data-open-data-detectives>View event details &rarr;</button></article><article class="mobile-event"><h3>AI & Data Tools in Government</h3><p>5:00–7:00 PM · Emanate Technology</p><button class="mobile-event__action" type="button" data-open-databricks-government>View event details &rarr;</button></article><article class="mobile-event"><h3>Open Data Hackathon & Ideation Week</h3><p>All week · Online</p><button class="mobile-event__action" type="button" data-open-open-data-hackathon>View event details &rarr;</button></article></div>
+      </details>
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">Thu <strong>1</strong> Oct</span><span class="mobile-day__preview"><strong>Data Careers with Emanate Technology</strong><span>Time and venue TBC</span><span class="mobile-day__more">2 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Data Careers with Emanate Technology</h3><p>Time and venue TBC</p><button class="mobile-event__action" type="button" data-open-careers-session>View event details &rarr;</button></article><article class="mobile-event"><h3>Open Data Hackathon & Ideation Week</h3><p>All week · Online</p><button class="mobile-event__action" type="button" data-open-open-data-hackathon>View event details &rarr;</button></article></div>
+      </details>
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">Fri <strong>2</strong> Oct</span><span class="mobile-day__preview"><strong>Women in Data: Celebrating and Connecting</strong><span>1:30–2:30 PM · Exclaim IT, Belconnen</span><span class="mobile-day__more">3 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Women in Data: Celebrating and Connecting</h3><p>1:30–2:30 PM · Exclaim IT, Belconnen</p><button class="mobile-event__action" type="button" data-open-women-in-data>View event details &rarr;</button></article><article class="mobile-event"><h3>AMA with the Team Behind the 2026 Census</h3><p>2:30–3:30 PM · Exclaim IT, Belconnen</p><button class="mobile-event__action" type="button" data-open-census-data>View event details &rarr;</button></article><article class="mobile-event"><h3>Open Data Hackathon & Ideation Week</h3><p>Final day · Online</p><button class="mobile-event__action" type="button" data-open-open-data-hackathon>View event details &rarr;</button></article></div>
+      </details>
+      <details class="mobile-day">
+        <summary><span class="mobile-day__date">TBC <strong>•</strong> Soon</span><span class="mobile-day__preview"><strong>Data Stories from Emergency Responders</strong><span>Date, time and venue TBC</span><span class="mobile-day__more">2 events · Learn more</span></span></summary>
+        <div class="mobile-day__events"><article class="mobile-event"><h3>Data Stories from Emergency Responders</h3><p>Date, time and venue TBC</p></article><article class="mobile-event"><h3>Community Data Discussion</h3><p>Date and time TBC · National Museum / arts venues</p></article></div>
+      </details>
     </div>
   </div>
 </section>
